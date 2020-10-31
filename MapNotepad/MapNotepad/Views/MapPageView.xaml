@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:MapNotepad.Controls"
+             xmlns:prismBehaviors="http://prismlibrary.com"
+             x:Class="MapNotepad.Views.MapPageView"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Content>        
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+            <controls:CustomMap Grid.Row="0"  
+                                VerticalOptions="FillAndExpand" 
+                                MyLocationEnabled="True" 
+                                PinList="{Binding MyPins}"
+            >
+
+                <controls:CustomMap.Behaviors>
+                    <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
+                                                           EventArgsParameterPath="Point"                                                          
+                                                           
+                    />
+                </controls:CustomMap.Behaviors>
+            </controls:CustomMap>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+    

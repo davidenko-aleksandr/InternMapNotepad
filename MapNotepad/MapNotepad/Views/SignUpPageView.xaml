@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MapNotepad.Views.SignUpPageView"
+             xmlns:local="clr-namespace:MapNotepad.Converters"
+             Title="SignUp">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MultiTriggerConverter x:Key="buttonIsEnable"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="25, 130, 25, 100">
+
+        <StackLayout HorizontalOptions="CenterAndExpand">
+            <Entry x:Name="nameEntry"
+                   Placeholder="Name" 
+                   WidthRequest="380"
+                   Text="{Binding Name}"
+            />
+            <Entry x:Name="loginEntry"
+                   Placeholder="E-mail" 
+                   WidthRequest="380"
+                   Text="{Binding Email}"
+                   Keyboard="Email"
+            />
+            <Entry x:Name="passwordEntry"
+                   Placeholder="Password" 
+                   WidthRequest="380"
+                   IsPassword ="True" 
+                   Text="{Binding Password}"
+            />
+            <Entry x:Name="conPasswEntry"
+                   Placeholder="Confirm Password" 
+                   WidthRequest="380"
+                   IsPassword ="True" 
+                   Text="{Binding ConPassw}"
+            />
+        </StackLayout>
+
+        <Button VerticalOptions="End" 
+                HorizontalOptions="CenterAndExpand"
+                Text="SIGN UP"
+                WidthRequest="380"
+                HeightRequest="50"
+                Command="{Binding SignUpCommand}"
+                IsEnabled="False">
+
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Source={x:Reference nameEntry},
+                                Path=Text.Length,
+                                Converter={StaticResource buttonIsEnable}}"
+                                Value="true" />
+                        <BindingCondition Binding="{Binding Source={x:Reference loginEntry},
+                                Path=Text.Length,
+                                Converter={StaticResource buttonIsEnable}}"
+                                Value="true" />
+                        <BindingCondition Binding="{Binding Source={x:Reference passwordEntry},
+                                Path=Text.Length,
+                                Converter={StaticResource buttonIsEnable}}"
+                                Value="true" />
+                        <BindingCondition Binding="{Binding Source={x:Reference conPasswEntry},
+                                Path=Text.Length,
+                                Converter={StaticResource buttonIsEnable}}"
+                                Value="true" />
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="IsEnabled" Value="True"/>
+
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
+    </Grid>
+</ContentPage>

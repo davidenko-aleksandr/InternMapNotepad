@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MapNotepad.Converters"
+             x:Class="MapNotepad.Views.SignInPageView"
+             Title="SignIn">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MultiTriggerConverter x:Key="buttonIsEnable"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="25, 150, 25, 75">
+
+        <StackLayout  HorizontalOptions="CenterAndExpand">
+
+            <Entry x:Name="loginEntry"
+                   Placeholder="E-mail" 
+                   WidthRequest="380"
+                   Text="{Binding Email}"
+                   Keyboard="Email"
+            />
+            <Entry x:Name="passwordEntry"
+                   Placeholder="Password" 
+                   WidthRequest="380"
+                   IsPassword ="True" 
+                   Text="{Binding Password}"
+            />
+        </StackLayout>
+
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center">
+            <Button Text="SIGN IN"
+                        WidthRequest="380"
+                        HeightRequest="50"
+                        Command="{Binding EnterCommand}"
+                        IsEnabled="False">
+
+                <Button.Triggers>
+                    <MultiTrigger TargetType="Button">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Source={x:Reference loginEntry},
+                                    Path=Text.Length,
+                                    Converter={StaticResource buttonIsEnable}}"
+                                    Value="true" />
+                            <BindingCondition Binding="{Binding Source={x:Reference passwordEntry},
+                                    Path=Text.Length,
+                                    Converter={StaticResource buttonIsEnable}}"
+                                    Value="true" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </MultiTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Label HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="SIGNUP"
+                            TextColor="{DynamicResource NavigationBarColor}"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToSignUpPageCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </Grid>
+</ContentPage> 

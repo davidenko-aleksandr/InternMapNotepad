@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MapNotepad.Controls"
+             x:Class="MapNotepad.Views.PinPageView"
+             NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.Content>
+        
+        <Grid Margin="20" BackgroundColor="White">
+
+            <local:BetterListView  Grid.Row="0"
+                                   ItemsSource="{Binding PinsGoogleMapCollection}"                          
+                                   ItemClickCommand ="{Binding PinSelectedCommand}"
+                                   x:Name="pinList"
+                                   HasUnevenRows="True"
+                                   VerticalOptions="FillAndExpand">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="EDIT"
+                                      Command="{Binding BindingContext.EditProfileCommand, 
+                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"
+                            />
+                                <MenuItem Text="DELETE" 
+                                      Command="{Binding BindingContext.DeleteProfileCommand, 
+                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"                                          
+                            />
+                            </ViewCell.ContextActions>
+
+                            <ViewCell.View>
+                                <Grid  Margin="20" HeightRequest="55">
+                                    
+                                    <Label Text="{Binding Label}" FontSize="Body"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                    />
+                                    <Label Text="{Binding Description}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="End"
+                                    />
+                                    <ImageButton Source="favorite.png"
+                                                 Command="{Binding AddOrRemoveFavoritCommand}"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="End"
+                                                 BackgroundColor="White"
+                                    />
+                                    
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </local:BetterListView>
+            
+            <ImageButton Source="add_pin_button.png"                         
+                         Command="{Binding OpenAddUpdatePinPageCommand}"
+                         BackgroundColor="White"
+                         VerticalOptions="End"
+                         HorizontalOptions="End"
+            />
+            <ImageButton Source="ic_exit_to_app.png"
+                         Command="{Binding ExitCommand}"
+                         VerticalOptions="Start"
+                         HorizontalOptions="End"
+            />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MapNotepad.Views.MainTabbedPageView"            
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:views="clr-namespace:MapNotepad.Views" 
+            xmlns:behaviors="clr-namespace:MapNotepad.Behaviors"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            NavigationPage.HasNavigationBar="False">
+
+    <TabbedPage.ToolbarItems>        
+        <ToolbarItem IconImageSource="ic_exit_to_app.png"
+                     Order="Primary"
+                     Priority="0"
+                     Command ="{Binding ExitCommand}"
+        />        
+    </TabbedPage.ToolbarItems>
+
+    <TabbedPage.Behaviors>
+        <behaviors:TabbedPageNavigationBehavior/>
+    </TabbedPage.Behaviors>
+    
+    <TabbedPage.Children>
+
+        <views:MapPageView Title="Map"/>
+
+        <views:PinPageView Title="Pins"/>
+
+    </TabbedPage.Children>
+
+</TabbedPage>
+    
