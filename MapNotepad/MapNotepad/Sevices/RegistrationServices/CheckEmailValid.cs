@@ -15,23 +15,18 @@ namespace MapNotepad.Services
             _repositoryService = repositoryService;
         }
 
-        public bool IsCheckEmail(string login)
+        public bool ValidateEmailError(string email)
         {
-            bool isInvalidLOgin = false;
             string pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
 
-            if (login.Length < 4 ||
-                login.Length > 16 ||
-                !Regex.IsMatch(login, pattern, RegexOptions.IgnoreCase))
-            {
-                isInvalidLOgin = true;
-            }
-            return isInvalidLOgin;
+            return _ = email.Length < 4
+                     || email.Length > 16
+                     || !Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
         }
 
-        public async Task<bool> IsCheckEmailDB(string email)
+        public async Task<bool> ValidateEmailInDBAsync(string email)
         {
-            var emailDB = await _repositoryService.GetItemAsync<User>(us => us.Email == email.ToUpper());
+            var emailDB = await _repositoryService.GetItemAsync<UserModel>(us => us.Email.ToUpper() == email.ToUpper());
 
             return emailDB != null;
         }

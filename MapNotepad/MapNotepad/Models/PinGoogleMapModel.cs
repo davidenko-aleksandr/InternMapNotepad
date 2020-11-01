@@ -1,15 +1,14 @@
 ﻿using SQLite;
-using Xamarin.Forms;
 
 namespace MapNotepad.Models
 {
     [Table("PinGoogleMap")]
-    public class PinGoogleMap : IBaseModel
+    public class PinGoogleMapModel : IBaseModel
     {
         [PrimaryKey, AutoIncrement, Column("_id")]
         public int Id { get; set; }
 
-        public int User_Id { get; set; }
+        public int UserId { get; set; }
 
         public double Latitude { get; set; }
 
@@ -20,7 +19,7 @@ namespace MapNotepad.Models
         public string Description { get; set; }
 
         public bool IsFavorite { get; set; }
-        public string Image { get; set; }
 
+        public string Image { get; set; }
     }
 }

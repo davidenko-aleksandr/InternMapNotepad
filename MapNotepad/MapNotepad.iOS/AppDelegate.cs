@@ -22,7 +22,7 @@ namespace MapNotepad.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            Xamarin.FormsGoogleMaps.Init("AIzaSyAKAUyUhs-uUfs8qzyA_yPvf3BPJQcf0LQ");
+            Xamarin.FormsGoogleMaps.Init(Constants.KEY_GOODLE_MAP);
 
             LoadApplication(new App(new IOSInitializer()));
 

@@ -5,7 +5,7 @@ namespace MapNotepad.Sevices.RegistrationServices
 {
     public interface ICheckEmailValid
     {
-        bool IsCheckEmail(string login);
-        Task<bool> IsCheckEmailDB(string email);
+        bool ValidateEmailError(string login);
+        Task<bool> ValidateEmailInDBAsync(string email);
     }
 }

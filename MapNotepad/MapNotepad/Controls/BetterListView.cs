@@ -6,8 +6,11 @@ namespace MapNotepad.Controls
     public class BetterListView : ListView
     {
         public static BindableProperty ItemClickCommandProperty = BindableProperty.Create(
-                                                                    nameof(ItemClickCommand),
-                                                                    typeof(ICommand), typeof(BetterListView), null);
+                                                                  nameof(ItemClickCommand),
+                                                                  typeof(ICommand),
+                                                                  typeof(BetterListView), 
+                                                                  null);
+
         public ICommand ItemClickCommand
         {
             get

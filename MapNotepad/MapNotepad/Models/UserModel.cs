@@ -4,7 +4,7 @@
 namespace MapNotepad.Models
 {
     [Table("Users")]
-    public class User : IBaseModel
+    public class UserModel : IBaseModel
     {
         [PrimaryKey, AutoIncrement, Column("_id")]
         public int Id { get; set; }

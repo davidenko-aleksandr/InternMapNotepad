@@ -13,6 +13,7 @@ namespace MapNotepad.Controls
             get { return (ObservableCollection<Pin>)GetValue(PinListProperty); }
             set { SetValue(PinListProperty, value); }
         }
+
         public CustomMap()
         {
             UiSettings.MyLocationButtonEnabled = true;
@@ -22,6 +23,7 @@ namespace MapNotepad.Controls
                                                                                          typeof(ObservableCollection<Pin>),
                                                                                          typeof(CustomMap),
                                                                                          propertyChanged: OnPinListPropertyChanged);
+
         private static void OnPinListPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is CustomMap castedMap)
@@ -40,7 +42,9 @@ namespace MapNotepad.Controls
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
                 Pins.Clear();
+            }
 
             if (e.OldItems != null)
             {

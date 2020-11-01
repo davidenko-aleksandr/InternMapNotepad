@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using MapNotepad.Sevices.RegistrationServices;
 using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.ViewModels;
+using MapNotepad.Views;
+using MapNotepad.Resources;
 
 namespace ProfileBook.ViewModels
 {
@@ -18,35 +20,34 @@ namespace ProfileBook.ViewModels
         private readonly ICheckPasswordValid _checkPasswordValid;
         private readonly ICheckEmailValid _checkEmailValid;
         private readonly IRepositoryService _repositoryService;
-        private readonly ICheckNameValid _checkNameValid;
-
-        private string _name = string.Empty;
-        private string _email = string.Empty;
-        private string _password = string.Empty;
-        private string _conPassw = string.Empty;
+        private readonly ICheckNameValid _checkNameValid;               
 
         private ICommand _signUpCommand;
 
-        public User User { get; set; }
+        public UserModel User { get; set; }
 
+        private string _name = string.Empty;
         public string Name
         {
             get { return _name; }
             set { SetProperty(ref _name, value); }
         }
 
+        private string _email = string.Empty;
         public string Email
         {
             get { return _email; }
             set { SetProperty(ref _email, value); }
         }
 
+        private string _password = string.Empty;
         public string Password
         {
             get { return _password; }
             set { SetProperty(ref _password, value); }
         }
 
+        private string _conPassw = string.Empty;
         public string ConPassw
         {
             get { return _conPassw; }
@@ -74,9 +75,11 @@ namespace ProfileBook.ViewModels
 
         private async Task SignUpCompleteAsync()
         {
-            if (await ChekNameEmailPasswodAsync() == false)
+            bool chekRegistrData = await ChekNameEmailPasswodAsync();
+
+            if (!chekRegistrData)
             {
-                await SaveToDataBase();
+                await SaveUserToDBAsync();
 
                 var parametr = new NavigationParameters
                 {
@@ -84,40 +87,34 @@ namespace ProfileBook.ViewModels
                     { "pas", _password }
                 };
 
-                await _navigationService.NavigateAsync(new System.Uri("http://www.ProfileBook/NavigationPage/SignInPageView", System.UriKind.Absolute), parametr);
+                await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}", parametr);
             }
         }
+
         #region -- Checking fields for validity --
         private async Task<bool> ChekNameEmailPasswodAsync()
         {
             bool isErrorExist = false;
-            
-            if (_checkNameValid.IsCheckName(_name))
+
+            if (_checkNameValid.ValidateName(_name))
             {
-                await _dialogService.DisplayAlertAsync("Incorrect name",
-                    "name must not start with a number, " +
-                    "name length must be no less than 1 characters " +
-                    "and no more than 16 characters", "ok");   
+                await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectName, AppResources.AlertNameRequared, AppResources.AlertOk);   
                 
                 isErrorExist = true;
             }
 
-            if (_checkEmailValid.IsCheckEmail(_email))
+            if (_checkEmailValid.ValidateEmailError(_email))
             {
-                await _dialogService.DisplayAlertAsync("Incorrect login",
-                    "E-mail address is incorrect ", "ok");
+                await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectEmail, AppResources.AlertEmailRequared, AppResources.AlertOk);
 
                 Email = string.Empty;
 
                 isErrorExist = true;
             }
 
-            if (_checkPasswordValid.IsPasswordValid(_password))
+            if (_checkPasswordValid.PasswordValidation(_password))
             {
-                await _dialogService.DisplayAlertAsync("Incorrect password",
-                    "The password must contain from 8 to 16 characters, " +
-                    "among which there must be a capital letter, " +
-                    "a small letter, and also a number", "ok");
+                await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectPassword, AppResources.AlertPasswordRequared, AppResources.AlertOk);
 
                 Password = string.Empty;
                 ConPassw = string.Empty;
@@ -125,27 +122,23 @@ namespace ProfileBook.ViewModels
                 isErrorExist = true;
             }
 
-            if (isErrorExist == false)
+            if (!isErrorExist && _password != _conPassw)
             {
-                if (_password != _conPassw)
-                {
-                    await _dialogService.DisplayAlertAsync("Error",
-                    "Password not confirmed", "ok");
+                await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertNotConfirmPassword, AppResources.AlertOk);
 
-                    Password = string.Empty;
-                    ConPassw = string.Empty;
+                Password = string.Empty;
+                ConPassw = string.Empty;
 
-                    isErrorExist = true;
-                }
+                isErrorExist = true;                
             }
 
-            if (isErrorExist == false)
+            if (!isErrorExist)
             {
-                bool isChekEmailDB = await _checkEmailValid.IsCheckEmailDB(_email);
+                bool isChekEmailDB = await _checkEmailValid.ValidateEmailInDBAsync(_email);
+
                 if (isChekEmailDB)
                 {
-                    await _dialogService.DisplayAlertAsync("Error",
-                        "This login is already registered", "ok");
+                    await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertEmailAlredyRegistred, AppResources.AlertOk);
 
                     isErrorExist = true;
                 }
@@ -154,16 +147,16 @@ namespace ProfileBook.ViewModels
             return isErrorExist;
         }
         #endregion
-        private async Task SaveToDataBase()
+        private async Task SaveUserToDBAsync()
         {
-            User user = new User
+            UserModel user = new UserModel
             {
                 Name = _name,
                 Email = _email.ToUpper(),
                 Password = _password
             };
             
-            await _repositoryService.SaveOrUpdateItemAsync<User>(user);
+            await _repositoryService.SaveOrUpdateItemAsync<UserModel>(user);
         }
     }
 }

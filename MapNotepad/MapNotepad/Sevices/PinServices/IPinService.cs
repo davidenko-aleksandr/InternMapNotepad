@@ -6,12 +6,12 @@ namespace MapNotepad.Sevices.PinServices
 {
     public interface IPinService
     {
-        Task<int> AddPinToDBAsync(PinGoogleMap pin);
+        Task<int> AddOrUpdatePinInDBAsync(PinGoogleMapModel pin);
 
         Task DeletePinAsync(int id);
 
-        Task<IEnumerable<PinGoogleMap>> GetPinsFromDBAsync(string filter = null);
+        Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync(string filter = null);
 
-        Task<PinGoogleMap> GetById(int id);
+        Task<PinGoogleMapModel> GetByIdAsync(int id);
     }
 }

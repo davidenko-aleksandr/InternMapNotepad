@@ -9,6 +9,6 @@ namespace MapNotepad.Services.AuthenticationServices
 
         int GetIdCurrentUser();
 
-        void UserExit();
+        void ExitUser();
     }
 }

@@ -9,7 +9,9 @@ namespace MapNotepad.Services.AuthenticationServices
     {
         private readonly IRepositoryService _repositoryService;
         private readonly ISettingsService _settingsService;
-        private User _currentUser;
+
+        private UserModel _currentUser;
+
         public UserAuthorization(IRepositoryService repositoryService, ISettingsService settingsService)
         {
             _repositoryService = repositoryService;
@@ -20,7 +22,7 @@ namespace MapNotepad.Services.AuthenticationServices
         {
             bool isSuccess = false;
 
-            _currentUser = await _repositoryService.GetItemAsync<User>(us => us.Email == email.ToUpper() && us.Password == password);
+            _currentUser = await _repositoryService.GetItemAsync<UserModel>(us => us.Email == email.ToUpper() && us.Password == password);
             
             if (_currentUser != null)
             {
@@ -37,7 +39,7 @@ namespace MapNotepad.Services.AuthenticationServices
             return _currentUser.Id;
         }
 
-        public void UserExit()
+        public void ExitUser()
         {
             _settingsService.IsAuthorized = false;
         }

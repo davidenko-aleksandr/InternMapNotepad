@@ -4,6 +4,7 @@ using MapNotepad.Sevices.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MapNotepad.Sevices.PinServices
 {
@@ -18,32 +19,35 @@ namespace MapNotepad.Sevices.PinServices
             _settingsService = settingsService;
         }
 
-        public Task<int> AddPinToDBAsync(PinGoogleMap pin)
+        public Task<int> AddOrUpdatePinInDBAsync(PinGoogleMapModel pin)
         {
-            pin.User_Id = _settingsService.CurrentUserID;
-            pin.Image = "no_favorite.png";
+            pin.UserId = _settingsService.CurrentUserID;
+
             return _repositoryService.SaveOrUpdateItemAsync(pin);
         }
 
         public async Task DeletePinAsync(int id)
         {
-            PinGoogleMap pin = await GetById(id);
+            PinGoogleMapModel pin = await GetByIdAsync(id);
+
             if (pin != null)
             {
                 await _repositoryService.DeleteItemAsync(pin);
             }
         }
 
-        public async Task<IEnumerable<PinGoogleMap>> GetPinsFromDBAsync(string filter = null)
+        public async Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync(string filter = null)
         {
-            var pinCollection = await _repositoryService.GetItemsAsync<PinGoogleMap>();
-            var pins = pinCollection.ToList().Where(p => p.User_Id == _settingsService.CurrentUserID);
+            var pinCollection = await _repositoryService.GetItemsAsync<PinGoogleMapModel>();
+
+            var pins = pinCollection.Where(p => p.UserId == _settingsService.CurrentUserID);
+
             return pins;
         }
 
-        public Task<PinGoogleMap> GetById(int id)
+        public Task<PinGoogleMapModel> GetByIdAsync(int id)
         {
-            return _repositoryService.GetItemAsync<PinGoogleMap>(p => p.Id == id && p.User_Id == _settingsService.CurrentUserID);
+            return _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Id == id && p.UserId == _settingsService.CurrentUserID);
         }
     }
 }

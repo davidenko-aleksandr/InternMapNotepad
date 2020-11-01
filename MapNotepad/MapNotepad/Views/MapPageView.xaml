@@ -12,8 +12,7 @@
             <controls:CustomMap Grid.Row="0"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
-                                PinList="{Binding MyPins}"
-            >
+                                PinList="{Binding MyPins}">
 
                 <controls:CustomMap.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
@@ -22,7 +21,6 @@
                     />
                 </controls:CustomMap.Behaviors>
             </controls:CustomMap>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

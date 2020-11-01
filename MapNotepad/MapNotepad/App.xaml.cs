@@ -49,13 +49,15 @@ namespace MapNotepad
 
         protected override void OnInitialized()
         {
+            Device.SetFlags(new string[] { "RadioButton_Experimental" });
+
             if (Resolve<ISettingsService>().IsAuthorized)
             {
-                NavigationService.NavigateAsync("NavigationPage/MainTabbedPageView?selectedTab=MapPageView");
+                NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
             }
             else
             {                
-                NavigationService.NavigateAsync("NavigationPage/SignInPageView");
+                NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}");
             }
         }
 

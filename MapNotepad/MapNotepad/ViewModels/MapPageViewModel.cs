@@ -7,9 +7,9 @@ namespace MapNotepad.ViewModels
 {
     public class MapPageViewModel : BaseViewModel
     {
-        private PinGoogleMap _pinGoogleMap;
-        private ObservableCollection<Pin> _myPins;
+        private PinGoogleMapModel _pinGoogleMap;
 
+        private ObservableCollection<Pin> _myPins;
         public ObservableCollection<Pin> MyPins
         {
             get { return _myPins; }
@@ -24,7 +24,7 @@ namespace MapNotepad.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             Pin pin = new Pin();
-            _pinGoogleMap = (PinGoogleMap)parameters["selectedPin"];
+            _pinGoogleMap = (PinGoogleMapModel)parameters[Constants.SELECT_PIN];
 
             if (_pinGoogleMap != null)
             {

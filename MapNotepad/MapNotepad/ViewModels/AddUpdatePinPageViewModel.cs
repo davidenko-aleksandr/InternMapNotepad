@@ -1,6 +1,6 @@
 ﻿using MapNotepad.Models;
 using MapNotepad.Sevices.PinServices;
-using MapNotepad.Sevices.Settings;
+using MapNotepad.Views;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace MapNotepad.ViewModels
         private readonly IPinService _pinService;
 
         private ObservableCollection<Pin> _myPins;
-        private string _label = string.Empty;
+        private string _lable = string.Empty;
         private string _description = string.Empty;
         private double _lalitude;
         private double _longitude;
@@ -26,8 +26,8 @@ namespace MapNotepad.ViewModels
 
         public string Lable
         {
-            get { return _label; }
-            set { SetProperty(ref _label, value); }
+            get { return _lable; }
+            set { SetProperty(ref _lable, value); }
         }
 
         public string Description
@@ -65,12 +65,12 @@ namespace MapNotepad.ViewModels
         public ICommand GetPositionCommand => _getPositionCommand ?? (_getPositionCommand = new Command<Position>(GetPosition));
 
         public ICommand SavePinCommand => _savePinCommand ?? (_savePinCommand = new Command(
-                        async () => await SavePinAsync()));
+                                          async () => await SavePinAsync()));
 
         private async Task SavePinAsync()
         {
             await SavePinToDB();
-            await _navigationService.NavigateAsync("MainTabbedPageView?selectedTab=MapPageView");
+            await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(PinPageView)}");
         }
 
         private void GetPosition(Position position)
@@ -91,7 +91,7 @@ namespace MapNotepad.ViewModels
 
         private async Task SavePinToDB()
         {
-            PinGoogleMap pin = new PinGoogleMap
+            PinGoogleMapModel pin = new PinGoogleMapModel
             {
                 Label = Lable,
                 Description = Description,
@@ -99,7 +99,7 @@ namespace MapNotepad.ViewModels
                 Longitude = Longitude
             };
 
-            await _pinService.AddPinToDBAsync(pin);
+            await _pinService.AddOrUpdatePinInDBAsync(pin);
         }
     }
 }

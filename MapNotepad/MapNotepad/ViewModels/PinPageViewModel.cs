@@ -18,11 +18,11 @@ namespace MapNotepad.ViewModels
         private readonly IPinService _pinService;
         private readonly IUserAuthorization _userAuthorization;
 
-        private ObservableCollection<PinGoogleMap> _pinsGoogleMapCollection;
+        private ObservableCollection<PinGoogleMapModel> _pinsGoogleMapCollection;
         private ICommand _openAddUpdatePinPageCommand;
         private ICommand _pinSelectedCommand;
         private ICommand _exitCommand;
-        // private ICommand _addOrRemoveFavoritCommand;
+        private ICommand _addOrRemoveFavoritCommand;
         private ImageSource _imageFavorit;
 
         public ImageSource ImageFavorit
@@ -31,7 +31,7 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _imageFavorit, value); }
         }
 
-        public ObservableCollection<PinGoogleMap> PinsGoogleMapCollection
+        public ObservableCollection<PinGoogleMapModel> PinsGoogleMapCollection
         {
             get { return _pinsGoogleMapCollection; }
             set { SetProperty(ref _pinsGoogleMapCollection, value); }
@@ -44,58 +44,56 @@ namespace MapNotepad.ViewModels
             _navigationService = navigationService;
             _pinService = pinService;
             _userAuthorization = userAuthorization;
-        }
-
-     //   public ICommand AddOrRemoveFavoritCommand => _addOrRemoveFavoritCommand ?? (_openAddUpdatePinPageCommand = new Command(ChangeImage));
-
-        //private void ChangeImage(object obj)
-        //{
-            //if (ImageFavorit == "no_favorite.png")
-            //{
-            //    ImageFavorit = "favorite.png";
-            //}
-            //else
-            //{
-            //    ImageFavorit = "no_favorite.png";
-            //}            
-      //  }
+        }       
 
         public ICommand OpenAddUpdatePinPageCommand => _openAddUpdatePinPageCommand ?? (_openAddUpdatePinPageCommand = new Command(
                                                        async () => await OpenAddUpdatePinPage()));
 
         public ICommand PinSelectedCommand => _pinSelectedCommand ?? (_pinSelectedCommand = new Command(
                                               async (Object obj) => await PinSelected(obj)));
+
         public ICommand ExitCommand => _exitCommand ?? (_exitCommand = new Command(
                                          async () => await ExitFromProfileAsync()));
+
+        public ICommand AddOrRemoveFavoritCommand => _addOrRemoveFavoritCommand ?? (_addOrRemoveFavoritCommand = new Command(
+                                                 async (Object obj) => await EditCurrentPin(obj)));
+
+        private async Task EditCurrentPin(object obj)
+        {
+            if (obj is PinGoogleMapModel selectedPin)
+            {
+                selectedPin.IsFavorite = !selectedPin.IsFavorite;
+                await _pinService.AddOrUpdatePinInDBAsync(selectedPin);
+                //_ = InitTable();
+            }
+        }
+
         private async Task PinSelected(object obj)
         {
-            PinGoogleMap selectedPin = (PinGoogleMap)obj;
-
-            var parametr = new NavigationParameters
+            if (obj is PinGoogleMapModel selectedPin)
             {
-                {"selectedPin", selectedPin }
-            };
-
-            await _navigationService.SelectTabAsync(nameof(MapPageView), parametr);
+                NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
+                await _navigationService.SelectTabAsync(nameof(MapPageView), parametr);
+            }
         }
 
         public async Task InitTable()    
         {
             var collection = await _pinService.GetPinsFromDBAsync();
 
-            PinsGoogleMapCollection = new ObservableCollection<PinGoogleMap>(collection);
+            PinsGoogleMapCollection = new ObservableCollection<PinGoogleMapModel>(collection);
         }
 
         private async Task OpenAddUpdatePinPage()
         {
-            await _navigationService.NavigateAsync("NavigationPage/AddUpdatePinPageView");
+            await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AddUpdatePinPageView)}");
         }
 
         private async Task ExitFromProfileAsync()
         {
-            await _navigationService.NavigateAsync(new Uri("http://WWW.ProfileBook/NavigationPage/SignInPageView", UriKind.Absolute));
+            await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}");
 
-            _userAuthorization.UserExit();
+            _userAuthorization.ExitUser();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

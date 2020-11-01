@@ -5,6 +5,7 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:views="clr-namespace:MapNotepad.Views" 
             xmlns:behaviors="clr-namespace:MapNotepad.Behaviors"
+            xmlns:resources="clr-namespace:MapNotepad.Resources"
             android:TabbedPage.ToolbarPlacement="Bottom"
             NavigationPage.HasNavigationBar="False">
 
@@ -22,9 +23,9 @@
     
     <TabbedPage.Children>
 
-        <views:MapPageView Title="Map"/>
+        <views:MapPageView Title="{x:Static resources:AppResources.PageMapTitle}"/>
 
-        <views:PinPageView Title="Pins"/>
+        <views:PinPageView Title="{x:Static resources:AppResources.PagePinTitle}"/>
 
     </TabbedPage.Children>
 

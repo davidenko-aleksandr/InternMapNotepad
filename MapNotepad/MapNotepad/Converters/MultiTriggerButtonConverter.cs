@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace MapNotepad.Converters
 {
-    public class MultiTriggerConverter : IValueConverter
+    public class MultiTriggerButtonConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
