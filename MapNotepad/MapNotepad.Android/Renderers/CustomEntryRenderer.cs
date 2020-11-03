@@ -2,7 +2,6 @@
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
-using Android.Text;
 using Android.Widget;
 using MapNotepad.Droid.Renderers;
 using MapNotepad.Renderers;
@@ -32,8 +31,6 @@ namespace MapNotepad.Droid.Renderers
                     var shape = new ShapeDrawable(new RoundRectShape(cornerOut, new RectF(10, 10, 10, 10), cornerIn));
 
                     shape.Paint.Color = Xamarin.Forms.Color.FromHex("#c0c8de").ToAndroid();
-                    
-                    //shape.Paint.SetStyle(Paint.Style.FillAndStroke);
 
                     editText.Background = shape;
                 }

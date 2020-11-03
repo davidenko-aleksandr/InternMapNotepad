@@ -19,6 +19,7 @@ namespace MapNotepad.ViewModels
 
         private ICommand _selectedPinCommand;
         private ICommand _mapClickedCommand;
+        private ICommand _searchPinCommand;
 
         private ObservableCollection<Pin> _myPins;
         public ObservableCollection<Pin> MyPins
@@ -69,6 +70,12 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _isVisibleFrame, value); }
         }
 
+        private string _searchFilter;
+        public string SearchFilter
+        {
+            get { return _searchFilter; }
+            set { SetProperty(ref _searchFilter, value); }
+        }
         public MapPageViewModel(IPinService pinService)
         {
             _pinService = pinService;
@@ -78,6 +85,9 @@ namespace MapNotepad.ViewModels
 
         public ICommand SelectedPinCommand => _selectedPinCommand ?? (_selectedPinCommand = new Command(
                                              (Object obj) =>  SelectedPin(obj)));
+
+        public ICommand SearchPinCommand => _searchPinCommand ?? (_searchPinCommand = new Command(
+                                       async (Object obj) => await SearchPin(obj)));
 
         public ICommand MapClickedCommand => _mapClickedCommand ?? (_mapClickedCommand = new Command(CloseFrame));
 
@@ -97,6 +107,20 @@ namespace MapNotepad.ViewModels
 
                 IsVisibleFrame = true;
             }
+        }
+
+        private async Task SearchPin(object obj)
+        {
+            if (obj is string filt)
+            {
+                SearchFilter = filt;
+                await InitCollectionPinAsync();
+            }
+            if (obj == null)
+            {
+                await InitCollectionPinAsync();
+            }
+            else  await InitCollectionPinAsync();            
         }
 
         public async Task InitCollectionPinAsync()

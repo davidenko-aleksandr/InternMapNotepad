@@ -195,6 +195,9 @@
   <data name="PagePlaceholderPassword" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PagePlaceholderSearchBar" xml:space="preserve">
+    <value>Search pin...</value>
+  </data>
   <data name="PageSignInTitle" xml:space="preserve">
     <value>SignIn</value>
   </data>

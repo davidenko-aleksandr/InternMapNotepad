@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MapNotepad.Controls"
-             xmlns:resources="clr-namespace:MapNotepad.Resources"
+             xmlns:resources="clr-namespace:MapNotepad.Resources" 
+             xmlns:prism="http://prismlibrary.com"
              x:Class="MapNotepad.Views.PinPageView"
              NavigationPage.HasNavigationBar="False"
              x:Name="pinspage">
@@ -16,11 +17,21 @@
             </Grid.RowDefinitions>
 
             <SearchBar Grid.Row="0" 
-                       x:Name="searchBar"
                        Text="{Binding SearchFilter}"
-                       SearchCommand="{Binding SearchPinCommand}"
-                       WidthRequest="200"
-                       CancelButtonColor="Aqua">
+                       Margin="{x:OnPlatform iOS=-8, Android=0}"
+                       BackgroundColor="White"
+                       Placeholder="{x:Static resources:AppResources.PagePlaceholderSearchBar}"
+                       PlaceholderColor="LightGray"
+                       TextColor="DarkGray"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"
+                       WidthRequest="250"
+                       HeightRequest="50">
+                <SearchBar.Behaviors>
+                    <prism:EventToCommandBehavior EventName="TextChanged" 
+                                                  Command="{Binding SearchPinCommand}"
+                    />
+                </SearchBar.Behaviors>
             </SearchBar>
 
             <local:BetterListView  Grid.Row="1"

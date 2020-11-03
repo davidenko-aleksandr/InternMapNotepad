@@ -295,6 +295,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search pin....
+        /// </summary>
+        public static string PagePlaceholderSearchBar {
+            get {
+                return ResourceManager.GetString("PagePlaceholderSearchBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SignIn.
         /// </summary>
         public static string PageSignInTitle {
