@@ -6,12 +6,24 @@
              x:Class="MapNotepad.Views.PinPageView"
              NavigationPage.HasNavigationBar="False"
              x:Name="pinspage">
-    
-    <ContentPage.Content>
-        
-        <Grid BackgroundColor="White">
 
-            <local:BetterListView  Grid.Row="0"
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <SearchBar Grid.Row="0" 
+                       x:Name="searchBar"
+                       Text="{Binding SearchFilter}"
+                       SearchCommand="{Binding SearchPinCommand}"
+                       WidthRequest="200"
+                       CancelButtonColor="Aqua">
+            </SearchBar>
+
+            <local:BetterListView  Grid.Row="1"
                                    ItemsSource="{Binding PinsGoogleMapCollection}"                          
                                    ItemClickCommand ="{Binding PinSelectedCommand}"
                                    x:Name="pinList"
@@ -23,11 +35,11 @@
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Text="{x:Static resources:AppResources.PageBattonEdit}"
-                                      Command="{Binding BindingContext.EditProfileCommand, 
+                                      Command="{Binding BindingContext.EditPinCommand, 
                                       Source={x:Reference pinList}}" CommandParameter="{Binding .}"
                                 />
                                 <MenuItem Text="{x:Static resources:AppResources.PageBattonDelete}" 
-                                      Command="{Binding BindingContext.DeleteProfileCommand, 
+                                      Command="{Binding BindingContext.DeletePinCommand, 
                                       Source={x:Reference pinList}}" CommandParameter="{Binding .}"                                          
                                 />
                             </ViewCell.ContextActions>
@@ -50,32 +62,40 @@
                                            HorizontalOptions="Start"
                                            VerticalOptions="End"
                                     />
-                                    <Label Grid.Column="1"
-                                           Text="{x:Static resources:AppResources.PageLableForRadiobatton}"
-                                           HorizontalOptions="Start"
-                                           VerticalOptions="Center"                                           
-                                    />
-                                    <RadioButton Grid.Column="1"
-                                                 Command="{Binding BindingContext.AddOrRemoveFavoritCommand, 
-                                                 Source={x:Reference pinList}}" CommandParameter="{Binding .}"
-                                                 VerticalOptions="Center"
-                                                 HorizontalOptions="End"
-                                                 IsChecked ="{Binding IsFavorite}"
-                                    />
+                                    <Button Grid.Column="1"
+                                            x:Name="myButton"
+                                            Command="{Binding BindingContext.AddOrRemoveFavoritCommand, 
+                                            Source={x:Reference pinList}}" CommandParameter="{Binding .}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="End"
+                                            ImageSource="no_favorite.png"
+                                            BackgroundColor="White">
+                                        
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button"
+                                                         Binding="{Binding 
+                                                         Path=IsFavorite}"
+                                                         Value="true">
+                                                <Setter Property="ImageSource" Value="favorite.png"/>
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
                                 </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </local:BetterListView>
-            
-            <ImageButton Source="add_pin_button.png"                         
+
+            <ImageButton Grid.Row="1"
+                         Source="add_pin_button.png"                         
                          Command="{Binding OpenAddUpdatePinPageCommand}"
                          BackgroundColor="White"
                          VerticalOptions="End"
                          HorizontalOptions="End"
             />
-            <ImageButton Source="ic_exit_to_app.png"
+            <ImageButton Grid.Row="1"
+                         Source="ic_exit_to_app.png"
                          Command="{Binding ExitCommand}"
                          VerticalOptions="Start"
                          HorizontalOptions="End"

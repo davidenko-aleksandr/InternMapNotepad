@@ -8,21 +8,32 @@ namespace MapNotepad.Controls
 {
     public class CustomMap : ClusteredMap
     {
+        public static readonly BindableProperty MapCameraPositionProperty = BindableProperty.Create(propertyName: nameof(MapCameraPosition),
+                                                                                                    returnType: typeof(Position),
+                                                                                                    declaringType: typeof(CustomMap),
+                                                                                                    defaultBindingMode: BindingMode.TwoWay,
+                                                                                                    propertyChanged: CameraPositionPropertyChanged);
+
+        public static readonly BindableProperty PinListProperty = BindableProperty.Create(nameof(PinList),
+                                                                                         typeof(ObservableCollection<Pin>),
+                                                                                         typeof(CustomMap),
+                                                                                         propertyChanged: OnPinListPropertyChanged);
         public ObservableCollection<Pin> PinList
         {
             get { return (ObservableCollection<Pin>)GetValue(PinListProperty); }
             set { SetValue(PinListProperty, value); }
         }
 
-        public CustomMap()
+        public Position MapCameraPosition
         {
-            UiSettings.MyLocationButtonEnabled = true;
+            get => (Position)GetValue(MapCameraPositionProperty);
+            set => SetValue(PinListProperty, value);
         }
 
-        public static readonly BindableProperty PinListProperty = BindableProperty.Create(nameof(PinList),
-                                                                                         typeof(ObservableCollection<Pin>),
-                                                                                         typeof(CustomMap),
-                                                                                         propertyChanged: OnPinListPropertyChanged);
+        public CustomMap()
+        {
+            UiSettings.MyLocationButtonEnabled = true;            
+        }        
 
         private static void OnPinListPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -39,6 +50,7 @@ namespace MapNotepad.Controls
                 }
             }
         }
+
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Reset)
@@ -61,6 +73,19 @@ namespace MapNotepad.Controls
                     Pins.Add(pin);
                 }
             }
+        }
+    
+        private static void CameraPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (newValue != oldValue && bindable as CustomMap != null && newValue != null)
+            {
+                UpdateCameraPosition(bindable as CustomMap, (Position)newValue);
+            }
+        }
+
+        private static void UpdateCameraPosition(CustomMap map, Position cameraPosition)
+        {
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(cameraPosition, Distance.FromMiles(5)));
         }
     }
 }

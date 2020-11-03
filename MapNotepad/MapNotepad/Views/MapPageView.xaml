@@ -8,19 +8,40 @@
 
     <ContentPage.Content>        
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
             <controls:CustomMap Grid.Row="0"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
-                                PinList="{Binding MyPins}">
+                                PinList="{Binding MyPins}"
+                                IsShowingUser="True"
+                                MapCameraPosition="{Binding CameraPosition}">
 
                 <controls:CustomMap.Behaviors>
+                    <prismBehaviors:EventToCommandBehavior EventName="PinClicked"
+                                                           Command="{Binding SelectedPinCommand}"
+                                                           EventArgsParameterPath="Pin"
+                    />
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
-                                                           EventArgsParameterPath="Point"                                                          
-                                                           
+                                                           Command="{Binding MapClickedCommand}"
                     />
                 </controls:CustomMap.Behaviors>
             </controls:CustomMap>
+            
+            <Frame Grid.Row="0"
+                   BorderColor="Aqua"
+                   VerticalOptions="End"
+                    IsVisible="{Binding IsVisibleFrame}">
+                
+                <StackLayout>
+                    <Label Text="{Binding SelectedPinLable, Mode=TwoWay}"/>
+                    <Label Text="{Binding SelectedPinDescription, Mode=TwoWay}"/>
+                    <Label Text="{Binding SelectedPinLatitude, Mode=TwoWay}"/>
+                    <Label Text="{Binding SelectedPinLongitude, Mode=TwoWay}"/>
+                </StackLayout>                
+            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

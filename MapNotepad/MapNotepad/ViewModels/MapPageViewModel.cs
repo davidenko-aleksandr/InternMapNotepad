@@ -1,13 +1,24 @@
-﻿using MapNotepad.Models;
+﻿using MapNotepad.Extentions;
+using MapNotepad.Models;
+using MapNotepad.Sevices.PinServices;
 using Prism.Navigation;
+using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 namespace MapNotepad.ViewModels
 {
     public class MapPageViewModel : BaseViewModel
     {
-        private PinGoogleMapModel _pinGoogleMap;
+        private readonly IPinService _pinService;
+
+        private PinGoogleMapModel _pinGoogleMapModel;
+
+        private ICommand _selectedPinCommand;
+        private ICommand _mapClickedCommand;
 
         private ObservableCollection<Pin> _myPins;
         public ObservableCollection<Pin> MyPins
@@ -16,25 +27,117 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _myPins, value); }
         }
 
-        public MapPageViewModel()
+        private Position _cameraPosition;
+        public Position CameraPosition
         {
-            _myPins = new ObservableCollection<Pin>();
+            get { return _cameraPosition; }
+            set { SetProperty(ref _cameraPosition, value); }            
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        private string _selectedPinLable = string.Empty;
+        public string SelectedPinLable
         {
-            Pin pin = new Pin();
-            _pinGoogleMap = (PinGoogleMapModel)parameters[Constants.SELECT_PIN];
+            get { return _selectedPinLable; }
+            set { SetProperty(ref _selectedPinLable, value); }
+        }
 
-            if (_pinGoogleMap != null)
+        private string _selectedPinDescription = string.Empty;
+        public string SelectedPinDescription
+        {
+            get { return _selectedPinDescription; }
+            set { SetProperty(ref _selectedPinDescription, value); }
+        }
+
+        private string _selectedPinLatitude = string.Empty;
+        public string SelectedPinLatitude
+        {
+            get { return _selectedPinLatitude; }
+            set { SetProperty(ref _selectedPinLatitude, value); }
+        }
+
+        private string _selectedPinLongitude = string.Empty;
+        public string SelectedPinLongitude
+        {
+            get { return _selectedPinLongitude; }
+            set { SetProperty(ref _selectedPinLongitude, value); }
+        }
+
+        private bool _isVisibleFrame = false;
+        public bool IsVisibleFrame
+        {
+            get { return _isVisibleFrame; }
+            set { SetProperty(ref _isVisibleFrame, value); }
+        }
+
+        public MapPageViewModel(IPinService pinService)
+        {
+            _pinService = pinService;
+            _myPins = new ObservableCollection<Pin>();
+            _pinGoogleMapModel = new PinGoogleMapModel();
+        }
+
+        public ICommand SelectedPinCommand => _selectedPinCommand ?? (_selectedPinCommand = new Command(
+                                             (Object obj) =>  SelectedPin(obj)));
+
+        public ICommand MapClickedCommand => _mapClickedCommand ?? (_mapClickedCommand = new Command(CloseFrame));
+
+        private void CloseFrame()
+        {
+            IsVisibleFrame = false;
+        }
+
+        private void SelectedPin(object obj)
+        {
+            if (obj is Pin selectedPin)
             {
-                pin.Position = new Position(_pinGoogleMap.Latitude, _pinGoogleMap.Longitude);
-                pin.Label = _pinGoogleMap.Label;
-                pin.Address = _pinGoogleMap.Description;
-                pin.IsVisible = true;
+                SelectedPinLable = selectedPin.Label;
+                SelectedPinDescription = selectedPin.Address;
+                SelectedPinLatitude = selectedPin.Position.Latitude.ToString();
+                SelectedPinLongitude = selectedPin.Position.Longitude.ToString();
+
+                IsVisibleFrame = true;
+            }
+        }
+
+        public async Task InitCollectionPinAsync()
+        {
+            var collection = await _pinService.GetFavoritePinsFromDBAsync();
+
+            ObservableCollection <PinGoogleMapModel> pinGoogleMapModels = new ObservableCollection<PinGoogleMapModel>(collection);
+
+            foreach (var item in pinGoogleMapModels)
+            {                
+                MyPins.Add(PinGoogleMapModelExtention.ToPin(item));
+            }           
+        }
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (parameters.TryGetValue(Constants.SELECT_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
+            { 
+                Pin pin = new Pin
+                {
+                    Position = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude),
+                    Label = _pinGoogleMapModel.Label,
+                    Address = _pinGoogleMapModel.Description
+                };
                 MyPins.Clear();
                 MyPins.Add(pin);
+
+                CameraPosition = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
+
+                await InitCollectionPinAsync();                
             }
+            else
+            {
+                MyPins.Clear();
+
+                await InitCollectionPinAsync();
+            }
+        }
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            IsVisibleFrame = false;
         }
     }
 }

@@ -17,13 +17,16 @@ namespace MapNotepad.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IPinService _pinService;
         private readonly IUserAuthorization _userAuthorization;
-
-        private ObservableCollection<PinGoogleMapModel> _pinsGoogleMapCollection;
+        
         private ICommand _openAddUpdatePinPageCommand;
         private ICommand _pinSelectedCommand;
         private ICommand _exitCommand;
         private ICommand _addOrRemoveFavoritCommand;
-        private ImageSource _imageFavorit;
+        private ICommand _searchPinCommand;
+        private ICommand _editPinCommand;
+        private ICommand _deletePinCommand;
+
+        private ImageSource _imageFavorit = (ImageSource)"no_favorite.png";
 
         public ImageSource ImageFavorit
         {
@@ -31,6 +34,14 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _imageFavorit, value); }
         }
 
+        private string _searchFilter;
+        public string SearchFilter
+        {
+            get { return _searchFilter; }
+            set { SetProperty(ref _searchFilter, value); }
+        }
+
+        private ObservableCollection<PinGoogleMapModel> _pinsGoogleMapCollection;
         public ObservableCollection<PinGoogleMapModel> PinsGoogleMapCollection
         {
             get { return _pinsGoogleMapCollection; }
@@ -50,21 +61,64 @@ namespace MapNotepad.ViewModels
                                                        async () => await OpenAddUpdatePinPage()));
 
         public ICommand PinSelectedCommand => _pinSelectedCommand ?? (_pinSelectedCommand = new Command(
-                                              async (Object obj) => await PinSelected(obj)));
+                                                     async (Object obj) => await PinSelected(obj)));
 
         public ICommand ExitCommand => _exitCommand ?? (_exitCommand = new Command(
                                          async () => await ExitFromProfileAsync()));
 
         public ICommand AddOrRemoveFavoritCommand => _addOrRemoveFavoritCommand ?? (_addOrRemoveFavoritCommand = new Command(
-                                                 async (Object obj) => await EditCurrentPin(obj)));
+                                                 async (Object obj) => await AddOrRemoveFavoritPin(obj)));
 
-        private async Task EditCurrentPin(object obj)
+        public ICommand SearchPinCommand => _searchPinCommand ?? (_searchPinCommand = new Command(
+                                        async (Object obj) => await SearchPin(obj)));
+
+        public ICommand EditPinCommand => _editPinCommand ?? (_editPinCommand = new Command(
+                                         async (Object obj) => await EditPinSelected(obj)));
+
+        public ICommand DeletePinCommand => _deletePinCommand ?? (_deletePinCommand = new Command(
+                                          async (Object obj) => await DeletePinSelected(obj)));
+
+        private async Task DeletePinSelected(object obj)
+        {
+            if (obj is PinGoogleMapModel selectedPin)
+            {
+                await _pinService.DeletePinAsync(selectedPin.Id);
+                await InitTable();
+            }
+        }
+
+        private async Task EditPinSelected(object obj)
+        {
+            if (obj is PinGoogleMapModel selectedPin)
+            {
+                NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
+                await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AddUpdatePinPageView)}", parametr);
+            }
+        }
+
+        private Task SearchPin(object obj)
+        {
+            if (obj is string filt)
+            {
+                SearchFilter = filt;
+              return  InitTable();
+            }
+            if (obj == null)
+            {
+                return InitTable();
+            }
+            else return InitTable();
+        }
+
+        private async Task AddOrRemoveFavoritPin(object obj)
         {
             if (obj is PinGoogleMapModel selectedPin)
             {
                 selectedPin.IsFavorite = !selectedPin.IsFavorite;
+
                 await _pinService.AddOrUpdatePinInDBAsync(selectedPin);
-                //_ = InitTable();
+
+                _ = InitTable();
             }
         }
 
@@ -73,13 +127,14 @@ namespace MapNotepad.ViewModels
             if (obj is PinGoogleMapModel selectedPin)
             {
                 NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
-                await _navigationService.SelectTabAsync(nameof(MapPageView), parametr);
+
+                await _navigationService.SelectTabAsync($"{nameof(MapPageView)}", parametr);
             }
         }
 
         public async Task InitTable()    
         {
-            var collection = await _pinService.GetPinsFromDBAsync();
+            var collection = await _pinService.GetPinsFromDBAsync(SearchFilter);
 
             PinsGoogleMapCollection = new ObservableCollection<PinGoogleMapModel>(collection);
         }
@@ -97,7 +152,7 @@ namespace MapNotepad.ViewModels
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
-        {
+        {            
             _ = InitTable();
         }
     }

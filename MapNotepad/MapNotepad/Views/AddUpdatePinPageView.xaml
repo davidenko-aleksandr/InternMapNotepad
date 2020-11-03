@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:controls="clr-namespace:MapNotepad.Controls"
              xmlns:prismBehaviors="http://prismlibrary.com"
-             xmlns:resources="clr-namespace:MapNotepad.Resources"
+             xmlns:resources="clr-namespace:MapNotepad.Resources" xmlns:local="clr-namespace:MapNotepad.Renderers"
              x:Class="MapNotepad.Views.AddUpdatePinPageView"
              NavigationPage.HasNavigationBar="False">
     
@@ -22,28 +22,31 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="4*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
 
-            <Entry Grid.Row="0"
+            <local:CustomEntry Grid.Row="0" 
+                               HeightRequest="50"
                    Placeholder="{x:Static resources:AppResources.PagePinLable}" 
-                   Text="{Binding Lable}"
+                   Text="{Binding Lable}"                               
             />
-            <Entry Placeholder="Description" Grid.Row="1"
-                   Text="{Binding Description}"
-            />
-            <Entry Grid.Row="2"
+            <local:CustomEntry Grid.Row="1"
                    Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
                    Text="{Binding Latitude}"
                    
                    Keyboard="Numeric"
             />
-            <Entry Grid.Row="3"
+            <local:CustomEntry Grid.Row="2"
                    Placeholder="{x:Static resources:AppResources.PagePinLongitude}"
                    Text="{Binding Longitude, Mode=TwoWay}"                   
                    Keyboard="Numeric"
             />
+            <Editor Placeholder="Description" Grid.Row="3"
+                   Text="{Binding Description}"
+                   
+            />           
+            
             <controls:CustomMap Grid.Row="4"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
@@ -52,8 +55,7 @@
                 <controls:CustomMap.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
                                                            Command="{Binding GetPositionCommand}"
-                                                           EventArgsParameterPath="Point"                                                          
-                                                           
+                                                           EventArgsParameterPath="Point"     
                     />
                 </controls:CustomMap.Behaviors>
             </controls:CustomMap>           

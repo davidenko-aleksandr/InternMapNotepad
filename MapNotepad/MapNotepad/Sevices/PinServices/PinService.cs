@@ -4,7 +4,6 @@ using MapNotepad.Sevices.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace MapNotepad.Sevices.PinServices
 {
@@ -40,11 +39,31 @@ namespace MapNotepad.Sevices.PinServices
         {
             var pinCollection = await _repositoryService.GetItemsAsync<PinGoogleMapModel>();
 
-            var pins = pinCollection.Where(p => p.UserId == _settingsService.CurrentUserID);
+            var pinsByUresId = pinCollection.Where(p => p.UserId == _settingsService.CurrentUserID);
 
-            return pins;
+            if (string.IsNullOrEmpty(filter))
+            {     
+                return pinsByUresId;
+            }
+            else
+            {
+                pinsByUresId = pinsByUresId.Where(p => p.Label.Contains(filter) ||
+                                          (p.Description.Contains(filter)) || 
+                                          (p.Latitude.ToString().Contains(filter)) || 
+                                          (p.Longitude.ToString().Contains(filter)));
+
+                return pinsByUresId;
+            }
         }
 
+        public async Task<IEnumerable<PinGoogleMapModel>> GetFavoritePinsFromDBAsync()
+        {
+            var pinCollection = await _repositoryService.GetItemsAsync<PinGoogleMapModel>();
+
+            var favoritePins = pinCollection.Where(p => p.UserId == _settingsService.CurrentUserID && p.IsFavorite == true);
+
+            return favoritePins;
+        }
         public Task<PinGoogleMapModel> GetByIdAsync(int id)
         {
             return _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Id == id && p.UserId == _settingsService.CurrentUserID);
