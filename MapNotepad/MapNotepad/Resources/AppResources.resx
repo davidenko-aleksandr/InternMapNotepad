@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlertCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AlertConfirmDelete" xml:space="preserve">
+    <value>Do you confirm deletion?</value>
+  </data>
+  <data name="AlertDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="AlertEmailAlredyRegistred" xml:space="preserve">
     <value>This e-mail is already registered</value>
   </data>
@@ -150,20 +159,26 @@
   <data name="AlertPasswordRequared" xml:space="preserve">
     <value>The password must contain from 8 to 16 characters, among which there must be a capital letter, a small letter, and also a number</value>
   </data>
+  <data name="PageAddUpdateTitle" xml:space="preserve">
+    <value>New pin</value>
+  </data>
   <data name="PageBattonDelete" xml:space="preserve">
     <value>DELETE</value>
   </data>
   <data name="PageBattonEdit" xml:space="preserve">
     <value>EDIT</value>
   </data>
+  <data name="PageButtonBack" xml:space="preserve">
+    <value> BACK</value>
+  </data>
   <data name="PageButtonHyperLink" xml:space="preserve">
     <value>SIHNUP</value>
   </data>
   <data name="PageButtonSignIn" xml:space="preserve">
-    <value>SIGN IN</value>
+    <value>SIGN  IN</value>
   </data>
   <data name="PageButtonSignUp" xml:space="preserve">
-    <value>SIGN UP</value>
+    <value>SIGN  UP</value>
   </data>
   <data name="PageLableForRadiobatton" xml:space="preserve">
     <value>Add to favorite</value>
@@ -176,6 +191,9 @@
   </data>
   <data name="PagePinLatitude" xml:space="preserve">
     <value>Latitude</value>
+  </data>
+  <data name="PagePinListTitle" xml:space="preserve">
+    <value>My pin list</value>
   </data>
   <data name="PagePinLongitude" xml:space="preserve">
     <value>Longitude</value>

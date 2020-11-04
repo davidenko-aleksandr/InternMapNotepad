@@ -70,7 +70,7 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _isVisibleFrame, value); }
         }
 
-        private string _searchFilter;
+        private string _searchFilter = string.Empty;
         public string SearchFilter
         {
             get { return _searchFilter; }
@@ -83,13 +83,11 @@ namespace MapNotepad.ViewModels
             _pinGoogleMapModel = new PinGoogleMapModel();
         }
 
-        public ICommand SelectedPinCommand => _selectedPinCommand ?? (_selectedPinCommand = new Command(
-                                             (Object obj) =>  SelectedPin(obj)));
+        public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command((Object obj) =>  SelectedPin(obj));
 
-        public ICommand SearchPinCommand => _searchPinCommand ?? (_searchPinCommand = new Command(
-                                       async (Object obj) => await SearchPin(obj)));
+        public ICommand SearchPinCommand => _searchPinCommand ??= new Command(async () => await SearchPin());
 
-        public ICommand MapClickedCommand => _mapClickedCommand ?? (_mapClickedCommand = new Command(CloseFrame));
+        public ICommand MapClickedCommand => _mapClickedCommand ??= new Command(CloseFrame);
 
         private void CloseFrame()
         {
@@ -109,25 +107,18 @@ namespace MapNotepad.ViewModels
             }
         }
 
-        private async Task SearchPin(object obj)
+        private async Task SearchPin()
         {
-            if (obj is string filt)
-            {
-                SearchFilter = filt;
-                await InitCollectionPinAsync();
-            }
-            if (obj == null)
-            {
-                await InitCollectionPinAsync();
-            }
-            else  await InitCollectionPinAsync();            
+                MyPins.Clear();
+                await InitCollectionPinAsync();       
         }
 
         public async Task InitCollectionPinAsync()
         {
-            var collection = await _pinService.GetFavoritePinsFromDBAsync();
-
-            ObservableCollection <PinGoogleMapModel> pinGoogleMapModels = new ObservableCollection<PinGoogleMapModel>(collection);
+            System.Collections.Generic.IEnumerable<PinGoogleMapModel> collection = String.IsNullOrEmpty(SearchFilter)
+                ? await _pinService.GetPinsFromDBAsync()
+                : await _pinService.GetPinsFromDBAsync(SearchFilter);
+            ObservableCollection<PinGoogleMapModel> pinGoogleMapModels = new ObservableCollection<PinGoogleMapModel>(collection);
 
             foreach (var item in pinGoogleMapModels)
             {                

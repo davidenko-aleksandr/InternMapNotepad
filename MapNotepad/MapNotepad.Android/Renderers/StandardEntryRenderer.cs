@@ -45,6 +45,7 @@ namespace MapNotepad.Droid.Renderers
         {
             UpdateBackground();
         }
+
         protected void UpdateBackground(FormsEditText control)
         {
             if (control == null) return;
@@ -62,6 +63,7 @@ namespace MapNotepad.Droid.Renderers
 
             control.SetPadding(padLeft, padTop, padRight, padBottom);
         }
+
             #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         protected void UpdateBackground()
             #pragma warning restore CS0114 // Member hides inherited member; missing override keyword

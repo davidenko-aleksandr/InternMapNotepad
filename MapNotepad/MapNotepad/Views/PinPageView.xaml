@@ -8,25 +8,50 @@
              NavigationPage.HasNavigationBar="False"
              x:Name="pinspage">
 
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android" Value="0, 0, 0, 0"/>
+            <On Platform="iOS" Value="0, 34, 0, 0"/>
+        </OnPlatform>
+    </ContentPage.Padding>
+    
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
+        <Grid BackgroundColor="White" Margin="5">
             
             <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <SearchBar Grid.Row="0" 
-                       Text="{Binding SearchFilter}"
-                       Margin="{x:OnPlatform iOS=-8, Android=0}"
+            <Grid VerticalOptions="Start"
+                  Grid.Row="0"
+                  HorizontalOptions="FillAndExpand"
+                  HeightRequest="45">
+
+                <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Text="{x:Static resources:AppResources.PagePinListTitle}"
+                   FontSize="30"
+                   TextColor="#63bcd7"/>
+                
+                <ImageButton Source="ic_exit_to_app.png"
+                             Command="{Binding ExitCommand}"
+                             VerticalOptions="Center"
+                             HorizontalOptions="End"
+                             BackgroundColor="#63bcd7"/>
+            </Grid>            
+            
+            <SearchBar Grid.Row="1" 
+                       Text="{Binding SearchFilter}"                      
                        BackgroundColor="White"
                        Placeholder="{x:Static resources:AppResources.PagePlaceholderSearchBar}"
-                       PlaceholderColor="LightGray"
                        TextColor="DarkGray"
                        VerticalOptions="Start"
-                       HorizontalOptions="Start"
-                       WidthRequest="250"
-                       HeightRequest="50">
+                       HeightRequest="50"
+                       PlaceholderColor="#63bcd7">
+                
+                
                 <SearchBar.Behaviors>
                     <prism:EventToCommandBehavior EventName="TextChanged" 
                                                   Command="{Binding SearchPinCommand}"
@@ -34,12 +59,13 @@
                 </SearchBar.Behaviors>
             </SearchBar>
 
-            <local:BetterListView  Grid.Row="1"
+            <local:BetterListView  Grid.Row="2"
                                    ItemsSource="{Binding PinsGoogleMapCollection}"                          
                                    ItemClickCommand ="{Binding PinSelectedCommand}"
                                    x:Name="pinList"
                                    HasUnevenRows="True"
-                                   VerticalOptions="FillAndExpand">
+                                   VerticalOptions="FillAndExpand"
+                                   HorizontalOptions="FillAndExpand">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -64,12 +90,15 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Grid.Column="0"
-                                           Text="{Binding Label}" FontSize="Body"
+                                           Text="{Binding Label}" 
+                                           FontSize="Large"
+                                           MaxLines="1"
                                            HorizontalOptions="Start"
                                            VerticalOptions="Start"
                                     />
                                     <Label Grid.Column="0"
                                            Text="{Binding Description}"
+                                           MaxLines="1"
                                            HorizontalOptions="Start"
                                            VerticalOptions="End"
                                     />
@@ -98,20 +127,19 @@
                 </ListView.ItemTemplate>
             </local:BetterListView>
 
-            <ImageButton Grid.Row="1"
+            <Label Grid.Row="2" 
+                   Text="{Binding NotAddedPins}"
+                   TextColor="#63bcd7"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+            <ImageButton Grid.Row="3"
                          Source="add_pin_button.png"                         
                          Command="{Binding OpenAddUpdatePinPageCommand}"
                          BackgroundColor="White"
                          VerticalOptions="End"
                          HorizontalOptions="End"
-            />
-            <ImageButton Grid.Row="1"
-                         Source="ic_exit_to_app.png"
-                         Command="{Binding ExitCommand}"
-                         VerticalOptions="Start"
-                         HorizontalOptions="End"
-            />
-
+            />        
         </Grid>
     </ContentPage.Content>
 </ContentPage>

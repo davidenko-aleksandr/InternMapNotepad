@@ -53,11 +53,11 @@ namespace MapNotepad
 
             if (Resolve<ISettingsService>().IsAuthorized)
             {
-                NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
+                NavigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
             }
             else
             {                
-                NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}");
+                NavigationService.NavigateAsync($"{nameof(SignInPageView)}");
             }
         }
 

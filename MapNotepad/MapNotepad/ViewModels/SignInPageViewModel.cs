@@ -49,16 +49,13 @@ namespace ProfileBook.ViewModels
             _permissionService = permissionService;
         }
 
-        public ICommand EnterCommand => _enterCommand ?? (_enterCommand = new Command(
-                        async () => await OpenMainTabbedPageAsync(),
-                        () => false));
+        public ICommand EnterCommand => _enterCommand ??= new Command( async () => await OpenMainTabbedPageAsync(), () => false);
 
-        public ICommand ToSignUpPageCommand => _toSignUpPageCommand ?? (_toSignUpPageCommand = new Command(
-                        async () => await OpenSignUpPageAsync()));
+        public ICommand ToSignUpPageCommand => _toSignUpPageCommand ??= new Command( async () => await OpenSignUpPageAsync());
 
         async Task OpenSignUpPageAsync()
         {
-            await _navigationService.NavigateAsync("SignUpPageView");
+            await _navigationService.NavigateAsync($"{nameof(SignUpPageView)}");
         }
 
         async Task OpenMainTabbedPageAsync()
@@ -69,7 +66,7 @@ namespace ProfileBook.ViewModels
             {
                 await _permissionService.PermissionRequestAsync();
 
-                await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainTabbedPageView)}");
+                await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
             }
             else
             {

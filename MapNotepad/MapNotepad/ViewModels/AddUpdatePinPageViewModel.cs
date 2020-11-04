@@ -15,10 +15,7 @@ namespace MapNotepad.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IPinService _pinService;
 
-        private PinGoogleMapModel _pinGoogleMapModel;
-
-        private ICommand _getPositionCommand;
-        private ICommand _savePinCommand;
+        private PinGoogleMapModel _pinGoogleMapModel;        
 
         private string _lable = string.Empty;
         public string Lable
@@ -65,17 +62,25 @@ namespace MapNotepad.ViewModels
             _pinGoogleMapModel = new PinGoogleMapModel();
         }
 
-        public ICommand GetPositionCommand => _getPositionCommand ?? (_getPositionCommand = new Command<Position>(GetPosition));
+        private ICommand _getPositionCommand;
+        public ICommand GetPositionCommand => _getPositionCommand ??= new Command<Position>(GetPosition);
 
-        public ICommand SavePinCommand => _savePinCommand ?? (_savePinCommand = new Command(
-                                          async () => await SavePinAsync()));
+        private ICommand _savePinCommand;
+        public ICommand SavePinCommand => _savePinCommand ??=  new Command( async () => await SavePinAsync());
 
+        private ICommand _backCommand;
+        public ICommand BackCommand => _backCommand ??= new Command(async () => await ComeBackAsync());
         private async Task SavePinAsync()
         {
             await SavePinToDB();
             await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(PinPageView)}");
         }
 
+        private async Task ComeBackAsync()
+        {
+            await _navigationService.NavigateAsync($"{nameof(PinPageView)}");
+        }
+        
         private void GetPosition(Position position)
         {                        
             Latitude = position.Latitude;

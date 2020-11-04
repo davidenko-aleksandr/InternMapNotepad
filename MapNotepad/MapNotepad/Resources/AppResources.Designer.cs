@@ -61,6 +61,33 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string AlertCancel {
+            get {
+                return ResourceManager.GetString("AlertCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you confirm deletion?.
+        /// </summary>
+        public static string AlertConfirmDelete {
+            get {
+                return ResourceManager.GetString("AlertConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string AlertDelete {
+            get {
+                return ResourceManager.GetString("AlertDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This e-mail is already registered.
         /// </summary>
         public static string AlertEmailAlredyRegistred {
@@ -160,6 +187,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New pin.
+        /// </summary>
+        public static string PageAddUpdateTitle {
+            get {
+                return ResourceManager.GetString("PageAddUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DELETE.
         /// </summary>
         public static string PageBattonDelete {
@@ -178,6 +214,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  BACK.
+        /// </summary>
+        public static string PageButtonBack {
+            get {
+                return ResourceManager.GetString("PageButtonBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SIHNUP.
         /// </summary>
         public static string PageButtonHyperLink {
@@ -187,7 +232,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SIGN IN.
+        ///   Looks up a localized string similar to SIGN  IN.
         /// </summary>
         public static string PageButtonSignIn {
             get {
@@ -196,7 +241,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SIGN UP.
+        ///   Looks up a localized string similar to SIGN  UP.
         /// </summary>
         public static string PageButtonSignUp {
             get {
@@ -237,6 +282,15 @@ namespace MapNotepad.Resources {
         public static string PagePinLatitude {
             get {
                 return ResourceManager.GetString("PagePinLatitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My pin list.
+        /// </summary>
+        public static string PagePinListTitle {
+            get {
+                return ResourceManager.GetString("PagePinListTitle", resourceCulture);
             }
         }
         

@@ -56,7 +56,7 @@ namespace MapNotepad.Sevices.PinServices
             }
         }
 
-        public async Task<IEnumerable<PinGoogleMapModel>> GetFavoritePinsFromDBAsync()
+        public async Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync() //these are favorit pins
         {
             var pinCollection = await _repositoryService.GetItemsAsync<PinGoogleMapModel>();
 
@@ -64,6 +64,7 @@ namespace MapNotepad.Sevices.PinServices
 
             return favoritePins;
         }
+
         public Task<PinGoogleMapModel> GetByIdAsync(int id)
         {
             return _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Id == id && p.UserId == _settingsService.CurrentUserID);

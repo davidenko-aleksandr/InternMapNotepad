@@ -22,7 +22,7 @@ namespace ProfileBook.ViewModels
         private readonly IRepositoryService _repositoryService;
         private readonly ICheckNameValid _checkNameValid;               
 
-        private ICommand _signUpCommand;
+        private ICommand _signUpCommand;       
 
         public UserModel User { get; set; }
 
@@ -69,9 +69,15 @@ namespace ProfileBook.ViewModels
             _checkNameValid = checkNameValid;            
         }
 
-        public ICommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new Command(
-                                        async () => await SignUpCompleteAsync(),
-                                        () => false));
+        public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await SignUpCompleteAsync(), () => false);
+
+        private ICommand _backCommand;
+        public ICommand BackCommand => _backCommand ??= new Command( async () => await ComeBackAsync());
+
+        private async Task ComeBackAsync()
+        {
+            await _navigationService.NavigateAsync($"{nameof(SignInPageView)}");
+        }
 
         private async Task SignUpCompleteAsync()
         {
