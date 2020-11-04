@@ -103,7 +103,8 @@ namespace MapNotepad.ViewModels
             if (obj is PinGoogleMapModel selectedPin)
             {
                 NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
-                await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AddUpdatePinPageView)}", parametr);
+
+                await _navigationService.NavigateAsync($"{nameof(AddUpdatePinPageView)}", parametr);
             }
         }
 
@@ -154,12 +155,12 @@ namespace MapNotepad.ViewModels
 
         private async Task OpenAddUpdatePinPageAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AddUpdatePinPageView)}");
+            await _navigationService.NavigateAsync($"{nameof(AddUpdatePinPageView)}");
         }
 
         private async Task ExitFromProfileAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}");
+            await _navigationService.NavigateAsync($"{nameof(SignInPageView)}");
 
             _userAuthorization.ExitUser();
         }

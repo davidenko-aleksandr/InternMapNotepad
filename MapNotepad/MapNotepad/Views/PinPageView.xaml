@@ -133,13 +133,18 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
 
-            <ImageButton Grid.Row="3"
-                         Source="add_pin_button.png"                         
+
+            <Button ImageSource="add_pin_button.png"                         
                          Command="{Binding OpenAddUpdatePinPageCommand}"
                          BackgroundColor="White"
+                         Grid.Row="2"
                          VerticalOptions="End"
                          HorizontalOptions="End"
-            />        
+                         Margin="0, 0, 35, 30"
+                    CornerRadius="32"
+                    HeightRequest="64"
+                    WidthRequest="64"/>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

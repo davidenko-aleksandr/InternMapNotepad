@@ -21,11 +21,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <controls:CustomMap Grid.Row="0"  
+            <controls:CustomMap  Grid.Row="0"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
                                 PinList="{Binding MyPins}"
-                                IsShowingUser="True"
                                 MapCameraPosition="{Binding CameraPosition}">
 
                 <controls:CustomMap.Behaviors>
@@ -37,6 +36,12 @@
                                                            Command="{Binding MapClickedCommand}"
                     />
                 </controls:CustomMap.Behaviors>
+                <controls:CustomMap.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0, 50, 0, 0"/>
+                        <On Platform="iOS" Value="0"/>
+                    </OnPlatform>
+                </controls:CustomMap.Padding>
             </controls:CustomMap>
 
             <SearchBar Grid.Row="0"

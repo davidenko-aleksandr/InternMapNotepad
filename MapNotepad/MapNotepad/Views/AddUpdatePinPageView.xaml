@@ -5,16 +5,8 @@
              xmlns:prismBehaviors="http://prismlibrary.com"
              xmlns:resources="clr-namespace:MapNotepad.Resources"
              x:Class="MapNotepad.Views.AddUpdatePinPageView"
-             NavigationPage.HasNavigationBar="False">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="ic_save.png"
-                     Order="Primary"
-                     Priority="0"
-                     Command ="{Binding SavePinCommand}"
-        />
-    </ContentPage.ToolbarItems>
-    
+             NavigationPage.HasNavigationBar="False">    
+
     <ContentPage.Content>
         
         <Grid Margin="5">

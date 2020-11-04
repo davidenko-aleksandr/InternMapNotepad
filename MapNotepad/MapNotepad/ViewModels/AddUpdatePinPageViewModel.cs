@@ -78,7 +78,7 @@ namespace MapNotepad.ViewModels
 
         private async Task ComeBackAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(PinPageView)}");
+            await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(PinPageView)}");
         }
         
         private void GetPosition(Position position)
