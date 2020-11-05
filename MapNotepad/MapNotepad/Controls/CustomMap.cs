@@ -18,10 +18,16 @@ namespace MapNotepad.Controls
                                                                                          typeof(ObservableCollection<Pin>),
                                                                                          typeof(CustomMap),
                                                                                          propertyChanged: OnPinListPropertyChanged);
-        public ObservableCollection<Pin> PinList
+
+        public static readonly BindableProperty OpenMapPositionProperty = BindableProperty.Create(propertyName: nameof(OpenMapPosition),
+                                                                                                    returnType: typeof(CameraPosition),
+                                                                                                    declaringType: typeof(CustomMap),
+                                                                                                    defaultBindingMode: BindingMode.TwoWay,
+                                                                                                    propertyChanged: OpenMapCameraPosition);
+        public CameraPosition OpenMapPosition
         {
-            get { return (ObservableCollection<Pin>)GetValue(PinListProperty); }
-            set { SetValue(PinListProperty, value); }
+            get => (CameraPosition)GetValue(OpenMapPositionProperty);
+            set => SetValue(OpenMapPositionProperty, value);
         }
 
         public Position MapCameraPosition
@@ -29,6 +35,12 @@ namespace MapNotepad.Controls
             get => (Position)GetValue(MapCameraPositionProperty);
             set => SetValue(PinListProperty, value);
         }
+
+        public ObservableCollection<Pin> PinList
+        {
+            get { return (ObservableCollection<Pin>)GetValue(PinListProperty); }
+            set { SetValue(PinListProperty, value); }
+        }        
 
         public CustomMap()
         {
@@ -74,7 +86,7 @@ namespace MapNotepad.Controls
                 }
             }
         }
-    
+
         private static void CameraPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (newValue != oldValue && bindable as CustomMap != null && newValue != null)
@@ -83,8 +95,22 @@ namespace MapNotepad.Controls
             }
         }
 
-        private static void UpdateCameraPosition(CustomMap map, Position cameraPosition)
+        private static void OpenMapCameraPosition(BindableObject bindable, object oldValue, object newValue)
         {
+            var map = bindable as Map;
+            var cameraPosition = newValue as CameraPosition;
+
+            var position = new Position(cameraPosition.Target.Latitude, cameraPosition.Target.Longitude);
+
+            var cameraUpdate = CameraUpdateFactory.NewPositionZoom(position, cameraPosition.Zoom);
+
+            map.InitialCameraUpdate = cameraUpdate;
+
+            map.MoveCamera(cameraUpdate);
+        }
+
+        private static void UpdateCameraPosition(CustomMap map, Position cameraPosition)
+        {            
             map.MoveToRegion(MapSpan.FromCenterAndRadius(cameraPosition, Distance.FromMiles(5)));
         }
     }

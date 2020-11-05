@@ -76,7 +76,7 @@ namespace ProfileBook.ViewModels
 
         private async Task ComeBackAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(SignInPageView)}");
+            await _navigationService.GoBackAsync();
         }
 
         private async Task SignUpCompleteAsync()

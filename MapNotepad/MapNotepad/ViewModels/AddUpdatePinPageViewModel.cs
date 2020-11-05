@@ -73,12 +73,12 @@ namespace MapNotepad.ViewModels
         private async Task SavePinAsync()
         {
             await SavePinToDB();
-            await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(PinPageView)}");
+            await _navigationService.GoBackAsync();
         }
 
         private async Task ComeBackAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(PinPageView)}");
+            await _navigationService.GoBackAsync();
         }
         
         private void GetPosition(Position position)

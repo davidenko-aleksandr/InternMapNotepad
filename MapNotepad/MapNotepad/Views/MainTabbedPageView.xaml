@@ -7,15 +7,7 @@
             xmlns:behaviors="clr-namespace:MapNotepad.Behaviors"
             xmlns:resources="clr-namespace:MapNotepad.Resources"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            NavigationPage.HasNavigationBar="False">
-
-    <TabbedPage.ToolbarItems>        
-        <ToolbarItem IconImageSource="ic_exit_to_app.png"
-                     Order="Primary"
-                     Priority="0"
-                     Command ="{Binding ExitCommand}"
-        />        
-    </TabbedPage.ToolbarItems>
+            NavigationPage.HasNavigationBar="False">    
 
     <TabbedPage.Behaviors>
         <behaviors:TabbedPageNavigationBehavior/>

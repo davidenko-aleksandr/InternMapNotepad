@@ -22,20 +22,26 @@
             </Grid.RowDefinitions>
 
             <controls:CustomMap  Grid.Row="0"  
-                                VerticalOptions="FillAndExpand" 
-                                MyLocationEnabled="True" 
-                                PinList="{Binding MyPins}"
-                                MapCameraPosition="{Binding CameraPosition}">
+                                 VerticalOptions="FillAndExpand" 
+                                 MyLocationEnabled="True" 
+                                 PinList="{Binding MyPins}"
+                                 MapCameraPosition="{Binding CameraPosition}"
+                                 OpenMapPosition="{Binding CameraUpdate}">
 
                 <controls:CustomMap.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="PinClicked"
                                                            Command="{Binding SelectedPinCommand}"
-                                                           EventArgsParameterPath="Pin"
-                    />
+                                                           EventArgsParameterPath="Pin"/>
+                    
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
-                                                           Command="{Binding MapClickedCommand}"
-                    />
+                                                           Command="{Binding MapClickedCommand}"/>
+
+                    <prismBehaviors:EventToCommandBehavior EventName="CameraChanged" 
+                                                           Command="{Binding GetPositionComaand}"
+                                                           EventArgsParameterPath="Position"/>
+                    
                 </controls:CustomMap.Behaviors>
+                
                 <controls:CustomMap.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
                         <On Platform="Android" Value="0, 50, 0, 0"/>

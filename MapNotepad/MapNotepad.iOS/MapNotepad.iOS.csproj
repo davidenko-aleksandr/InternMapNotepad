@@ -180,4 +180,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\background_registration.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\map_image.png" />
+  </ItemGroup>
 </Project>

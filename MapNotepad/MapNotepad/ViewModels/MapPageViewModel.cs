@@ -1,6 +1,7 @@
 ﻿using MapNotepad.Extentions;
 using MapNotepad.Models;
 using MapNotepad.Sevices.PinServices;
+using MapNotepad.Sevices.Settings;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -14,12 +15,17 @@ namespace MapNotepad.ViewModels
     public class MapPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
+        private readonly ISettingsService _settingsService;
 
         private PinGoogleMapModel _pinGoogleMapModel;
 
         private ICommand _selectedPinCommand;
         private ICommand _mapClickedCommand;
         private ICommand _searchPinCommand;
+
+        private double _latitude;
+        private double _longitude;
+        private double _zoom;
 
         private ObservableCollection<Pin> _myPins;
         public ObservableCollection<Pin> MyPins
@@ -33,6 +39,13 @@ namespace MapNotepad.ViewModels
         {
             get { return _cameraPosition; }
             set { SetProperty(ref _cameraPosition, value); }            
+        }
+
+        private CameraPosition _cameraUpdate;
+        public CameraPosition CameraUpdate
+        {
+            get { return _cameraUpdate; }
+            set { SetProperty(ref _cameraUpdate, value); }
         }
 
         private string _selectedPinLable = string.Empty;
@@ -76,11 +89,12 @@ namespace MapNotepad.ViewModels
             get { return _searchFilter; }
             set { SetProperty(ref _searchFilter, value); }
         }
-        public MapPageViewModel(IPinService pinService)
+        public MapPageViewModel(IPinService pinService, ISettingsService settingsService)
         {
             _pinService = pinService;
             _myPins = new ObservableCollection<Pin>();
             _pinGoogleMapModel = new PinGoogleMapModel();
+            _settingsService = settingsService;
         }
 
         public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command((Object obj) =>  SelectedPin(obj));
@@ -88,6 +102,19 @@ namespace MapNotepad.ViewModels
         public ICommand SearchPinCommand => _searchPinCommand ??= new Command(async () => await SearchPin());
 
         public ICommand MapClickedCommand => _mapClickedCommand ??= new Command(CloseFrame);
+
+        private ICommand _getPositionComaand;
+        public ICommand GetPositionComaand => _getPositionComaand ??= new Command((Object obj) => GetPosition(obj));
+
+        private void GetPosition(object obj)
+        {
+            if (obj is CameraPosition position)
+            {
+                _latitude = position.Target.Latitude;
+                _longitude = position.Target.Longitude;
+                _zoom = position.Zoom;
+            }
+        }
 
         private void CloseFrame()
         {
@@ -148,11 +175,19 @@ namespace MapNotepad.ViewModels
                 MyPins.Clear();
 
                 await InitCollectionPinAsync();
+
+                Position lastPosition = new Position(_settingsService.MapLatitude, _settingsService.MapLongitude);
+
+                CameraUpdate = new CameraPosition(lastPosition, _settingsService.MapZoom);
+
             }
         }
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             IsVisibleFrame = false;
+            _settingsService.MapLatitude = _latitude;
+            _settingsService.MapLongitude = _longitude;
+            _settingsService.MapZoom = _zoom;
         }
     }
 }
