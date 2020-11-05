@@ -15,9 +15,9 @@
     
     <TabbedPage.Children>
 
-        <views:MapPageView Title="{x:Static resources:AppResources.PageMapTitle}"/>
+        <views:MapPageView Title="{x:Static resources:AppResources.PageMapTitle}" IconImageSource="icon_map.png"/> 
 
-        <views:PinPageView Title="{x:Static resources:AppResources.PagePinTitle}"/>
+        <views:PinPageView Title="{x:Static resources:AppResources.PagePinTitle}" IconImageSource="icon_pin.png"/>
 
     </TabbedPage.Children>
 

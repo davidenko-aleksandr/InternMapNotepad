@@ -15,6 +15,7 @@
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.462" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.6" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
@@ -61,5 +62,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\PopupPageViewModels\" />
+    <Folder Include="Views\PopupPageViews\" />
   </ItemGroup>
 </Project>

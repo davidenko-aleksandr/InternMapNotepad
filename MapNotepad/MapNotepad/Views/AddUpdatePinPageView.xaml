@@ -86,7 +86,7 @@
             />
             <Editor Placeholder="Description" Grid.Row="4"
                    Text="{Binding Description}"
-                   
+                   MaxLength="120"
             />           
             
             <controls:CustomMap Grid.Row="5"  

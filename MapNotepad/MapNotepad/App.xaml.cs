@@ -1,5 +1,6 @@
 ﻿using MapNotepad.Services;
 using MapNotepad.Services.AuthenticationServices;
+using MapNotepad.Sevices.MapPositionService;
 using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Sevices.PinServices;
 using MapNotepad.Sevices.RegistrationServices;
@@ -34,12 +35,11 @@ namespace MapNotepad
             //registration of services with interfaces
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
             containerRegistry.RegisterInstance<ISettingsService>(Container.Resolve<SettingsService>());
-            containerRegistry.RegisterInstance<ICheckPasswordValid>(Container.Resolve<CheckPasswordValid>());
             containerRegistry.RegisterInstance<ICheckEmailValid>(Container.Resolve<CheckEmailValid>());
             containerRegistry.RegisterInstance<IUserAuthorization>(Container.Resolve<UserAuthorization>());
-            containerRegistry.RegisterInstance<ICheckNameValid>(Container.Resolve<CheckNameValid>());
             containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
-            containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());            
+            containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
+            containerRegistry.RegisterInstance<IMapPositionService>(Container.Resolve<MapPositionService>());            
         }
 
         public static T Resolve<T>()

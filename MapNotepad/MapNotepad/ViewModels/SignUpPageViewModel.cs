@@ -1,7 +1,6 @@
 ﻿using Prism.Navigation;
 using Prism.Services;
 using MapNotepad.Models;
-using MapNotepad.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -10,6 +9,7 @@ using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.ViewModels;
 using MapNotepad.Views;
 using MapNotepad.Resources;
+using MapNotepad.Validators;
 
 namespace ProfileBook.ViewModels
 {
@@ -17,10 +17,8 @@ namespace ProfileBook.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
-        private readonly ICheckPasswordValid _checkPasswordValid;
         private readonly ICheckEmailValid _checkEmailValid;
-        private readonly IRepositoryService _repositoryService;
-        private readonly ICheckNameValid _checkNameValid;               
+        private readonly IRepositoryService _repositoryService;        
 
         private ICommand _signUpCommand;       
 
@@ -56,17 +54,13 @@ namespace ProfileBook.ViewModels
 
         public SignUpPageViewModel(INavigationService navigationService,
                                    IPageDialogService dialogService,
-                                   ICheckPasswordValid checkPasswordValid,
                                    ICheckEmailValid checkEmailValid,
-                                   IRepositoryService repositoryService,
-                                   ICheckNameValid checkNameValid)
+                                   IRepositoryService repositoryService)
         {
-            _checkPasswordValid = checkPasswordValid;
             _dialogService = dialogService;
             _checkEmailValid = checkEmailValid;
             _navigationService = navigationService;
-            _repositoryService = repositoryService;
-            _checkNameValid = checkNameValid;            
+            _repositoryService = repositoryService;  
         }
 
         public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await SignUpCompleteAsync(), () => false);
@@ -102,14 +96,14 @@ namespace ProfileBook.ViewModels
         {
             bool isErrorExist = false;
 
-            if (_checkNameValid.ValidateName(_name))
+            if (Validator.ValidateNameError(_name))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectName, AppResources.AlertNameRequared, AppResources.AlertOk);   
                 
                 isErrorExist = true;
             }
-
-            if (_checkEmailValid.ValidateEmailError(_email))
+            
+            if (Validator.ValidateEmailError(_email))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectEmail, AppResources.AlertEmailRequared, AppResources.AlertOk);
 
@@ -118,7 +112,7 @@ namespace ProfileBook.ViewModels
                 isErrorExist = true;
             }
 
-            if (_checkPasswordValid.PasswordValidation(_password))
+            if (Validator.PasswordValidationError(_password))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectPassword, AppResources.AlertPasswordRequared, AppResources.AlertOk);
 

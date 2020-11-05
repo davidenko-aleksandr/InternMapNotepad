@@ -61,23 +61,44 @@
                 
                 <SearchBar.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="TextChanged" 
-                                                           Command="{Binding SearchPinCommand}"
-                    />
+                                                           Command="{Binding SearchPinCommand}"/>
+                    
                 </SearchBar.Behaviors>
             </SearchBar>
 
             <Frame Grid.Row="0"
                    BorderColor="Aqua"
                    VerticalOptions="End"
-                    IsVisible="{Binding IsVisibleFrame}">
-                
-                <StackLayout>
-                    <Label Text="{Binding SelectedPinLable, Mode=TwoWay}" FontSize="Large"/>
-                    <Label Text="{Binding SelectedPinDescription, Mode=TwoWay}"/>
-                    <Label Text="{Binding SelectedPinLatitude, Mode=TwoWay}"/>
-                    <Label Text="{Binding SelectedPinLongitude, Mode=TwoWay}"/>
-                </StackLayout>                
+                   IsVisible="{Binding IsVisibleFrame}">
+                <Grid>
+                    <StackLayout>
+
+                        <Label Text="{Binding SelectedPinLable, Mode=TwoWay}" FontSize="Large"/>
+
+                        <Label Text="{Binding SelectedPinDescription, Mode=TwoWay}"/>
+
+                        <Label Text="{Binding SelectedPinLatitude, Mode=TwoWay}"/>
+
+                        <Label Text="{Binding SelectedPinLongitude, Mode=TwoWay}"/>                        
+
+                    </StackLayout>
+
+                    <Button Text="{x:Static resources:AppResources.PageButtonAddNote}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Margin="0, 0, 0, 5"
+                            BorderWidth="1"                    
+                            CornerRadius="10"
+                            HeightRequest="36"
+                            WidthRequest="95"
+                            BackgroundColor="#31FFFFFF"
+                            TextColor="#4ba3be"
+                            BorderColor="#4ba3be"
+                            Command="{Binding BackCommand}"/>
+
+                </Grid>       
             </Frame>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

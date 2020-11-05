@@ -168,11 +168,14 @@
   <data name="PageBattonEdit" xml:space="preserve">
     <value>EDIT</value>
   </data>
+  <data name="PageButtonAddNote" xml:space="preserve">
+    <value>ADD NOTE</value>
+  </data>
   <data name="PageButtonBack" xml:space="preserve">
     <value> BACK</value>
   </data>
   <data name="PageButtonHyperLink" xml:space="preserve">
-    <value>SIHNUP</value>
+    <value>SIGN_UP</value>
   </data>
   <data name="PageButtonSignIn" xml:space="preserve">
     <value>SIGN  IN</value>
@@ -217,9 +220,9 @@
     <value>Search pin...</value>
   </data>
   <data name="PageSignInTitle" xml:space="preserve">
-    <value>SignIn</value>
+    <value>Sign In</value>
   </data>
   <data name="PageSignUpTitle" xml:space="preserve">
-    <value>SignUp</value>
+    <value>Sign Up</value>
   </data>
 </root>

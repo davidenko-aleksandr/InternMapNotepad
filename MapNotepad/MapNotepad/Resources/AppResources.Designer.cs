@@ -214,6 +214,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADD NOTE.
+        /// </summary>
+        public static string PageButtonAddNote {
+            get {
+                return ResourceManager.GetString("PageButtonAddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  BACK.
         /// </summary>
         public static string PageButtonBack {
@@ -223,7 +232,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SIHNUP.
+        ///   Looks up a localized string similar to SIGN_UP.
         /// </summary>
         public static string PageButtonHyperLink {
             get {
@@ -358,7 +367,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SignIn.
+        ///   Looks up a localized string similar to Sign In.
         /// </summary>
         public static string PageSignInTitle {
             get {
@@ -367,7 +376,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SignUp.
+        ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         public static string PageSignUpTitle {
             get {
