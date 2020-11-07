@@ -73,12 +73,12 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Text="{x:Static resources:AppResources.PageBattonEdit}"
                                       Command="{Binding BindingContext.EditPinCommand, 
-                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"
-                                />
+                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
+                                
                                 <MenuItem Text="{x:Static resources:AppResources.PageBattonDelete}" 
                                       Command="{Binding BindingContext.DeletePinCommand, 
-                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"                                          
-                                />
+                                      Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
+                                
                             </ViewCell.ContextActions>
 
                             <ViewCell.View>
@@ -94,14 +94,14 @@
                                            FontSize="Large"
                                            MaxLines="1"
                                            HorizontalOptions="Start"
-                                           VerticalOptions="Start"
-                                    />
+                                           VerticalOptions="Start"/>
+
                                     <Label Grid.Column="0"
                                            Text="{Binding Description}"
                                            MaxLines="1"
                                            HorizontalOptions="Start"
-                                           VerticalOptions="End"
-                                    />
+                                           VerticalOptions="End"/>
+                                    
                                     <Button Grid.Column="1"
                                             x:Name="myButton"
                                             Command="{Binding BindingContext.AddOrRemoveFavoritCommand, 

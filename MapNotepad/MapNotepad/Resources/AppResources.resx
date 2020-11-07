@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlertAddingPhoto" xml:space="preserve">
+    <value>Adding a photo</value>
+  </data>
   <data name="AlertCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="AlertDelete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="AlertDownlFromGallery" xml:space="preserve">
+    <value>Download from gallery</value>
   </data>
   <data name="AlertEmailAlredyRegistred" xml:space="preserve">
     <value>This e-mail is already registered</value>
@@ -158,6 +164,9 @@
   </data>
   <data name="AlertPasswordRequared" xml:space="preserve">
     <value>The password must contain from 8 to 16 characters, among which there must be a capital letter, a small letter, and also a number</value>
+  </data>
+  <data name="AlertUseCamera" xml:space="preserve">
+    <value>Use camera</value>
   </data>
   <data name="PageAddUpdateTitle" xml:space="preserve">
     <value>New pin</value>

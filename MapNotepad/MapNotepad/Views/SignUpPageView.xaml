@@ -45,14 +45,14 @@
                     BackgroundColor="#31FFFFFF"
                     TextColor="#4ba3be"
                     BorderColor="#4ba3be"
-                    Command="{Binding BackCommand}"
-            />
+                    Command="{Binding BackCommand}"/>
+            
             <Label VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageSignUpTitle}"
                    FontSize="45"
-                   TextColor="#63bcd7"
-            />
+                   TextColor="#63bcd7"/>
+            
         </Grid>
         
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="5, 120, 5, 0">
@@ -65,8 +65,8 @@
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
                                     CornerRadius="8"
-                                    HeightRequest="50"
-            />
+                                    HeightRequest="50"/>
+            
             <controls:StandardEntry x:Name="loginEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}" 
                                     WidthRequest="380"
@@ -77,8 +77,8 @@
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
                                     CornerRadius="8"
-                                    HeightRequest="50"
-            />
+                                    HeightRequest="50"/>
+            
             <controls:StandardEntry x:Name="passwordEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}"  
                                     WidthRequest="380"
@@ -89,8 +89,8 @@
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
                                     CornerRadius="8"
-                                    HeightRequest="50"
-            />
+                                    HeightRequest="50"/>
+            
             <controls:StandardEntry x:Name="conPasswEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPasswConfirm}"  
                                     WidthRequest="380"
@@ -101,8 +101,8 @@
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
                                     CornerRadius="8"
-                                    HeightRequest="50"
-            />
+                                    HeightRequest="50"/>
+            
         </StackLayout>
 
         <StackLayout Margin="0, 0, 0, 120" VerticalOptions="End">
@@ -123,22 +123,23 @@
                 <Button.Triggers>
                     <MultiTrigger TargetType="Button">
                         <MultiTrigger.Conditions>
+                            
                             <BindingCondition Binding="{Binding Source={x:Reference nameEntry},
                                 Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true" 
-                        />
+                                Value="true"/>
+                            
                             <BindingCondition Binding="{Binding Source={x:Reference loginEntry},
                                 Path=Text.Length,  Converter={StaticResource isButtonEnabled}}"
-                                Value="true" 
-                        />
+                                Value="true"/>
+                            
                             <BindingCondition Binding="{Binding Source={x:Reference passwordEntry},
                                 Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true"
-                        />
+                                Value="true"/>
+                            
                             <BindingCondition Binding="{Binding Source={x:Reference conPasswEntry},
                                 Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true" 
-                        />
+                                Value="true"/>
+                            
                         </MultiTrigger.Conditions>
 
                         <Setter Property="IsEnabled" Value="True"/>
@@ -146,7 +147,6 @@
                     </MultiTrigger>
                 </Button.Triggers>
             </Button>
-        </StackLayout>
-        
+        </StackLayout>        
     </Grid>
 </ContentPage>

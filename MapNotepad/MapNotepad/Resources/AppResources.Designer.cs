@@ -61,6 +61,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding a photo.
+        /// </summary>
+        public static string AlertAddingPhoto {
+            get {
+                return ResourceManager.GetString("AlertAddingPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string AlertCancel {
@@ -84,6 +93,15 @@ namespace MapNotepad.Resources {
         public static string AlertDelete {
             get {
                 return ResourceManager.GetString("AlertDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download from gallery.
+        /// </summary>
+        public static string AlertDownlFromGallery {
+            get {
+                return ResourceManager.GetString("AlertDownlFromGallery", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace MapNotepad.Resources {
         public static string AlertPasswordRequared {
             get {
                 return ResourceManager.GetString("AlertPasswordRequared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use camera.
+        /// </summary>
+        public static string AlertUseCamera {
+            get {
+                return ResourceManager.GetString("AlertUseCamera", resourceCulture);
             }
         }
         

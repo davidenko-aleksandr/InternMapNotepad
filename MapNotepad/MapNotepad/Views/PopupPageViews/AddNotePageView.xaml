@@ -18,7 +18,8 @@
                    VerticalOptions="Start"
                    HorizontalOptions="Center"
                    TextColor="#010210"
-                   FontSize="30"/>
+                   FontSize="30"
+                   Margin="0, 12, 0, 0"/>
             
             <controls:StandardEntry BorderColor="White"
                                     PlaceholderColor="#090b36"
@@ -27,25 +28,27 @@
                                     CornerRadius="8"
                                     HeightRequest="50"
                                     HorizontalOptions="FillAndExpand"
-                                    BackgroundColor="#31FFFFFF"
+                                    BackgroundColor="#90FFFFFF"
                                     VerticalOptions="Start"
                                     Margin="10, 70, 10, 0"/>
             
-            <ImageButton Source="add_photo.png"
-                         HeightRequest="60"
-                         WidthRequest="60"
-                         Margin="10, 140, 10, 0"
+            <ImageButton Source="{Binding ImageSource}"
+                         HeightRequest="100"
+                         WidthRequest="100"
+                         Margin="10, 130, 10, 0"
                          VerticalOptions="Start"
-                         HorizontalOptions="Center"/>
+                         HorizontalOptions="Center"
+                         BackgroundColor="#10FFFFFF"
+                         Command="{Binding AddPhotoCommand}"/>
 
             <Editor PlaceholderColor="#090b36"
                     Placeholder="Discription"
-                    HeightRequest="250"
+                    HeightRequest="240"
                     MaxLength="120"
                     HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#31FFFFFF"
+                    BackgroundColor="#90FFFFFF"
                     VerticalOptions="Start"
-                    Margin="10, 210, 10, 0"/>
+                    Margin="10, 250, 10, 0"/>
 
             <Button Text="Cancel"
                     VerticalOptions="End"

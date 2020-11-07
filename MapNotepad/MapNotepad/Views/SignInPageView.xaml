@@ -19,8 +19,7 @@
         <Image
             Aspect="AspectFill"
             HorizontalOptions="FillAndExpand"
-            Source="signinBackground.png"
-        />
+            Source="signinBackground.png"/>
 
         <Grid VerticalOptions="Start"
                      HorizontalOptions="FillAndExpand"
@@ -37,8 +36,8 @@
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageSignInTitle}"
                    FontSize="45"
-                   TextColor="#0e0b7b"
-            />
+                   TextColor="#0e0b7b"/>
+            
         </Grid>
 
         <StackLayout  HorizontalOptions="Center"
@@ -54,8 +53,8 @@
                                      BackgroundColor="#6676a1"
                                      BorderColor="#c0c8de"
                                      BorderThickness="2"
-                                     CornerRadius="8"
-            />
+                                     CornerRadius="8"/>
+            
             <controls:StandardEntry x:Name="passwordEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}" 
                                     HeightRequest="50"
@@ -65,8 +64,8 @@
                                     BackgroundColor="#6676a1"
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
-                                    CornerRadius="8"
-            />
+                                    CornerRadius="8"/>
+            
         </StackLayout>
 
         <StackLayout VerticalOptions="End" 
@@ -102,20 +101,22 @@
                         </MultiTrigger.Conditions>
                         
                         <Setter Property="IsEnabled" Value="True"/>
+                        
                     </MultiTrigger>
                 </Button.Triggers>
             </Button>
 
             <Label HorizontalOptions="Center"
                     VerticalOptions="Center">
+                
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{x:Static resources:AppResources.PageButtonHyperLink}"
                             TextColor="#c0c8de"
-                            TextDecorations="Underline">
+                            TextDecorations="Underline">                            
                             <Span.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToSignUpPageCommand}"/>
-                            </Span.GestureRecognizers>
+                            </Span.GestureRecognizers>                            
                         </Span>
                     </FormattedString>
                 </Label.FormattedText>

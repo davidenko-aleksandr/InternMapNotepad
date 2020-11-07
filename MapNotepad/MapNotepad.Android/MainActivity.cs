@@ -2,8 +2,6 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
-using Prism.Ioc;
-using Prism;
 using Android;
 using Plugin.Permissions;
 using Acr.UserDialogs;

@@ -41,14 +41,14 @@
                     BackgroundColor="#31FFFFFF"
                     TextColor="#4ba3be"
                     BorderColor="#4ba3be"
-                    Command="{Binding BackCommand}"
-                />
+                    Command="{Binding BackCommand}"/>
+                
                 <Label VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageAddUpdateTitle}"
                    FontSize="30"
-                   TextColor="#63bcd7"
-                />
+                   TextColor="#63bcd7"/>
+                
                 <Button ImageSource="ic_save.png"
                         Command ="{Binding SavePinCommand}"
                         VerticalOptions="Center"
@@ -64,8 +64,8 @@
                                     BackgroundColor="#31FFFFFF"
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
-                                    CornerRadius="8"
-            />
+                                    CornerRadius="8"/>
+            
             <controls:StandardEntry Grid.Row="2"
                                     Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
                                     Text="{Binding Latitude}"                                                       
@@ -73,8 +73,8 @@
                                     BackgroundColor="#31FFFFFF"
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
-                                    CornerRadius="8"
-            />
+                                    CornerRadius="8"/>
+            
             <controls:StandardEntry Grid.Row="3"
                                     Placeholder="{x:Static resources:AppResources.PagePinLongitude}"
                                     Text="{Binding Longitude, Mode=TwoWay}"                   
@@ -82,13 +82,12 @@
                                     BackgroundColor="#31FFFFFF"
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
-                                    CornerRadius="8"
-            />
+                                    CornerRadius="8"/>
+            
             <Editor Placeholder="Description" Grid.Row="4"
                    Text="{Binding Description}"
-                   MaxLength="120"
-            />           
-            
+                   MaxLength="120"/>
+                        
             <controls:CustomMap Grid.Row="5"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
@@ -97,8 +96,7 @@
                 <controls:CustomMap.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
                                                            Command="{Binding GetPositionCommand}"
-                                                           EventArgsParameterPath="Point"     
-                    />
+                                                           EventArgsParameterPath="Point"/>
                 </controls:CustomMap.Behaviors>
             </controls:CustomMap>           
         </Grid>

@@ -27,6 +27,7 @@ namespace MapNotepad.Controls
             get => (int)GetValue(BorderThicknessProperty);
             set => SetValue(BorderThicknessProperty, value);
         }
+
         public Color BorderColor
         {
             get => (Color)GetValue(BorderColorProperty);
