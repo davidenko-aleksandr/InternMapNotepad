@@ -43,7 +43,7 @@
             </Grid>            
             
             <SearchBar Grid.Row="1" 
-                       Text="{Binding SearchFilter}"                      
+                       Text="{Binding SearchFilter}"
                        BackgroundColor="White"
                        Placeholder="{x:Static resources:AppResources.PagePlaceholderSearchBar}"
                        TextColor="DarkGray"
@@ -135,7 +135,7 @@
 
 
             <Button ImageSource="add_pin_button.png"                         
-                         Command="{Binding OpenAddUpdatePinPageCommand}"
+                         Command="{Binding AddUpdatePinCommand}"
                          BackgroundColor="White"
                          Grid.Row="2"
                          VerticalOptions="End"

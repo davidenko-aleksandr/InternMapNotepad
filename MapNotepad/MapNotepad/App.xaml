@@ -2,7 +2,7 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MapNotepad.App"
-             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
+             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms">
     <Application.Resources>
         
     </Application.Resources>

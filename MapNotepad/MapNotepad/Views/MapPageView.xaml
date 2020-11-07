@@ -23,7 +23,7 @@
 
             <controls:CustomMap  Grid.Row="0"  
                                  VerticalOptions="FillAndExpand" 
-                                 MyLocationEnabled="True" 
+                                 MyLocationEnabled="{Binding IsMyLocationEnabled}"
                                  PinList="{Binding MyPins}"
                                  MapCameraPosition="{Binding CameraPosition}"
                                  OpenMapPosition="{Binding CameraUpdate}">
@@ -94,7 +94,7 @@
                             BackgroundColor="#31FFFFFF"
                             TextColor="#4ba3be"
                             BorderColor="#4ba3be"
-                            Command="{Binding BackCommand}"/>
+                            Command="{Binding OpenAddNoteViewPageCommand}"/>
 
                 </Grid>       
             </Frame>

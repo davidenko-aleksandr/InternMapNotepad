@@ -1,6 +1,5 @@
 ﻿using MapNotepad.Models;
 using MapNotepad.Sevices.PinServices;
-using MapNotepad.Views;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -12,11 +11,19 @@ namespace MapNotepad.ViewModels
 {
     public class AddUpdatePinPageViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IPinService _pinService;
 
-        private PinGoogleMapModel _pinGoogleMapModel;        
+        private PinGoogleMapModel _pinGoogleMapModel;
+        
+        public AddUpdatePinPageViewModel(IPinService pinService,
+                                         INavigationService navigationService) : base(navigationService)
+        {
+            _pinService = pinService;
+            _myPins = new ObservableCollection<Pin>();
+            _pinGoogleMapModel = new PinGoogleMapModel();
+        }
 
+        #region -- Public properties --
         private string _lable = string.Empty;
         public string Lable
         {
@@ -53,35 +60,29 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _myPins, value); }
         }
 
-        public AddUpdatePinPageViewModel(INavigationService navigationService,
-                                         IPinService pinService)
-        {
-            _navigationService = navigationService;
-            _pinService = pinService;
-            _myPins = new ObservableCollection<Pin>();
-            _pinGoogleMapModel = new PinGoogleMapModel();
-        }
-
         private ICommand _getPositionCommand;
-        public ICommand GetPositionCommand => _getPositionCommand ??= new Command<Position>(GetPosition);
+        public ICommand GetPositionCommand => _getPositionCommand ??= new Command<Position>(OnGetPositionCommand);
 
         private ICommand _savePinCommand;
-        public ICommand SavePinCommand => _savePinCommand ??=  new Command( async () => await SavePinAsync());
+        public ICommand SavePinCommand => _savePinCommand ??= new Command(OnSavePinCommandAsync);
 
         private ICommand _backCommand;
-        public ICommand BackCommand => _backCommand ??= new Command(async () => await ComeBackAsync());
-        private async Task SavePinAsync()
+        public ICommand BackCommand => _backCommand ??= new Command(OnComeBackCommandAsync);
+
+        #endregion
+
+        private async void OnSavePinCommandAsync()
         {
-            await SavePinToDB();
+            await SavePinToDBAsync();
             await _navigationService.GoBackAsync();
         }
 
-        private async Task ComeBackAsync()
+        private async void OnComeBackCommandAsync()
         {
             await _navigationService.GoBackAsync();
         }
         
-        private void GetPosition(Position position)
+        private void OnGetPositionCommand(Position position)
         {                        
             Latitude = position.Latitude;
             Longitude = position.Longitude;
@@ -97,7 +98,7 @@ namespace MapNotepad.ViewModels
             MyPins.Add(p);
         }
 
-        private async Task SavePinToDB()
+        private async Task SavePinToDBAsync()
         {
             if (_pinGoogleMapModel != null)
             {

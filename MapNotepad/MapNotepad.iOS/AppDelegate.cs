@@ -1,6 +1,4 @@
 ﻿using Foundation;
-using Prism;
-using Prism.Ioc;
 using UIKit;
 
 namespace MapNotepad.iOS
@@ -29,14 +27,6 @@ namespace MapNotepad.iOS
             LoadApplication(new App(new IOSInitializer()));
 
             return base.FinishedLaunching(app, options);
-        }
-    }
-
-    public class IOSInitializer : IPlatformInitializer
-    {
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-
         }
     }
 }

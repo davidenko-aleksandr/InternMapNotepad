@@ -1,7 +1,9 @@
 ﻿using MapNotepad.Extentions;
 using MapNotepad.Models;
 using MapNotepad.Sevices.MapPositionService;
+using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Sevices.PinServices;
+using MapNotepad.Views.PopupPageViews;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -15,11 +17,25 @@ namespace MapNotepad.ViewModels
     public class MapPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
-        private readonly IMapPositionService _mapPositionService; 
+        private readonly IMapPositionService _mapPositionService;
+        private readonly IPermissionService _permissionService;
 
         private PinGoogleMapModel _pinGoogleMapModel;
 
-        #region -- Fields and Property --
+        public MapPageViewModel(IPinService pinService, 
+                                IMapPositionService mapPositionService,
+                                IPermissionService permissionService,
+                                INavigationService navigationService) : base(navigationService)
+        {
+            _pinService = pinService;
+            _myPins = new ObservableCollection<Pin>();
+            _pinGoogleMapModel = new PinGoogleMapModel();
+            _mapPositionService = mapPositionService;
+            _permissionService = permissionService;
+        }
+
+        #region -- Public properties --
+
         private ObservableCollection<Pin> _myPins;
         public ObservableCollection<Pin> MyPins
         {
@@ -31,7 +47,7 @@ namespace MapNotepad.ViewModels
         public Position CameraPosition
         {
             get { return _cameraPosition; }
-            set { SetProperty(ref _cameraPosition, value); }            
+            set { SetProperty(ref _cameraPosition, value); }
         }
 
         private CameraPosition _cameraUpdate;
@@ -82,58 +98,60 @@ namespace MapNotepad.ViewModels
             get { return _searchFilter; }
             set { SetProperty(ref _searchFilter, value); }
         }
-        #endregion
-        public MapPageViewModel(IPinService pinService, 
-                                IMapPositionService mapPositionService)
+
+        private bool _isMyLocationEnabled;
+        public bool IsMyLocationEnabled
         {
-            _pinService = pinService;
-            _myPins = new ObservableCollection<Pin>();
-            _pinGoogleMapModel = new PinGoogleMapModel();
-            _mapPositionService = mapPositionService;
+            get { return _isMyLocationEnabled; }
+            set { SetProperty(ref _isMyLocationEnabled, value); }
         }
 
         private ICommand _selectedPinCommand;
-        public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command((Object obj) =>  SelectedPin(obj));
+        public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command<Pin>(OnSelectedPinCommand);
 
         private ICommand _searchPinCommand;
-        public ICommand SearchPinCommand => _searchPinCommand ??= new Command(async () => await SearchPin());
+        public ICommand SearchPinCommand => _searchPinCommand ??= new Command(OnSearchPinCommandAsync);
 
         private ICommand _mapClickedCommand;
-        public ICommand MapClickedCommand => _mapClickedCommand ??= new Command(CloseFrame);
+        public ICommand MapClickedCommand => _mapClickedCommand ??= new Command(OnCloseFrameCommand);
 
         private ICommand _getPositionComaand;
-        public ICommand GetPositionComaand => _getPositionComaand ??= new Command((Object obj) => GetPosition(obj));
+        public ICommand GetPositionComaand => _getPositionComaand ??= new Command<CameraPosition>(OnGetPositionCommand);
 
-        private void GetPosition(object obj)
+        private ICommand _openAddNoteViewPageCommand;
+        public ICommand OpenAddNoteViewPageCommand => _openAddNoteViewPageCommand ??= new Command(OnOpenAddNoteViewPageCommandAsync);
+
+        #endregion
+
+        private async void OnOpenAddNoteViewPageCommandAsync()
         {
-            if (obj is CameraPosition position)
-            {
-                _mapPositionService.ReadCameraPosition(position.Target.Latitude, position.Target.Longitude, position.Zoom);
-            }
+            await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}");
         }
 
-        private void CloseFrame()
+        private void OnGetPositionCommand(CameraPosition position)
+        { 
+            _mapPositionService.ReadCameraPosition(position.Target.Latitude, position.Target.Longitude, position.Zoom);            
+        }
+
+        private void OnCloseFrameCommand()
         {
             IsVisibleFrame = false;
         }
 
-        private void SelectedPin(object obj)
+        private void OnSelectedPinCommand(Pin selectedPin)
         {
-            if (obj is Pin selectedPin)
-            {
                 SelectedPinLable = selectedPin.Label;
                 SelectedPinDescription = selectedPin.Address;
                 SelectedPinLatitude = selectedPin.Position.Latitude.ToString();
                 SelectedPinLongitude = selectedPin.Position.Longitude.ToString();
 
                 IsVisibleFrame = true;
-            }
         }
 
-        private async Task SearchPin()
+        private async void OnSearchPinCommandAsync()
         {
-                MyPins.Clear();
-                await InitCollectionPinAsync();       
+            MyPins.Clear();
+            await InitCollectionPinAsync();       
         }
 
         public async Task InitCollectionPinAsync()
@@ -141,6 +159,7 @@ namespace MapNotepad.ViewModels
             System.Collections.Generic.IEnumerable<PinGoogleMapModel> collection = String.IsNullOrEmpty(SearchFilter)
                 ? await _pinService.GetPinsFromDBAsync()
                 : await _pinService.GetPinsFromDBAsync(SearchFilter);
+
             ObservableCollection<PinGoogleMapModel> pinGoogleMapModels = new ObservableCollection<PinGoogleMapModel>(collection);
 
             foreach (var item in pinGoogleMapModels)
@@ -153,6 +172,8 @@ namespace MapNotepad.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            IsMyLocationEnabled = await _permissionService.PermissionRequestAsync();
+
             if (parameters.TryGetValue(Constants.SELECT_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
             { 
                 Pin pin = new Pin
@@ -165,7 +186,7 @@ namespace MapNotepad.ViewModels
                 MyPins.Add(pin);
 
                 CameraPosition = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
-
+                CameraUpdate = new CameraPosition(CameraPosition, 15.0);
                 await InitCollectionPinAsync();                
             }
             else
@@ -177,9 +198,9 @@ namespace MapNotepad.ViewModels
                 Position lastPosition = new Position(_mapPositionService.Latitude(), _mapPositionService.Longitude());
 
                 CameraUpdate = new CameraPosition(lastPosition, _mapPositionService.Zoom());
-
             }
         }
+
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             IsVisibleFrame = false;

@@ -7,10 +7,13 @@ using MapNotepad.Sevices.RegistrationServices;
 using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.Sevices.Settings;
 using MapNotepad.ViewModels;
+using MapNotepad.ViewModels.PopupPageViewModels;
 using MapNotepad.Views;
+using MapNotepad.Views.PopupPageViews;
 using Prism;
+using Prism.DryIoc;
 using Prism.Ioc;
-using Prism.Unity;
+using Prism.Plugin.Popups;
 using ProfileBook.ViewModels;
 using Xamarin.Forms;
 
@@ -22,6 +25,7 @@ namespace MapNotepad
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterPopupNavigationService();
             containerRegistry.RegisterForNavigation<NavigationPage>();
 
             //registration of pages and view models
@@ -30,7 +34,8 @@ namespace MapNotepad
             containerRegistry.RegisterForNavigation<AddUpdatePinPageView, AddUpdatePinPageViewModel>();
             containerRegistry.RegisterForNavigation<MainTabbedPageView>();
             containerRegistry.RegisterForNavigation<MapPageView, MapPageViewModel>();
-            containerRegistry.RegisterForNavigation<PinPageView, PinPageViewModel>();          
+            containerRegistry.RegisterForNavigation<PinPageView, PinPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddNotePageView, AddNotePageViewModel>();
 
             //registration of services with interfaces
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());

@@ -15,14 +15,21 @@ namespace ProfileBook.ViewModels
 {
     public class SignUpPageViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
         private readonly ICheckEmailValid _checkEmailValid;
-        private readonly IRepositoryService _repositoryService;        
+        private readonly IRepositoryService _repositoryService;      
 
-        private ICommand _signUpCommand;       
+        public SignUpPageViewModel(INavigationService navigationService,
+                                   IPageDialogService dialogService,
+                                   ICheckEmailValid checkEmailValid,
+                                   IRepositoryService repositoryService) : base(navigationService)
+        {
+            _dialogService = dialogService;
+            _checkEmailValid = checkEmailValid;
+            _repositoryService = repositoryService;  
+        }
 
-        public UserModel User { get; set; }
+        #region -- Public properties --
 
         private string _name = string.Empty;
         public string Name
@@ -51,29 +58,20 @@ namespace ProfileBook.ViewModels
             get { return _conPassw; }
             set { SetProperty(ref _conPassw, value); }
         }
-
-        public SignUpPageViewModel(INavigationService navigationService,
-                                   IPageDialogService dialogService,
-                                   ICheckEmailValid checkEmailValid,
-                                   IRepositoryService repositoryService)
-        {
-            _dialogService = dialogService;
-            _checkEmailValid = checkEmailValid;
-            _navigationService = navigationService;
-            _repositoryService = repositoryService;  
-        }
-
-        public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await SignUpCompleteAsync(), () => false);
+        private ICommand _signUpCommand;
+        public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await OnSignUpCommandAsync(), () => false);
 
         private ICommand _backCommand;
-        public ICommand BackCommand => _backCommand ??= new Command( async () => await ComeBackAsync());
+        public ICommand BackCommand => _backCommand ??= new Command(OnBackCommandAsync);
 
-        private async Task ComeBackAsync()
+        #endregion
+
+        private async void OnBackCommandAsync()
         {
             await _navigationService.GoBackAsync();
         }
 
-        private async Task SignUpCompleteAsync()
+        private async Task OnSignUpCommandAsync()
         {
             bool chekRegistrData = await ChekNameEmailPasswodAsync();
 
@@ -87,11 +85,12 @@ namespace ProfileBook.ViewModels
                     { "pas", _password }
                 };
 
-                await _navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignInPageView)}", parametr);
+                await _navigationService.NavigateAsync($"{nameof(SignInPageView)}", parametr);
             }
         }
 
         #region -- Checking fields for validity --
+
         private async Task<bool> ChekNameEmailPasswodAsync()
         {
             bool isErrorExist = false;
@@ -147,6 +146,7 @@ namespace ProfileBook.ViewModels
             return isErrorExist;
         }
         #endregion
+
         private async Task SaveUserToDBAsync()
         {
             UserModel user = new UserModel

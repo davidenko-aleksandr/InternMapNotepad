@@ -14,14 +14,20 @@ namespace ProfileBook.ViewModels
 {
     public class SignInPageViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
         private readonly IUserAuthorization _userAuthentication;
         private readonly IPageDialogService _dialogService;
         private readonly IPermissionService _permissionService;
 
-        private ICommand _enterCommand;
-        private ICommand _toSignUpPageCommand;
-
+        public SignInPageViewModel(INavigationService navigationService,
+                                    IUserAuthorization userAuthentication,
+                                    IPageDialogService dialogService,
+                                    IPermissionService permissionService) : base(navigationService)
+        {
+            _userAuthentication = userAuthentication;
+            _dialogService = dialogService;
+            _permissionService = permissionService;
+        }
+        #region -- Public properties --
         public UserModel User { get; set; }
 
         private string _email = string.Empty;
@@ -38,27 +44,20 @@ namespace ProfileBook.ViewModels
             set { SetProperty(ref _password, value); }
         }
 
-        public SignInPageViewModel(INavigationService navigationService,
-                                    IUserAuthorization userAuthentication,
-                                    IPageDialogService dialogService,
-                                    IPermissionService permissionService)
-        {
-            _navigationService = navigationService;
-            _userAuthentication = userAuthentication;
-            _dialogService = dialogService;
-            _permissionService = permissionService;
-        }
+        private ICommand _enterCommand;        
+        public ICommand EnterCommand => _enterCommand ??= new Command( async () => await OnEnterCommandAsync(), () => false);
 
-        public ICommand EnterCommand => _enterCommand ??= new Command( async () => await OpenMainTabbedPageAsync(), () => false);
+        private ICommand _toSignUpPageCommand;
+        public ICommand ToSignUpPageCommand => _toSignUpPageCommand ??= new Command(OnToSignUpPageCommandAsync);
 
-        public ICommand ToSignUpPageCommand => _toSignUpPageCommand ??= new Command( async () => await OpenSignUpPageAsync());
+        #endregion
 
-        async Task OpenSignUpPageAsync()
+        private async void OnToSignUpPageCommandAsync()
         {
             await _navigationService.NavigateAsync($"{nameof(SignUpPageView)}");
         }
 
-        async Task OpenMainTabbedPageAsync()
+        private async Task OnEnterCommandAsync()
         {
             var isUserValid = await _userAuthentication.CheckUserFromDBAsync(_email, _password);
 

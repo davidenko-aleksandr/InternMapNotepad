@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:MapNotepad.Controls"
+                  x:Class="MapNotepad.Views.PopupPageViews.AddNotePageView"
+                  CloseWhenBackgroundIsClicked="True">
+    
+    <popup:PopupPage.Content>
+        <Grid VerticalOptions="Center"
+              HorizontalOptions="Center"
+              HeightRequest="550"
+              WidthRequest="320">
+
+            <Image Source="background_add_note.png"
+                   Aspect="AspectFill"
+                   HorizontalOptions="FillAndExpand"/>
+            <Label Text="Adding a new note"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   TextColor="#010210"
+                   FontSize="30"/>
+            
+            <controls:StandardEntry BorderColor="White"
+                                    PlaceholderColor="#090b36"
+                                    Placeholder="Title"
+                                    BorderThickness="2"
+                                    CornerRadius="8"
+                                    HeightRequest="50"
+                                    HorizontalOptions="FillAndExpand"
+                                    BackgroundColor="#31FFFFFF"
+                                    VerticalOptions="Start"
+                                    Margin="10, 70, 10, 0"/>
+            
+            <ImageButton Source="add_photo.png"
+                         HeightRequest="60"
+                         WidthRequest="60"
+                         Margin="10, 140, 10, 0"
+                         VerticalOptions="Start"
+                         HorizontalOptions="Center"/>
+
+            <Editor PlaceholderColor="#090b36"
+                    Placeholder="Discription"
+                    HeightRequest="250"
+                    MaxLength="120"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#31FFFFFF"
+                    VerticalOptions="Start"
+                    Margin="10, 210, 10, 0"/>
+
+            <Button Text="Cancel"
+                    VerticalOptions="End"
+                    HorizontalOptions="Start"
+                    BorderWidth="1"                    
+                    CornerRadius="15"
+                    HeightRequest="36"
+                    WidthRequest="85"
+                    Margin="10, 0, 0, 10"
+                    BackgroundColor="White"
+                    TextColor="#010210"
+                    BorderColor="#010210"
+                    Command="{Binding CancelCommand}"/>
+
+            <Button Text="Save"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    BorderWidth="1"                    
+                    CornerRadius="15"
+                    HeightRequest="36"
+                    WidthRequest="85"
+                    Margin="0, 0, 10, 10"
+                    BackgroundColor="White"
+                    TextColor="#010210"
+                    BorderColor="#010210"
+                    Command="{Binding SaveCommand}"/>
+
+        </Grid>
+    </popup:PopupPage.Content>
+</popup:PopupPage>

@@ -5,6 +5,13 @@ namespace MapNotepad.ViewModels
 {
     public class BaseViewModel : BindableBase, INavigatedAware, IConfirmNavigation
     {
+        public readonly INavigationService _navigationService;
+
+        public BaseViewModel(INavigationService navigationService) 
+        {
+            _navigationService = navigationService;
+        }
+
         public virtual bool CanNavigate(INavigationParameters parameters)
         {
             return true;

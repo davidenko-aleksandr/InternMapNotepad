@@ -7,6 +7,7 @@ using Prism;
 using Android;
 using Plugin.Permissions;
 using Acr.UserDialogs;
+using Rg.Plugins.Popup.Services;
 
 namespace MapNotepad.Droid
 {
@@ -65,25 +66,16 @@ namespace MapNotepad.Droid
                 }
             }
         }
-        public override void OnBackPressed()
+        public async override void OnBackPressed()
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             {
-                // Do something if there are some pages in the `PopupStack`
+                await PopupNavigation.Instance.PopAsync();
             }
             else
             {
                 // Do something if there are not any pages in the `PopupStack`
             }
-        }
-    }
-
-    public class AndroidInitializer : IPlatformInitializer
-    {
-
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-
         }
     }
 }
