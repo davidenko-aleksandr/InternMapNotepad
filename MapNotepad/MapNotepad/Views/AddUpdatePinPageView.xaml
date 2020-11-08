@@ -60,7 +60,7 @@
             <controls:StandardEntry Grid.Row="1" 
                                     HeightRequest="50"
                                     Placeholder="{x:Static resources:AppResources.PagePinLable}" 
-                                    Text="{Binding Lable}" 
+                                    Text="{Binding Label}" 
                                     BackgroundColor="#31FFFFFF"
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
@@ -83,10 +83,11 @@
                                     BorderColor="#c0c8de"
                                     BorderThickness="2"
                                     CornerRadius="8"/>
-            
-            <Editor Placeholder="Description" Grid.Row="4"
-                   Text="{Binding Description}"
-                   MaxLength="120"/>
+
+            <Editor Grid.Row="4"
+                    Placeholder="Description" 
+                    Text="{Binding Description}"
+                    MaxLength="120"/>
                         
             <controls:CustomMap Grid.Row="5"  
                                 VerticalOptions="FillAndExpand" 

@@ -18,10 +18,11 @@ namespace ProfileBook.ViewModels
         private readonly IPageDialogService _dialogService;
         private readonly IPermissionService _permissionService;
 
-        public SignInPageViewModel(INavigationService navigationService,
-                                    IUserAuthorization userAuthentication,
-                                    IPageDialogService dialogService,
-                                    IPermissionService permissionService) : base(navigationService)
+        public SignInPageViewModel(
+                                   INavigationService navigationService,
+                                   IUserAuthorization userAuthentication,
+                                   IPageDialogService dialogService,
+                                   IPermissionService permissionService) : base(navigationService)
         {
             _userAuthentication = userAuthentication;
             _dialogService = dialogService;

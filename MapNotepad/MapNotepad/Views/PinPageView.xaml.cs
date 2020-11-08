@@ -8,10 +8,5 @@ namespace MapNotepad.Views
         {
             InitializeComponent();
         }
-
-        private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-
-        }
     }
 }

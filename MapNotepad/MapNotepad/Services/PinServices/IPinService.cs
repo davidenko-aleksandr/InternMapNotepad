@@ -12,7 +12,10 @@ namespace MapNotepad.Sevices.PinServices
 
         Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync(string filter = null);
 
-        Task<PinGoogleMapModel> GetByIdAsync(int id);
+        Task<PinGoogleMapModel> GetPinByIdAsync(int id);
+
         Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync();
+
+        Task<int> GetPinId(double latitude, double longitude);
     }
 }

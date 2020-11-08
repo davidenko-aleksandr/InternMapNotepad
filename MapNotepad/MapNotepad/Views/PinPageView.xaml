@@ -101,7 +101,25 @@
                                            MaxLines="1"
                                            HorizontalOptions="Start"
                                            VerticalOptions="End"/>
-                                    
+
+                                    <Label VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           TextColor="Blue">
+                                        
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding LableForCountOfNote}"
+                                                      TextColor="#c0c8de"
+                                                      TextDecorations="Underline">
+                                                    <Span.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.OpenNotesCommand, 
+                                                             Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
+                                                    </Span.GestureRecognizers>
+                                                </Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
                                     <Button Grid.Column="1"
                                             x:Name="myButton"
                                             Command="{Binding BindingContext.AddOrRemoveFavoritCommand, 
@@ -128,7 +146,7 @@
             </local:BetterListView>
 
             <Label Grid.Row="2" 
-                   Text="{Binding NotAddedPins}"
+                   Text="{Binding NoPins}"
                    TextColor="#63bcd7"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>

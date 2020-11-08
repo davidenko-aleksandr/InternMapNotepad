@@ -1,7 +1,6 @@
 ﻿using MapNotepad.Models;
 using MapNotepad.Sevices.RegistrationServices;
 using MapNotepad.Sevices.RepositoryService;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MapNotepad.Services

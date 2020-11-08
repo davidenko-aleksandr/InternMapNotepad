@@ -91,13 +91,13 @@
                             <BindingCondition Binding="{Binding Source={x:Reference loginEntry},
                                     Path=Text.Length,
                                     Converter={StaticResource isButtonEnabled}}"
-                                    Value="true" 
-                            />
+                                    Value="true"/>
+                            
                             <BindingCondition Binding="{Binding Source={x:Reference passwordEntry},
                                     Path=Text.Length,
                                     Converter={StaticResource isButtonEnabled}}"
-                                    Value="true" 
-                            />
+                                    Value="true"/>
+                            
                         </MultiTrigger.Conditions>
                         
                         <Setter Property="IsEnabled" Value="True"/>
@@ -113,7 +113,7 @@
                     <FormattedString>
                         <Span Text="{x:Static resources:AppResources.PageButtonHyperLink}"
                             TextColor="#c0c8de"
-                            TextDecorations="Underline">                            
+                            TextDecorations="Underline">
                             <Span.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToSignUpPageCommand}"/>
                             </Span.GestureRecognizers>                            

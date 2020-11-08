@@ -1,6 +1,8 @@
 ﻿using MapNotepad.Models;
 using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.Sevices.Settings;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 using System.Threading.Tasks;
 
 namespace MapNotepad.Services.AuthenticationServices
@@ -11,8 +13,16 @@ namespace MapNotepad.Services.AuthenticationServices
         private readonly ISettingsService _settingsService;
 
         private UserModel _currentUser;
+        private ISettings UserSettings => CrossSettings.Current;
 
-        public UserAuthorization(IRepositoryService repositoryService, ISettingsService settingsService)
+        public bool IsAuthorized
+        {
+            get => UserSettings.GetValueOrDefault(nameof(IsAuthorized), false);
+            set => UserSettings.AddOrUpdateValue(nameof(IsAuthorized), value);
+        }
+
+        public UserAuthorization(IRepositoryService repositoryService, 
+                                 ISettingsService settingsService)
         {
             _repositoryService = repositoryService;
             _settingsService = settingsService;
@@ -22,12 +32,12 @@ namespace MapNotepad.Services.AuthenticationServices
         {
             bool isSuccess = false;
 
-            _currentUser = await _repositoryService.GetItemAsync<UserModel>(us => us.Email == email.ToUpper() && us.Password == password);
+            _currentUser = await _repositoryService.GetItemAsync<UserModel>(us => us.Email.ToUpper() == email.ToUpper() && us.Password == password);
             
             if (_currentUser != null)
             {
                 isSuccess = true;
-                _settingsService.IsAuthorized = true;
+                IsAuthorized = true;
                 _settingsService.CurrentUserID = GetIdCurrentUser();
             }
 
@@ -39,9 +49,9 @@ namespace MapNotepad.Services.AuthenticationServices
             return _currentUser.Id;
         }
 
-        public void ExitUser()
+        public void LogOut()
         {
-            _settingsService.IsAuthorized = false;
+            IsAuthorized = false;
         }
     }
 }

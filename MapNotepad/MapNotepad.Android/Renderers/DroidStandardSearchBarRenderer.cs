@@ -24,11 +24,13 @@ namespace MapNotepad.Droid.Renderers
 
             return control;
         }
+
         public override void SetBackgroundColor(Color color)
         {
-            if (Control == null) return;
-
-            SetBackground(Control, color);
+            if (Control != null)
+            {
+                SetBackground(Control, color);
+            }            
         }
 
         private void SetBackground(SearchView control, Color color)

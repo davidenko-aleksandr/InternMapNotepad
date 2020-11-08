@@ -95,7 +95,7 @@
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPasswConfirm}"  
                                     WidthRequest="380"
                                     IsPassword ="True" 
-                                    Text="{Binding ConPassw}"
+                                    Text="{Binding ConfirmPassword}"
                                     BackgroundColor="#31FFFFFF"
                                     BorderColor="White"
                                     PlaceholderColor="#4ba3be"

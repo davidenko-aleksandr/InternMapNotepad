@@ -15,7 +15,8 @@ namespace MapNotepad.ViewModels
 
         private PinGoogleMapModel _pinGoogleMapModel;
         
-        public AddUpdatePinPageViewModel(IPinService pinService,
+        public AddUpdatePinPageViewModel(
+                                         IPinService pinService,
                                          INavigationService navigationService) : base(navigationService)
         {
             _pinService = pinService;
@@ -24,11 +25,11 @@ namespace MapNotepad.ViewModels
         }
 
         #region -- Public properties --
-        private string _lable = string.Empty;
-        public string Lable
+        private string _label = string.Empty;
+        public string Label
         {
-            get { return _lable; }
-            set { SetProperty(ref _lable, value); }
+            get { return _label; }
+            set { SetProperty(ref _label, value); }
         }
 
         private string _description = string.Empty;
@@ -90,7 +91,7 @@ namespace MapNotepad.ViewModels
             Pin p = new Pin
             {
                 Position = new Position(Latitude, Longitude),
-                Label = Lable,
+                Label = Label,
                 Address = Description
             };
 
@@ -102,7 +103,7 @@ namespace MapNotepad.ViewModels
         {
             if (_pinGoogleMapModel != null)
             {
-                _pinGoogleMapModel.Label = Lable;
+                _pinGoogleMapModel.Label = Label;
                 _pinGoogleMapModel.Description = Description;
                 _pinGoogleMapModel.Latitude = Latitude;
                 _pinGoogleMapModel.Longitude = Longitude;
@@ -113,7 +114,7 @@ namespace MapNotepad.ViewModels
             {
                 PinGoogleMapModel pin = new PinGoogleMapModel
                 {
-                    Label = Lable,
+                    Label = Label,
                     Description = Description,
                     Latitude = Latitude,
                     Longitude = Longitude
@@ -127,7 +128,7 @@ namespace MapNotepad.ViewModels
         {
             if (parameters.TryGetValue(Constants.SELECT_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
             {
-                Lable = _pinGoogleMapModel.Label;
+                Label = _pinGoogleMapModel.Label;
                 Description = _pinGoogleMapModel.Description;
                 Latitude = _pinGoogleMapModel.Latitude;
                 Longitude = _pinGoogleMapModel.Longitude;

@@ -10,6 +10,7 @@ using Prism.Navigation.TabbedPages;
 using MapNotepad.Services.AuthenticationServices;
 using Acr.UserDialogs;
 using MapNotepad.Resources;
+using MapNotepad.Views.PopupPageViews;
 
 namespace MapNotepad.ViewModels
 {
@@ -18,9 +19,10 @@ namespace MapNotepad.ViewModels
         private readonly IPinService _pinService;
         private readonly IUserAuthorization _userAuthorization;
         
-        public PinPageViewModel(INavigationService navigationService,
-                        IPinService pinService,
-                        IUserAuthorization userAuthorization) : base(navigationService)
+        public PinPageViewModel(
+                                INavigationService navigationService,
+                                IPinService pinService,
+                                IUserAuthorization userAuthorization) : base(navigationService)
         {
             _pinService = pinService;
             _userAuthorization = userAuthorization;
@@ -35,12 +37,13 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _searchFilter, value); }
         }
 
-        private string _notAddedPins = string.Empty;
-        public string NotAddedPins
+        private string _noPins = string.Empty;
+        public string NoPins
         {
-            get { return _notAddedPins; }
-            set { SetProperty(ref _notAddedPins, value); }
+            get { return _noPins; }
+            set { SetProperty(ref _noPins, value); }
         }
+
         private ObservableCollection<PinGoogleMapModel> _pinsGoogleMapCollection;
         public ObservableCollection<PinGoogleMapModel> PinsGoogleMapCollection
         {
@@ -68,6 +71,17 @@ namespace MapNotepad.ViewModels
 
         private ICommand _deletePinCommand;
         public ICommand DeletePinCommand => _deletePinCommand ??= new Command<PinGoogleMapModel>(OnDeletePinSelectedCommandAsync);
+
+        private ICommand _openNotesCommand;
+        public ICommand OpenNotesCommand => _openNotesCommand ??= new Command<PinGoogleMapModel>(OnOpenNotesCommandAsync);
+
+        private async void OnOpenNotesCommandAsync(PinGoogleMapModel pinModel)
+        {
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, pinModel.Id } };
+
+            await _navigationService.NavigateAsync($"{nameof(ListOfNotesPageView)}", parameters); 
+        }
+
         #endregion
 
         private async void OnDeletePinSelectedCommandAsync(PinGoogleMapModel selectedPin)
@@ -88,9 +102,9 @@ namespace MapNotepad.ViewModels
 
         private async void OnEditPinSelectedCommandAsync(PinGoogleMapModel selectedPin)
         {
-            NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
 
-            await _navigationService.NavigateAsync($"{nameof(AddUpdatePinPageView)}", parametr);
+            await _navigationService.NavigateAsync($"{nameof(AddUpdatePinPageView)}", parameters);
         }
 
         private async void OnSearchPinCommandAsync()
@@ -123,7 +137,7 @@ namespace MapNotepad.ViewModels
         {
             await _navigationService.NavigateAsync($"{nameof(SignInPageView)}");
 
-            _userAuthorization.ExitUser();
+            _userAuthorization.LogOut();
         }
 
         public async Task InitTableAsync()
@@ -132,7 +146,7 @@ namespace MapNotepad.ViewModels
 
             PinsGoogleMapCollection = new ObservableCollection<PinGoogleMapModel>(collection);
 
-            NotAddedPins = PinsGoogleMapCollection.Count == 0 ? "No pins added" : string.Empty;
+            NoPins = PinsGoogleMapCollection.Count == 0 ? "No pins added" : string.Empty;
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)

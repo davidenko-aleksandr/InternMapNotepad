@@ -6,6 +6,7 @@ using MapNotepad.Sevices.PinServices;
 using MapNotepad.Views.PopupPageViews;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,8 +22,10 @@ namespace MapNotepad.ViewModels
         private readonly IPermissionService _permissionService;
 
         private PinGoogleMapModel _pinGoogleMapModel;
+        private Pin _pin;
 
-        public MapPageViewModel(IPinService pinService, 
+        public MapPageViewModel(
+                                IPinService pinService, 
                                 IMapPositionService mapPositionService,
                                 IPermissionService permissionService,
                                 INavigationService navigationService) : base(navigationService)
@@ -32,6 +35,7 @@ namespace MapNotepad.ViewModels
             _pinGoogleMapModel = new PinGoogleMapModel();
             _mapPositionService = mapPositionService;
             _permissionService = permissionService;
+            _pin = new Pin();
         }
 
         #region -- Public properties --
@@ -57,11 +61,11 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _cameraUpdate, value); }
         }
 
-        private string _selectedPinLable = string.Empty;
-        public string SelectedPinLable
+        private string _selectedPinLabel = string.Empty;
+        public string SelectedPinLabel
         {
-            get { return _selectedPinLable; }
-            set { SetProperty(ref _selectedPinLable, value); }
+            get { return _selectedPinLabel; }
+            set { SetProperty(ref _selectedPinLabel, value); }
         }
 
         private string _selectedPinDescription = string.Empty;
@@ -125,7 +129,11 @@ namespace MapNotepad.ViewModels
 
         private async void OnOpenAddNoteViewPageCommandAsync()
         {
-            await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}");
+            int pinId = await _pinService.GetPinId(_pin.Position.Latitude, _pin.Position.Longitude);
+
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, pinId } };
+
+            await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}", parameters);
         }
 
         private void OnGetPositionCommand(CameraPosition position)
@@ -140,31 +148,33 @@ namespace MapNotepad.ViewModels
 
         private void OnSelectedPinCommand(Pin selectedPin)
         {
-                SelectedPinLable = selectedPin.Label;
-                SelectedPinDescription = selectedPin.Address;
-                SelectedPinLatitude = selectedPin.Position.Latitude.ToString();
-                SelectedPinLongitude = selectedPin.Position.Longitude.ToString();
+            _pin = selectedPin;
+            SelectedPinLabel = _pin.Label;
+            SelectedPinDescription = _pin.Address;
+            SelectedPinLatitude = _pin.Position.Latitude.ToString();
+            SelectedPinLongitude = _pin.Position.Longitude.ToString();
 
-                IsVisibleFrame = true;
+            IsVisibleFrame = true;
         }
 
         private async void OnSearchPinCommandAsync()
         {
-            MyPins.Clear();
             await InitCollectionPinAsync();       
         }
 
         public async Task InitCollectionPinAsync()
         {
-            System.Collections.Generic.IEnumerable<PinGoogleMapModel> collection = String.IsNullOrEmpty(SearchFilter)
+            IEnumerable<PinGoogleMapModel> collection = String.IsNullOrEmpty(SearchFilter)
                 ? await _pinService.GetPinsFromDBAsync()
                 : await _pinService.GetPinsFromDBAsync(SearchFilter);
 
             ObservableCollection<PinGoogleMapModel> pinGoogleMapModels = new ObservableCollection<PinGoogleMapModel>(collection);
 
+            MyPins.Clear();
+
             foreach (var item in pinGoogleMapModels)
             {                
-                MyPins.Add(PinGoogleMapModelExtention.ToPin(item));
+                MyPins.Add(PinGoogleMapModelExtension.ToPin(item));
             }           
         }
 
@@ -182,22 +192,21 @@ namespace MapNotepad.ViewModels
                     Label = _pinGoogleMapModel.Label,
                     Address = _pinGoogleMapModel.Description
                 };
-                MyPins.Clear();
+                
+                await InitCollectionPinAsync();
+
                 MyPins.Add(pin);
 
                 CameraPosition = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
-                CameraUpdate = new CameraPosition(CameraPosition, 15.0);
-                await InitCollectionPinAsync();                
+                CameraUpdate = new CameraPosition(CameraPosition, 15.0);                               
             }
             else
-            {    
-                MyPins.Clear();
-
+            {   
                 await InitCollectionPinAsync();
 
-                Position lastPosition = new Position(_mapPositionService.Latitude(), _mapPositionService.Longitude());
+                Position lastPosition = new Position(_mapPositionService.Latitude, _mapPositionService.Longitude);
 
-                CameraUpdate = new CameraPosition(lastPosition, _mapPositionService.Zoom());
+                CameraUpdate = new CameraPosition(lastPosition, _mapPositionService.Zoom);
             }
         }
 

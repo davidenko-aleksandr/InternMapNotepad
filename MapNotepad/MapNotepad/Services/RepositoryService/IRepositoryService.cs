@@ -8,7 +8,7 @@ namespace MapNotepad.Sevices.RepositoryService
 {
     public interface IRepositoryService
     {
-        Task<IEnumerable<T>> GetItemsAsync<T>() where T : IBaseModel, new();
+        Task<IEnumerable<T>> GetItemsAsync<T>(Expression<Func<T, bool>> predicate = null) where T : IBaseModel, new();
 
         Task<T> GetItemAsync<T>(Expression<Func<T, bool>> predicate = null) where T : IBaseModel, new();
 

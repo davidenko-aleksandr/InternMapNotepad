@@ -4,17 +4,29 @@ namespace MapNotepad.Controls
 {
     public sealed class StandardEntry : Entry
     {
-        public static BindableProperty CornerRadiusProperty =
-            BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(StandardEntry), 0);
+        public static BindableProperty CornerRadiusProperty = BindableProperty.Create(
+                                                                                nameof(CornerRadius), 
+                                                                                typeof(int), 
+                                                                                typeof(StandardEntry), 
+                                                                                0);
 
-        public static BindableProperty BorderThicknessProperty =
-            BindableProperty.Create(nameof(BorderThickness), typeof(int), typeof(StandardEntry), 0);
+        public static BindableProperty BorderThicknessProperty = BindableProperty.Create(
+                                                                                   nameof(BorderThickness), 
+                                                                                   typeof(int), 
+                                                                                   typeof(StandardEntry), 
+                                                                                   0);
 
-        public static BindableProperty PaddingProperty =
-            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(StandardEntry), new Thickness(5));
+        public static BindableProperty PaddingProperty = BindableProperty.Create(
+                                                                           nameof(Padding), 
+                                                                           typeof(Thickness), 
+                                                                           typeof(StandardEntry), 
+                                                                           new Thickness(5));
 
-        public static BindableProperty BorderColorProperty =
-            BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(StandardEntry), Color.Transparent);
+        public static BindableProperty BorderColorProperty = BindableProperty.Create(
+                                                                               nameof(BorderColor), 
+                                                                               typeof(Color), 
+                                                                               typeof(StandardEntry), 
+                                                                               Color.Transparent);
 
         public int CornerRadius
         {

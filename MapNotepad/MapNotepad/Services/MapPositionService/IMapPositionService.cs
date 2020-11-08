@@ -4,10 +4,10 @@
     {
         void ReadCameraPosition(double latitude, double longitude, double zoom);
 
-        double Latitude();
+        double Latitude { get; }
 
-        double Longitude();
+        double Longitude { get; }
 
-        double Zoom();
+        double Zoom { get; }
     }
 }

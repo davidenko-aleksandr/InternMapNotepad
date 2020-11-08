@@ -8,22 +8,25 @@ namespace MapNotepad.Controls
 {
     public class CustomMap : ClusteredMap
     {
-        public static readonly BindableProperty MapCameraPositionProperty = BindableProperty.Create(propertyName: nameof(MapCameraPosition),
-                                                                                                    returnType: typeof(Position),
-                                                                                                    declaringType: typeof(CustomMap),
-                                                                                                    defaultBindingMode: BindingMode.TwoWay,
-                                                                                                    propertyChanged: CameraPositionPropertyChanged);
+        public static readonly BindableProperty MapCameraPositionProperty = BindableProperty.Create(
+                                                                                              propertyName: nameof(MapCameraPosition),
+                                                                                              returnType: typeof(Position),
+                                                                                              declaringType: typeof(CustomMap),
+                                                                                              defaultBindingMode: BindingMode.TwoWay,
+                                                                                              propertyChanged: CameraPositionPropertyChanged);
 
-        public static readonly BindableProperty PinListProperty = BindableProperty.Create(nameof(PinList),
-                                                                                         typeof(ObservableCollection<Pin>),
-                                                                                         typeof(CustomMap),
-                                                                                         propertyChanged: OnPinListPropertyChanged);
+        public static readonly BindableProperty PinListProperty = BindableProperty.Create(
+                                                                                    nameof(PinList),
+                                                                                    typeof(ObservableCollection<Pin>),
+                                                                                    typeof(CustomMap),
+                                                                                    propertyChanged: OnPinListPropertyChanged);
 
-        public static readonly BindableProperty OpenMapPositionProperty = BindableProperty.Create(propertyName: nameof(OpenMapPosition),
-                                                                                                    returnType: typeof(CameraPosition),
-                                                                                                    declaringType: typeof(CustomMap),
-                                                                                                    defaultBindingMode: BindingMode.TwoWay,
-                                                                                                    propertyChanged: OpenMapCameraPosition);
+        public static readonly BindableProperty OpenMapPositionProperty = BindableProperty.Create(
+                                                                                            propertyName: nameof(OpenMapPosition),
+                                                                                            returnType: typeof(CameraPosition),
+                                                                                            declaringType: typeof(CustomMap),
+                                                                                            defaultBindingMode: BindingMode.TwoWay,
+                                                                                            propertyChanged: OpenMapCameraPosition);
         public CameraPosition OpenMapPosition
         {
             get => (CameraPosition)GetValue(OpenMapPositionProperty);
@@ -89,7 +92,7 @@ namespace MapNotepad.Controls
 
         private static void CameraPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (newValue != oldValue && bindable as CustomMap != null && newValue != null)
+            if (newValue != oldValue && bindable is CustomMap && newValue != null)
             {
                 UpdateCameraPosition(bindable as CustomMap, (Position)newValue);
             }
@@ -97,7 +100,7 @@ namespace MapNotepad.Controls
 
         private static void OpenMapCameraPosition(BindableObject bindable, object oldValue, object newValue)
         {
-            var map = bindable as Map;
+            Map map = bindable as Map;
             var cameraPosition = newValue as CameraPosition;
 
             var position = new Position(cameraPosition.Target.Latitude, cameraPosition.Target.Longitude);

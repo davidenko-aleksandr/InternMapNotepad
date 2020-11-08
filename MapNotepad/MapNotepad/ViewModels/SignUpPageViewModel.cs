@@ -19,7 +19,8 @@ namespace ProfileBook.ViewModels
         private readonly ICheckEmailValid _checkEmailValid;
         private readonly IRepositoryService _repositoryService;      
 
-        public SignUpPageViewModel(INavigationService navigationService,
+        public SignUpPageViewModel(
+                                   INavigationService navigationService,
                                    IPageDialogService dialogService,
                                    ICheckEmailValid checkEmailValid,
                                    IRepositoryService repositoryService) : base(navigationService)
@@ -52,11 +53,11 @@ namespace ProfileBook.ViewModels
             set { SetProperty(ref _password, value); }
         }
 
-        private string _conPassw = string.Empty;
-        public string ConPassw
+        private string _confirmPassword = string.Empty;
+        public string ConfirmPassword
         {
-            get { return _conPassw; }
-            set { SetProperty(ref _conPassw, value); }
+            get { return _confirmPassword; }
+            set { SetProperty(ref _confirmPassword, value); }
         }
         private ICommand _signUpCommand;
         public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await OnSignUpCommandAsync(), () => false);
@@ -79,13 +80,13 @@ namespace ProfileBook.ViewModels
             {
                 await SaveUserToDBAsync();
 
-                var parametr = new NavigationParameters
+                var parameters = new NavigationParameters
                 {
                     { "email", _email },
                     { "pas", _password }
                 };
 
-                await _navigationService.NavigateAsync($"{nameof(SignInPageView)}", parametr);
+                await _navigationService.NavigateAsync($"{nameof(SignInPageView)}", parameters);
             }
         }
 
@@ -95,14 +96,14 @@ namespace ProfileBook.ViewModels
         {
             bool isErrorExist = false;
 
-            if (Validator.ValidateNameError(_name))
+            if (Validator.ValidateName(_name))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectName, AppResources.AlertNameRequared, AppResources.AlertOk);   
                 
                 isErrorExist = true;
             }
             
-            if (Validator.ValidateEmailError(_email))
+            if (Validator.ValidateEmail(_email))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectEmail, AppResources.AlertEmailRequared, AppResources.AlertOk);
 
@@ -111,22 +112,22 @@ namespace ProfileBook.ViewModels
                 isErrorExist = true;
             }
 
-            if (Validator.PasswordValidationError(_password))
+            if (Validator.ValidatePassword(_password))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectPassword, AppResources.AlertPasswordRequared, AppResources.AlertOk);
 
                 Password = string.Empty;
-                ConPassw = string.Empty;
+                ConfirmPassword = string.Empty;
 
                 isErrorExist = true;
             }
 
-            if (!isErrorExist && _password != _conPassw)
+            if (!isErrorExist && _password != _confirmPassword)
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertNotConfirmPassword, AppResources.AlertOk);
 
                 Password = string.Empty;
-                ConPassw = string.Empty;
+                ConfirmPassword = string.Empty;
 
                 isErrorExist = true;                
             }

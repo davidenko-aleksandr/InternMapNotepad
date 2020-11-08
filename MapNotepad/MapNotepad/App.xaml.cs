@@ -1,5 +1,6 @@
 ﻿using MapNotepad.Services;
 using MapNotepad.Services.AuthenticationServices;
+using MapNotepad.Services.NoteService;
 using MapNotepad.Sevices.MapPositionService;
 using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Sevices.PinServices;
@@ -36,6 +37,7 @@ namespace MapNotepad
             containerRegistry.RegisterForNavigation<MapPageView, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<PinPageView, PinPageViewModel>();
             containerRegistry.RegisterForNavigation<AddNotePageView, AddNotePageViewModel>();
+            containerRegistry.RegisterForNavigation<ListOfNotesPageView, ListOfNotesPageViewModel>();            
 
             //registration of services with interfaces
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
@@ -44,7 +46,9 @@ namespace MapNotepad
             containerRegistry.RegisterInstance<IUserAuthorization>(Container.Resolve<UserAuthorization>());
             containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
-            containerRegistry.RegisterInstance<IMapPositionService>(Container.Resolve<MapPositionService>());            
+            containerRegistry.RegisterInstance<IMapPositionService>(Container.Resolve<MapPositionService>());
+            containerRegistry.RegisterInstance<INoteForPinService>(Container.Resolve<NoteForPinService>());
+            
         }
 
         public static T Resolve<T>()
@@ -56,7 +60,7 @@ namespace MapNotepad
         {
             Device.SetFlags(new string[] { "RadioButton_Experimental" });
 
-            if (Resolve<ISettingsService>().IsAuthorized)
+            if (Resolve<IUserAuthorization>().IsAuthorized)
             {
                 NavigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
             }

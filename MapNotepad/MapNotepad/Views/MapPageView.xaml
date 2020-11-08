@@ -73,13 +73,13 @@
                 <Grid>
                     <StackLayout>
 
-                        <Label Text="{Binding SelectedPinLable, Mode=TwoWay}" FontSize="Large"/>
+                        <Label Text="{Binding SelectedPinLabel}" FontSize="Large"/>
 
-                        <Label Text="{Binding SelectedPinDescription, Mode=TwoWay}"/>
+                        <Label Text="{Binding SelectedPinDescription}"/>
 
-                        <Label Text="{Binding SelectedPinLatitude, Mode=TwoWay}"/>
+                        <Label Text="{Binding SelectedPinLatitude}"/>
 
-                        <Label Text="{Binding SelectedPinLongitude, Mode=TwoWay}"/>                        
+                        <Label Text="{Binding SelectedPinLongitude}"/>                        
 
                     </StackLayout>
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MapNotepad.Validators
 {
@@ -11,23 +8,21 @@ namespace MapNotepad.Validators
         public const string NAME_VALID = @"^\d\w*";
         public const string PASSWORD_UP_VALID = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
 
-        public static bool ValidateEmailError(string email)
+        public static bool ValidateEmail(string email)
         {
-            return _ = email.Length < 4
-                     || email.Length > 16
-                     || !Regex.IsMatch(email, EMAIL_VALID, RegexOptions.IgnoreCase);
+            return email.Length < 4
+                   || email.Length > 16
+                   || !Regex.IsMatch(email, EMAIL_VALID, RegexOptions.IgnoreCase);
         }
 
-        public static bool ValidateNameError(string name)
+        public static bool ValidateName(string name)
         {
             return name.Length > 16 || Regex.IsMatch(name, NAME_VALID, RegexOptions.IgnoreCase);
         }
 
-        public static bool PasswordValidationError(string pasword)
+        public static bool ValidatePassword(string pasword)
         {
-
             return !Regex.IsMatch(pasword, PASSWORD_UP_VALID, RegexOptions.IgnoreCase);
         }
-
     }
 }

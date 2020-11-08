@@ -20,6 +20,7 @@ namespace MapNotepad.Models
 
         public bool IsFavorite { get; set; }
 
-        public string Image { get; set; }
+        public int CountOfNote { get; set; }
+        public string LableForCountOfNote { get; set; }
     }
 }

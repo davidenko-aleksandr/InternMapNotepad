@@ -3,7 +3,7 @@ using Xamarin.Forms.GoogleMaps;
 
 namespace MapNotepad.Extentions
 {
-    public static class PinGoogleMapModelExtention
+    public static class PinGoogleMapModelExtension
     {
         public static Pin ToPin(this PinGoogleMapModel pin)
         {
@@ -12,7 +12,6 @@ namespace MapNotepad.Extentions
                 Label = pin.Label,
                 Position = new Position(pin.Latitude, pin.Longitude),
                 Address = pin.Description
-
             };
         }
     }

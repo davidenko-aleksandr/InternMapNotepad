@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
-using CoreGraphics;
-using Foundation;
 using MapNotepad.Controls;
 using MapNotepad.iOS.Renderers;
 using UIKit;
@@ -50,57 +48,10 @@ namespace MapNotepad.iOS.Renderers
 
         protected void UpdatePadding()
         {
-            if (Control == null)
-                return;
-
-            ControlV2.Padding = ElementV2.Padding;
-        }
-    }
-
-    public class UITextFieldPadding : UITextField
-    {
-        private Thickness _padding = new Thickness(5);
-
-        public Thickness Padding
-        {
-            get => _padding;
-            set
+            if (Control != null)
             {
-                if (_padding != value)
-                {
-                    _padding = value;
-                    //InvalidateIntrinsicContentSize();
-                }
-            }
+                ControlV2.Padding = ElementV2.Padding;
+            }            
         }
-
-        public UITextFieldPadding()
-        {
-        }
-        public UITextFieldPadding(NSCoder coder) : base(coder)
-        {
-        }
-
-        public UITextFieldPadding(CGRect rect) : base(rect)
-        {
-        }
-
-        public override CGRect TextRect(CGRect forBounds)
-        {
-            var insets = new UIEdgeInsets((float)Padding.Top, (float)Padding.Left, (float)Padding.Bottom, (float)Padding.Right);
-            return insets.InsetRect(forBounds);
-        }
-
-        public override CGRect PlaceholderRect(CGRect forBounds)
-        {
-            var insets = new UIEdgeInsets((float)Padding.Top, (float)Padding.Left, (float)Padding.Bottom, (float)Padding.Right);
-            return insets.InsetRect(forBounds);
-        }
-
-        public override CGRect EditingRect(CGRect forBounds)
-        {
-            var insets = new UIEdgeInsets((float)Padding.Top, (float)Padding.Left, (float)Padding.Bottom, (float)Padding.Right);
-            return insets.InsetRect(forBounds);
-        }
-    }
+    }   
 }
