@@ -65,9 +65,7 @@ namespace MapNotepad.Droid.Renderers
             }            
         }
 
-            #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
-        protected void UpdateBackground()
-            #pragma warning restore CS0114 // Member hides inherited member; missing override keyword
+        protected new void UpdateBackground()
         {
             UpdateBackground(Control);
         }

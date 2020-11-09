@@ -10,7 +10,7 @@ using Prism.Navigation.TabbedPages;
 using MapNotepad.Services.AuthenticationServices;
 using Acr.UserDialogs;
 using MapNotepad.Resources;
-using MapNotepad.Views.PopupPageViews;
+using MapNotepad.Services.NoteService;
 
 namespace MapNotepad.ViewModels
 {
@@ -18,14 +18,17 @@ namespace MapNotepad.ViewModels
     {
         private readonly IPinService _pinService;
         private readonly IUserAuthorization _userAuthorization;
+        private readonly INoteForPinService _noteForPinService;
         
         public PinPageViewModel(
                                 INavigationService navigationService,
                                 IPinService pinService,
+                                INoteForPinService noteForPinService,
                                 IUserAuthorization userAuthorization) : base(navigationService)
         {
             _pinService = pinService;
             _userAuthorization = userAuthorization;
+            _noteForPinService = noteForPinService;
         }
 
         #region -- Public properties --
@@ -77,7 +80,7 @@ namespace MapNotepad.ViewModels
 
         private async void OnOpenNotesCommandAsync(PinGoogleMapModel pinModel)
         {
-            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, pinModel.Id } };
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, pinModel.Id } };
 
             await _navigationService.NavigateAsync($"{nameof(ListOfNotesPageView)}", parameters); 
         }
@@ -95,14 +98,17 @@ namespace MapNotepad.ViewModels
 
             if (result == true)
             {
-                await _pinService.DeletePinAsync(selectedPin.Id);
+                await _noteForPinService.DeleteCollectionNoteAsync(selectedPin.Id);
+
+                await _pinService.DeletePinAsync(selectedPin.Id);                
+
                 await InitTableAsync();
             }                            
         }        
 
         private async void OnEditPinSelectedCommandAsync(PinGoogleMapModel selectedPin)
         {
-            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, selectedPin } };
 
             await _navigationService.NavigateAsync($"{nameof(AddUpdatePinPageView)}", parameters);
         }
@@ -123,7 +129,7 @@ namespace MapNotepad.ViewModels
 
         private async void OnPinSelectedCommandAsync(PinGoogleMapModel selectedPin)
         {
-            NavigationParameters parametr = new NavigationParameters { { Constants.SELECT_PIN, selectedPin } };
+            NavigationParameters parametr = new NavigationParameters { { Constants.SELECTED_PIN, selectedPin } };
 
             await _navigationService.SelectTabAsync($"{nameof(MapPageView)}", parametr);            
         }

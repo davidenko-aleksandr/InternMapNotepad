@@ -21,12 +21,11 @@
 
         <Image Aspect="AspectFill"
                HorizontalOptions="FillAndExpand"
-               Source="background_registration.png"
-        />
+               Source="background_registration.png"/>
 
         <Grid VerticalOptions="Start"
-                     HorizontalOptions="FillAndExpand"
-                     HeightRequest="65">
+              HorizontalOptions="FillAndExpand"
+              HeightRequest="65">
             
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">

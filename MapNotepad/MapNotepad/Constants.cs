@@ -7,6 +7,8 @@ namespace MapNotepad
 
         public const string DATABASE_NAME = "user.db";
 
-        public const string SELECT_PIN = "selectPin";
+        public const string SELECTED_PIN = "selectedPin";
+
+        public const string SELECTED_NOTE = "selectedNote";
     }
 }

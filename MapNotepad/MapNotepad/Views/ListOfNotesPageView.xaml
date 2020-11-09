@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:MapNotepad.Resources" 
+             x:Class="MapNotepad.Views.ListOfNotesPageView">
+    
+    <ContentPage.Content>
+        <Grid>
+
+            <Image Source="background_note.png"
+                   BackgroundColor="#d7d8fa"
+                   Aspect="AspectFill"
+                   HorizontalOptions="FillAndExpand"/>
+
+            <Grid VerticalOptions="Start"
+                  HorizontalOptions="FillAndExpand"
+                  HeightRequest="65">
+
+                <Grid.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0, 0, 0, 0"/>
+                        <On Platform="iOS" Value="0, 34, 0, 0"/>
+                    </OnPlatform>
+                </Grid.Padding>
+
+                <Button Text="{x:Static resources:AppResources.PageButtonBack}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        BorderWidth="1"                    
+                        CornerRadius="10"
+                        HeightRequest="36"
+                        WidthRequest="65"
+                        BackgroundColor="#31FFFFFF"
+                        TextColor="#4ba3be"
+                        BorderColor="#4ba3be"
+                        Command="{Binding BackCommand}"
+                        Margin="5"/>
+
+                <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Text="{x:Static resources:AppResources.PageListNotesTitle}"
+                   FontSize="30"
+                   TextColor="#63bcd7"/>                
+            </Grid>
+
+            <StackLayout>
+                <StackLayout.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0"/>
+                        <On Platform="iOS" Value="0, 100, 0, 0"/>
+                    </OnPlatform>
+                </StackLayout.Margin>
+                         
+                <ListView x:Name="listOfNotes"
+                      ItemsSource="{Binding CollectionNotes}"
+                      HasUnevenRows="True"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      BackgroundColor="#50FFFFFF">
+                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <Image Source="{Binding Image}"
+                                           HeightRequest="100"
+                                           WidthRequest="100"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           Margin="5"/>
+
+                                        <StackLayout>
+
+                                            <Label Text="{Binding NoteTitle}" 
+                                               FontSize="Body"
+                                               HorizontalOptions="Center"
+                                               Margin="0, 5, 0, 0"/>
+
+                                            <Label Text="{Binding NoteDescription}"
+                                               HorizontalOptions="FillAndExpand"
+                                               VerticalOptions="FillAndExpand"
+                                               MaxLines="8"/>
+
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell.View>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="{x:Static resources:AppResources.PageBattonEdit}"
+                                      Command="{Binding BindingContext.EditPinCommand, 
+                                      Source={x:Reference listOfNotes}}" CommandParameter="{Binding .}"/>
+
+                                    <MenuItem Text="{x:Static resources:AppResources.PageBattonDelete}" 
+                                      Command="{Binding BindingContext.DeletePinCommand, 
+                                      Source={x:Reference listOfNotes}}" CommandParameter="{Binding .}"/>
+                                </ViewCell.ContextActions>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

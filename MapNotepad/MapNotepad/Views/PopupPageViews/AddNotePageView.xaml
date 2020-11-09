@@ -11,7 +11,8 @@
               HeightRequest="550"
               WidthRequest="320">
 
-            <Image Source="background_add_note.png"
+            <Image Source="background_note.png"
+                   BackgroundColor="#d7d8fa"
                    Aspect="AspectFill"
                    HorizontalOptions="FillAndExpand"/>
             <Label Text="Adding a new note"
@@ -23,7 +24,7 @@
             
             <controls:StandardEntry Text ="{Binding NoteLable}"
                                     BorderColor="White"
-                                    PlaceholderColor="#090b36"
+                                    PlaceholderColor="#6b6a69"
                                     Placeholder="Title"
                                     BorderThickness="2"
                                     CornerRadius="8"
@@ -43,7 +44,7 @@
                          Command="{Binding AddPhotoCommand}"/>
 
             <Editor Text ="{Binding NoteDescription}"
-                    PlaceholderColor="#090b36"
+                    PlaceholderColor="#6b6a69"
                     Placeholder="Discription"
                     HeightRequest="240"
                     MaxLength="120"

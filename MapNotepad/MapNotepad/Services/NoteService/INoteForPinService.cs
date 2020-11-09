@@ -13,5 +13,7 @@ namespace MapNotepad.Services.NoteService
         Task<IEnumerable<NoteForPinModel>> GetNotesFromDBAsync(int pinId);
 
         Task<NoteForPinModel> GetNoteByIdAsync(int id);
+
+        Task DeleteCollectionNoteAsync(int pinId);
     }
 }

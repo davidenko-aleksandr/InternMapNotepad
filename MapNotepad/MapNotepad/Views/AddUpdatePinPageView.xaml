@@ -21,8 +21,8 @@
 
             <Grid Grid.Row="0"
                   VerticalOptions="Start"
-                     HorizontalOptions="FillAndExpand"
-                     HeightRequest="65">
+                  HorizontalOptions="FillAndExpand"
+                  HeightRequest="65">
 
                 <Grid.Padding>
                     <OnPlatform x:TypeArguments="Thickness">

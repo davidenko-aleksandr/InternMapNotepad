@@ -216,9 +216,6 @@
     <BundleResource Include="Resources\icon_map.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\background_add_note.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\add_photo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -226,5 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\gallery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\background_note.png" />
   </ItemGroup>
 </Project>

@@ -94,7 +94,8 @@
                                            FontSize="Large"
                                            MaxLines="1"
                                            HorizontalOptions="Start"
-                                           VerticalOptions="Start"/>
+                                           VerticalOptions="Start"
+                                           WidthRequest="200"/>
 
                                     <Label Grid.Column="0"
                                            Text="{Binding Description}"
@@ -103,7 +104,7 @@
                                            VerticalOptions="End"/>
 
                                     <Label VerticalOptions="Center"
-                                           HorizontalOptions="Center"
+                                           HorizontalOptions="End"
                                            TextColor="Blue">
                                         
                                         <Label.FormattedText>

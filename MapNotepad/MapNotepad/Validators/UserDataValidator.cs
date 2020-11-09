@@ -2,7 +2,7 @@
 
 namespace MapNotepad.Validators
 {
-    public class Validator
+    public class UserDataValidator
     {
         public const string EMAIL_VALID = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
         public const string NAME_VALID = @"^\d\w*";

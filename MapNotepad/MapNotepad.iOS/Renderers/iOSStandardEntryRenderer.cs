@@ -30,10 +30,12 @@ namespace MapNotepad.iOS.Renderers
 
         protected void UpdateBackground(UITextField control)
         {
-            if (control == null) return;
-            control.Layer.CornerRadius = ElementV2.CornerRadius;
-            control.Layer.BorderWidth = ElementV2.BorderThickness;
-            control.Layer.BorderColor = ElementV2.BorderColor.ToCGColor();
+            if (control != null)
+            {
+                control.Layer.CornerRadius = ElementV2.CornerRadius;
+                control.Layer.BorderWidth = ElementV2.BorderThickness;
+                control.Layer.BorderColor = ElementV2.BorderColor.ToCGColor();
+            }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

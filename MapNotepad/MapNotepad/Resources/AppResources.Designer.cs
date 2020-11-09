@@ -295,6 +295,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My notes.
+        /// </summary>
+        public static string PageListNotesTitle {
+            get {
+                return ResourceManager.GetString("PageListNotesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MAP.
         /// </summary>
         public static string PageMapTitle {

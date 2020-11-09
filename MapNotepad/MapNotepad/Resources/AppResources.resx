@@ -195,6 +195,9 @@
   <data name="PageLableForRadiobatton" xml:space="preserve">
     <value>Add to favorite</value>
   </data>
+  <data name="PageListNotesTitle" xml:space="preserve">
+    <value>My notes</value>
+  </data>
   <data name="PageMapTitle" xml:space="preserve">
     <value>MAP</value>
   </data>

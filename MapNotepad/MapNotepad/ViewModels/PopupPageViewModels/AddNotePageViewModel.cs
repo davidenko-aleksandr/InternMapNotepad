@@ -10,7 +10,6 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
 
 namespace MapNotepad.ViewModels.PopupPageViewModels
 {
@@ -20,6 +19,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         private readonly INoteForPinService _noteService;
 
         private int _pinId;
+        private NoteForPinModel _noteForPinModel;
 
         public AddNotePageViewModel(
                                     IPinService pinService,
@@ -28,6 +28,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         {
             _pinService = pinService;
             _noteService = noteService;
+            _noteForPinModel = new NoteForPinModel();
         }
 
         #region -- Public properties --
@@ -67,7 +68,10 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         {
             await SaveNoteForPinAsync();
 
-            await UpdatePinForAddNoteAsync();
+            if (_pinId != 0)
+            {
+                await UpdatePinForAddNoteAsync();
+            }
 
             await _navigationService.GoBackAsync();
         }
@@ -115,7 +119,11 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         {
             if (CrossMedia.Current.IsPickPhotoSupported)
             {
-                MediaFile photo = await CrossMedia.Current.PickPhotoAsync();
+                MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                {
+                    PhotoSize = PhotoSize.Small 
+                });
+               
                 ImageSource = photo.Path;
                 if (ImageSource == null)
                 {
@@ -126,15 +134,24 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         private async Task SaveNoteForPinAsync()
         {
-            NoteForPinModel note = new NoteForPinModel
+            if (_noteForPinModel.Id == 0)
             {
-                NoteTitle = NoteLable,
-                NoteDescription = NoteDescription,
-                Image = ImageSource,
-                PinId = _pinId
-            };
-
-            await _noteService.AddOrUpdateNoteInDBAsync(note);
+                NoteForPinModel note = new NoteForPinModel
+                {
+                    NoteTitle = NoteLable,
+                    NoteDescription = NoteDescription,
+                    Image = ImageSource,
+                    PinId = _pinId
+                };
+                await _noteService.AddOrUpdateNoteInDBAsync(note);
+            }
+            else
+            {
+                _noteForPinModel.NoteTitle = NoteLable;
+                _noteForPinModel.NoteDescription = NoteDescription;
+                _noteForPinModel.Image = ImageSource;
+                await _noteService.AddOrUpdateNoteInDBAsync(_noteForPinModel);
+            }
         }
 
         private async Task UpdatePinForAddNoteAsync()
@@ -158,9 +175,18 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.TryGetValue(Constants.SELECT_PIN, out int pin) && pin != 0)
+            if (parameters.TryGetValue(Constants.SELECTED_PIN, out int pin) && pin != 0)
             {
                 _pinId = pin;
+            }
+
+            if (parameters.TryGetValue(Constants.SELECTED_NOTE, out NoteForPinModel note) && note != null)
+            {
+                _noteForPinModel = note;
+
+                NoteLable = _noteForPinModel.NoteTitle;
+                NoteDescription = _noteForPinModel.NoteDescription;
+                ImageSource = _noteForPinModel.Image;
             }
         }
     }

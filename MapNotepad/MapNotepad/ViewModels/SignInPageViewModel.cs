@@ -2,7 +2,6 @@
 using Prism.Services;
 using MapNotepad.Models;
 using MapNotepad.Services.AuthenticationServices;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using MapNotepad.ViewModels;
@@ -46,19 +45,19 @@ namespace ProfileBook.ViewModels
         }
 
         private ICommand _enterCommand;        
-        public ICommand EnterCommand => _enterCommand ??= new Command( async () => await OnEnterCommandAsync(), () => false);
+        public ICommand EnterCommand => _enterCommand ??= new Command(OnEnterCommandAsync, () => false);
 
         private ICommand _toSignUpPageCommand;
         public ICommand ToSignUpPageCommand => _toSignUpPageCommand ??= new Command(OnToSignUpPageCommandAsync);
 
         #endregion
-
+                
         private async void OnToSignUpPageCommandAsync()
         {
             await _navigationService.NavigateAsync($"{nameof(SignUpPageView)}");
         }
 
-        private async Task OnEnterCommandAsync()
+        private async void OnEnterCommandAsync()
         {
             var isUserValid = await _userAuthentication.CheckUserFromDBAsync(_email, _password);
 

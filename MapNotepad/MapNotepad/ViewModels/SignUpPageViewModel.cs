@@ -96,14 +96,14 @@ namespace ProfileBook.ViewModels
         {
             bool isErrorExist = false;
 
-            if (Validator.ValidateName(_name))
+            if (UserDataValidator.ValidateName(_name))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectName, AppResources.AlertNameRequared, AppResources.AlertOk);   
                 
                 isErrorExist = true;
             }
             
-            if (Validator.ValidateEmail(_email))
+            if (UserDataValidator.ValidateEmail(_email))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectEmail, AppResources.AlertEmailRequared, AppResources.AlertOk);
 
@@ -112,7 +112,7 @@ namespace ProfileBook.ViewModels
                 isErrorExist = true;
             }
 
-            if (Validator.ValidatePassword(_password))
+            if (UserDataValidator.ValidatePassword(_password))
             {
                 await _dialogService.DisplayAlertAsync(AppResources.AlertIncorrectPassword, AppResources.AlertPasswordRequared, AppResources.AlertOk);
 

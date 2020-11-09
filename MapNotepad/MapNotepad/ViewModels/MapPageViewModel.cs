@@ -131,7 +131,7 @@ namespace MapNotepad.ViewModels
         {
             int pinId = await _pinService.GetPinId(_pin.Position.Latitude, _pin.Position.Longitude);
 
-            NavigationParameters parameters = new NavigationParameters { { Constants.SELECT_PIN, pinId } };
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, pinId } };
 
             await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}", parameters);
         }
@@ -184,7 +184,7 @@ namespace MapNotepad.ViewModels
         {
             IsMyLocationEnabled = await _permissionService.PermissionRequestAsync();
 
-            if (parameters.TryGetValue(Constants.SELECT_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
+            if (parameters.TryGetValue(Constants.SELECTED_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
             { 
                 Pin pin = new Pin
                 {

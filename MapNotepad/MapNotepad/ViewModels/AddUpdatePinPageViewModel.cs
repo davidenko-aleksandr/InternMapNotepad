@@ -126,7 +126,7 @@ namespace MapNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.TryGetValue(Constants.SELECT_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
+            if (parameters.TryGetValue(Constants.SELECTED_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
             {
                 Label = _pinGoogleMapModel.Label;
                 Description = _pinGoogleMapModel.Description;

@@ -2,6 +2,7 @@
 using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.Sevices.Settings;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MapNotepad.Services.NoteService
@@ -33,6 +34,18 @@ namespace MapNotepad.Services.NoteService
             if (note != null)
             {
                 await _repositoryService.DeleteItemAsync(note);
+            }
+        }
+
+        public async Task DeleteCollectionNoteAsync(int pinId)
+        {
+            var noteCollection = await _repositoryService.GetItemsAsync<NoteForPinModel>(n => n.UserId == _settingsService.CurrentUserID && n.PinId == pinId);
+            if (noteCollection.Count() != 0)
+            {
+                foreach (var note in noteCollection)
+                {
+                    await DeleteNoteAsync(note.Id);
+                }
             }
         }
 
