@@ -9,7 +9,7 @@ namespace MapNotepad.Services.AuthenticationServices
 
         Task<bool> CheckUserFromDBAsync(string email, string password);
 
-        int GetIdCurrentUser();
+        string GetEmailCurrentUser();
 
         void LogOut();
     }

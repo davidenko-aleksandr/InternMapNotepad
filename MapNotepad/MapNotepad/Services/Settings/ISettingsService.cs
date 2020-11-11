@@ -2,9 +2,12 @@
 {
     public interface ISettingsService
     {
-        int CurrentUserID { get; set; }
+        string CurrentUserEmail { get; set; }
+
         double MapLatitude { get; set; }
+
         double MapLongitude { get; set; }
+
         double MapZoom { get; set; }
     }
 }

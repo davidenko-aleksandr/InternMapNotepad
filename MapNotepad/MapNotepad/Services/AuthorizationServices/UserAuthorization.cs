@@ -38,15 +38,15 @@ namespace MapNotepad.Services.AuthenticationServices
             {
                 isSuccess = true;
                 IsAuthorized = true;
-                _settingsService.CurrentUserID = GetIdCurrentUser();
+                _settingsService.CurrentUserEmail = GetEmailCurrentUser();
             }
 
             return isSuccess;
         }
 
-        public int GetIdCurrentUser()
+        public string GetEmailCurrentUser()
         {
-            return _currentUser.Id;
+            return _currentUser.Email;
         }
 
         public void LogOut()

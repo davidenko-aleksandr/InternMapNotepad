@@ -17,5 +17,9 @@ namespace MapNotepad.Sevices.PinServices
         Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync();
 
         Task<int> GetPinId(double latitude, double longitude);
+
+        Task UpdatePinForAddNoteAsync(int pinId);
+
+        Task UpdatePinForRemoveNoteAsync(int pinId);
     }
 }

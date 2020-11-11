@@ -6,23 +6,22 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using MapNotepad.Sevices.RegistrationServices;
 using MapNotepad.Sevices.RepositoryService;
-using MapNotepad.ViewModels;
 using MapNotepad.Views;
 using MapNotepad.Resources;
 using MapNotepad.Validators;
 
-namespace ProfileBook.ViewModels
+namespace MapNotepad.ViewModels
 {
     public class SignUpPageViewModel : BaseViewModel
     {
         private readonly IPageDialogService _dialogService;
-        private readonly ICheckEmailValid _checkEmailValid;
+        private readonly IRegistrationService _checkEmailValid;
         private readonly IRepositoryService _repositoryService;      
 
         public SignUpPageViewModel(
                                    INavigationService navigationService,
                                    IPageDialogService dialogService,
-                                   ICheckEmailValid checkEmailValid,
+                                   IRegistrationService checkEmailValid,
                                    IRepositoryService repositoryService) : base(navigationService)
         {
             _dialogService = dialogService;

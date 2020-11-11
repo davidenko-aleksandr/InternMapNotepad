@@ -121,6 +121,12 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+            
+            <Button Text="Google" 
+                    TextColor="#c0c8de"
+                    BackgroundColor="#01FFFFFF"
+                    Command="{Binding LoginGoogleCommand}"/>
+            
         </StackLayout>
     </Grid>
 </ContentPage> 

@@ -7,11 +7,12 @@ namespace MapNotepad.Sevices.Settings
     {
         private  ISettings UserSettings => CrossSettings.Current;
 
-        public int CurrentUserID
+        public string CurrentUserEmail
         {
-            get => UserSettings.GetValueOrDefault(nameof(CurrentUserID), 0);
-            set => UserSettings.AddOrUpdateValue(nameof(CurrentUserID), value);
+            get => UserSettings.GetValueOrDefault(nameof(CurrentUserEmail), "0");
+            set => UserSettings.AddOrUpdateValue(nameof(CurrentUserEmail), value);
         }
+
         public double MapLatitude
         {
             get => UserSettings.GetValueOrDefault(nameof(MapLatitude), 48.4536560005801);

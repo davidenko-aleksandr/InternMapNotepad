@@ -10,7 +10,7 @@ namespace MapNotepad.Models
 
         public int PinId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserEmail { get; set; }
 
         public string NoteTitle { get; set; }
 

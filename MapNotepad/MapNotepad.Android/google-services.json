@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "687477194083",
+    "firebase_url": "https://newmapnotepad.firebaseio.com",
+    "project_id": "newmapnotepad",
+    "storage_bucket": "newmapnotepad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687477194083:android:b68e6d70956450c5072756",
+        "android_client_info": {
+          "package_name": "com.companyname.mapnotepad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687477194083-aej2h36l36hvdca2ut82025ijq05cvcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.companyname.mapnotepad",
+            "certificate_hash": "9b42b0243f4f4fda9d446c5a8ef93695c930393b"
+          }
+        },
+        {
+          "client_id": "687477194083-gnjkvmbasmqaslhiiipgcdcpq1gqbhid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgNnZGPQIlaCJ_4D0VKNYH_ktZu7qPVYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687477194083-gnjkvmbasmqaslhiiipgcdcpq1gqbhid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687477194083-7hi4rstnah4r89auiloqic67mekvbk4i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mapnotepad"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

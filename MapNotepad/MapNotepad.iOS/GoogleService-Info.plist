@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>880023637981-qr23gc6r91mi6sdpc6bfbpmurh5g9q50.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.880023637981-qr23gc6r91mi6sdpc6bfbpmurh5g9q50</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBHuTo6ayAq0hNUt3_x5vPEg3nPNYml6qo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>880023637981</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hw.mapnotepad</string>
+	<key>PROJECT_ID</key>
+	<string>mapnotepad-465ae</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mapnotepad-465ae.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:880023637981:ios:0a8ecbb8f8490068cf3034</string>
+	<key>DATABASE_URL</key>
+	<string>https://mapnotepad-465ae.firebaseio.com</string>
+</dict>
+</plist>

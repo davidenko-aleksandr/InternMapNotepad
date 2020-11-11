@@ -22,7 +22,7 @@ namespace MapNotepad.Sevices.PinServices
 
         public Task<int> AddOrUpdatePinInDBAsync(PinGoogleMapModel pin)
         {
-            pin.UserId = _settingsService.CurrentUserID;
+            pin.UserEmail = _settingsService.CurrentUserEmail;
 
             return _repositoryService.SaveOrUpdateItemAsync(pin);
         }
@@ -39,7 +39,7 @@ namespace MapNotepad.Sevices.PinServices
 
         public async Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync(string filter = null)
         {
-            var pinsByUresId = await _repositoryService.GetItemsAsync<PinGoogleMapModel>(p => p.UserId == _settingsService.CurrentUserID);
+            var pinsByUresId = await _repositoryService.GetItemsAsync<PinGoogleMapModel>(p => p.UserEmail == _settingsService.CurrentUserEmail);
 
             IEnumerable<PinGoogleMapModel> pinsCollection;
 
@@ -60,14 +60,14 @@ namespace MapNotepad.Sevices.PinServices
 
         public async Task<IEnumerable<PinGoogleMapModel>> GetPinsFromDBAsync() //these are favorit pins
         {
-            var favoriteCollectionPins = await _repositoryService.GetItemsAsync<PinGoogleMapModel>(p => p.UserId == _settingsService.CurrentUserID &&
+            var favoriteCollectionPins = await _repositoryService.GetItemsAsync<PinGoogleMapModel>(p => p.UserEmail == _settingsService.CurrentUserEmail &&
                                                                                                     p.IsFavorite == true);
             return favoriteCollectionPins;
         }
 
         public Task<PinGoogleMapModel> GetPinByIdAsync(int id)
         {
-            return _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Id == id && p.UserId == _settingsService.CurrentUserID);
+            return _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Id == id && p.UserEmail == _settingsService.CurrentUserEmail);
         }
 
         public async Task<int> GetPinId(double latitude, double longitude)
@@ -75,6 +75,45 @@ namespace MapNotepad.Sevices.PinServices
             var pin = await _repositoryService.GetItemAsync<PinGoogleMapModel>(p => p.Latitude == latitude && p.Longitude == longitude);
 
             return (int)pin?.Id; 
+        }
+
+        public async Task UpdatePinForAddNoteAsync(int pinId)
+        {
+            PinGoogleMapModel pinModel;
+            pinModel = await GetPinByIdAsync(pinId);
+
+            int countOfNote = pinModel.CountOfNote += 1;
+
+            pinModel.LableForCountOfNote = countOfNote switch
+            {
+                1 => "1 note",
+                2 => "2 note",
+                3 => "3 note",
+                4 => "4 note",
+                5 => "5 note",
+                _ => "5+ note",
+            };
+            await AddOrUpdatePinInDBAsync(pinModel);
+        }
+
+        public async Task UpdatePinForRemoveNoteAsync(int pinId)
+        {
+            PinGoogleMapModel pinModel;
+            pinModel = await GetPinByIdAsync(pinId);
+
+            int countOfNote = pinModel.CountOfNote -= 1;
+
+            pinModel.LableForCountOfNote = countOfNote switch
+            {
+                0 => "",
+                1 => "1 note",
+                2 => "2 note",
+                3 => "3 note",
+                4 => "4 note",
+                5 => "5 note",
+                _ => "5+ note",
+            };
+            await AddOrUpdatePinInDBAsync(pinModel);
         }
     }
 }

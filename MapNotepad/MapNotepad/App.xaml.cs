@@ -15,7 +15,6 @@ using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Plugin.Popups;
-using ProfileBook.ViewModels;
 using Xamarin.Forms;
 
 namespace MapNotepad
@@ -42,13 +41,12 @@ namespace MapNotepad
             //registration of services with interfaces
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
             containerRegistry.RegisterInstance<ISettingsService>(Container.Resolve<SettingsService>());
-            containerRegistry.RegisterInstance<ICheckEmailValid>(Container.Resolve<CheckEmailValid>());
             containerRegistry.RegisterInstance<IUserAuthorization>(Container.Resolve<UserAuthorization>());
+            containerRegistry.RegisterInstance<IRegistrationService>(Container.Resolve<RegistrationService>());
             containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
             containerRegistry.RegisterInstance<IMapPositionService>(Container.Resolve<MapPositionService>());
-            containerRegistry.RegisterInstance<INoteForPinService>(Container.Resolve<NoteForPinService>());
-            
+            containerRegistry.RegisterInstance<INoteForPinService>(Container.Resolve<NoteForPinService>());            
         }
 
         public static T Resolve<T>()

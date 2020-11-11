@@ -4,28 +4,31 @@ using MapNotepad.Models;
 using MapNotepad.Services.AuthenticationServices;
 using System.Windows.Input;
 using Xamarin.Forms;
-using MapNotepad.ViewModels;
 using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Views;
 using MapNotepad.Resources;
+using MapNotepad.Sevices.RegistrationServices;
 
-namespace ProfileBook.ViewModels
+namespace MapNotepad.ViewModels
 {
     public class SignInPageViewModel : BaseViewModel
     {
         private readonly IUserAuthorization _userAuthentication;
         private readonly IPageDialogService _dialogService;
         private readonly IPermissionService _permissionService;
+        private readonly IRegistrationService _registrationService;
 
         public SignInPageViewModel(
                                    INavigationService navigationService,
                                    IUserAuthorization userAuthentication,
                                    IPageDialogService dialogService,
-                                   IPermissionService permissionService) : base(navigationService)
+                                   IPermissionService permissionService,
+                                   IRegistrationService registrationService) : base(navigationService)
         {
             _userAuthentication = userAuthentication;
             _dialogService = dialogService;
             _permissionService = permissionService;
+            _registrationService = registrationService;
         }
         #region -- Public properties --
         public UserModel User { get; set; }
@@ -50,8 +53,21 @@ namespace ProfileBook.ViewModels
         private ICommand _toSignUpPageCommand;
         public ICommand ToSignUpPageCommand => _toSignUpPageCommand ??= new Command(OnToSignUpPageCommandAsync);
 
+        private ICommand _loginGoogleCommand;
+        public ICommand LoginGoogleCommand => _loginGoogleCommand ??= new Command(OnLoginGoogleCommandAsync);
+
+        private async void OnLoginGoogleCommandAsync()
+        {
+            await _registrationService.OnGoogleLogin();
+
+            if (_userAuthentication.IsAuthorized)
+            {
+                await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
+            }           
+        }
+
         #endregion
-                
+
         private async void OnToSignUpPageCommandAsync()
         {
             await _navigationService.NavigateAsync($"{nameof(SignUpPageView)}");

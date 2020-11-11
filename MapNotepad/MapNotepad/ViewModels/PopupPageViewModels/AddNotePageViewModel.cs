@@ -64,18 +64,6 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         #endregion
 
-        private async void OnSaveCommandAsync()
-        {
-            await SaveNoteForPinAsync();
-
-            if (_pinId != 0)
-            {
-                await UpdatePinForAddNoteAsync();
-            }
-
-            await _navigationService.GoBackAsync();
-        }
-
         private void OnAddPhotoCommand()
         {
             UserDialogs.Instance.ActionSheet(
@@ -153,24 +141,16 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                 await _noteService.AddOrUpdateNoteInDBAsync(_noteForPinModel);
             }
         }
-
-        private async Task UpdatePinForAddNoteAsync()
+        private async void OnSaveCommandAsync()
         {
-            PinGoogleMapModel pinModel;
-            pinModel = await _pinService.GetPinByIdAsync(_pinId);                      
+            await SaveNoteForPinAsync();
 
-            int countOfNote = pinModel.CountOfNote += 1;
-
-            pinModel.LableForCountOfNote = countOfNote switch
+            if (_pinId != 0)
             {
-                1 => "1 note",
-                2 => "2 note",
-                3 => "3 note",
-                4 => "4 note",
-                5 => "5 note",
-                _ => "5+ note",
-            };
-            await _pinService.AddOrUpdatePinInDBAsync(pinModel);
+                await _pinService.UpdatePinForAddNoteAsync(_pinId);
+            }
+
+            await _navigationService.GoBackAsync();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

@@ -22,7 +22,7 @@ namespace MapNotepad.Services.NoteService
 
         public Task<int> AddOrUpdateNoteInDBAsync(NoteForPinModel note)
         {
-            note.UserId = _settingsService.CurrentUserID;
+            note.UserEmail = _settingsService.CurrentUserEmail;
 
             return _repositoryService.SaveOrUpdateItemAsync(note);
         }
@@ -39,7 +39,7 @@ namespace MapNotepad.Services.NoteService
 
         public async Task DeleteCollectionNoteAsync(int pinId)
         {
-            var noteCollection = await _repositoryService.GetItemsAsync<NoteForPinModel>(n => n.UserId == _settingsService.CurrentUserID && n.PinId == pinId);
+            var noteCollection = await _repositoryService.GetItemsAsync<NoteForPinModel>(n => n.UserEmail == _settingsService.CurrentUserEmail && n.PinId == pinId);
             if (noteCollection.Count() != 0)
             {
                 foreach (var note in noteCollection)
@@ -51,14 +51,14 @@ namespace MapNotepad.Services.NoteService
 
         public async Task<IEnumerable<NoteForPinModel>> GetNotesFromDBAsync(int pinId)
         {
-            var noteCollection = await _repositoryService.GetItemsAsync<NoteForPinModel>(n => n.UserId == _settingsService.CurrentUserID && n.PinId == pinId);
+            var noteCollection = await _repositoryService.GetItemsAsync<NoteForPinModel>(n => n.UserEmail == _settingsService.CurrentUserEmail && n.PinId == pinId);
 
             return noteCollection;
         }
 
         public Task<NoteForPinModel> GetNoteByIdAsync(int id)
         {
-            return _repositoryService.GetItemAsync<NoteForPinModel>(n => n.Id == id && n.UserId == _settingsService.CurrentUserID);
+            return _repositoryService.GetItemAsync<NoteForPinModel>(n => n.Id == id && n.UserEmail == _settingsService.CurrentUserEmail);
         }
     }
 }

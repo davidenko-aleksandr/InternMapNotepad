@@ -69,27 +69,10 @@ namespace MapNotepad.ViewModels
             {
                 await _noteService.DeleteNoteAsync(selectedNote.Id);
                 await InitCollectionNotesAsync();
-                await UpdatePinForRemoveNoteAsync();
+                await _pinService.UpdatePinForRemoveNoteAsync(_pinId);
             }
         }
-        private async Task UpdatePinForRemoveNoteAsync()
-        {
-            PinGoogleMapModel pinModel;
-            pinModel = await _pinService.GetPinByIdAsync(_pinId);
 
-            int countOfNote = pinModel.CountOfNote -= 1;
-
-            pinModel.LableForCountOfNote = countOfNote switch
-            {
-                1 => "1 note",
-                2 => "2 note",
-                3 => "3 note",
-                4 => "4 note",
-                5 => "5 note",
-                _ => "5+ note",
-            };
-            await _pinService.AddOrUpdatePinInDBAsync(pinModel);
-        }
         public async Task InitCollectionNotesAsync()
         {
             var collection = await _noteService.GetNotesFromDBAsync(_pinId);

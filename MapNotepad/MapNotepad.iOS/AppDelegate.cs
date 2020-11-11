@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Plugin.GoogleClient;
 using UIKit;
 
 namespace MapNotepad.iOS
@@ -24,9 +25,16 @@ namespace MapNotepad.iOS
 
             Xamarin.FormsGoogleMaps.Init(Constants.KEY_GOODLE_MAP);
 
+            GoogleClientManager.Initialize();
+
             LoadApplication(new App(new IOSInitializer()));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return GoogleClientManager.OnOpenUrl(app, url, options);
         }
     }
 }

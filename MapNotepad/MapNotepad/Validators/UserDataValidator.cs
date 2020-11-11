@@ -11,13 +11,13 @@ namespace MapNotepad.Validators
         public static bool ValidateEmail(string email)
         {
             return email.Length < 4
-                   || email.Length > 16
+                   || email.Length > 30
                    || !Regex.IsMatch(email, EMAIL_VALID, RegexOptions.IgnoreCase);
         }
 
         public static bool ValidateName(string name)
         {
-            return name.Length > 16 || Regex.IsMatch(name, NAME_VALID, RegexOptions.IgnoreCase);
+            return name.Length > 30 || Regex.IsMatch(name, NAME_VALID, RegexOptions.IgnoreCase);
         }
 
         public static bool ValidatePassword(string pasword)

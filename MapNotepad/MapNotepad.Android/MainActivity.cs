@@ -6,6 +6,7 @@ using Android;
 using Plugin.Permissions;
 using Acr.UserDialogs;
 using Rg.Plugins.Popup.Services;
+using Plugin.GoogleClient;
 
 namespace MapNotepad.Droid
 {
@@ -37,6 +38,8 @@ namespace MapNotepad.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+
+            GoogleClientManager.Initialize(this);
 
             LoadApplication(new App(new AndroidInitializer()));
         }
@@ -74,6 +77,12 @@ namespace MapNotepad.Droid
             {
                 // Do something if there are not any pages in the `PopupStack`
             }
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            GoogleClientManager.OnAuthCompleted(requestCode, resultCode, data);
         }
     }
 }

@@ -6,16 +6,16 @@
              xmlns:resources="clr-namespace:MapNotepad.Resources" 
              x:Class="MapNotepad.Views.MapPageView"
              NavigationPage.HasNavigationBar="False">
-    
+
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="Android" Value="0, 0, 0, 0"/>
             <On Platform="iOS" Value="0, 34, 0, 0"/>
         </OnPlatform>
     </ContentPage.Padding>
-    
-    <ContentPage.Content>        
-        
+
+    <ContentPage.Content>
+
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -32,16 +32,16 @@
                     <prismBehaviors:EventToCommandBehavior EventName="PinClicked"
                                                            Command="{Binding SelectedPinCommand}"
                                                            EventArgsParameterPath="Pin"/>
-                    
+
                     <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
                                                            Command="{Binding MapClickedCommand}"/>
 
                     <prismBehaviors:EventToCommandBehavior EventName="CameraChanged" 
                                                            Command="{Binding GetPositionComaand}"
                                                            EventArgsParameterPath="Position"/>
-                    
+
                 </controls:CustomMap.Behaviors>
-                
+
                 <controls:CustomMap.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
                         <On Platform="Android" Value="0, 50, 0, 0"/>
@@ -58,11 +58,11 @@
                        VerticalOptions="Start"
                        HeightRequest="50"
                        Text="{Binding SearchFilter}">
-                
+
                 <SearchBar.Behaviors>
                     <prismBehaviors:EventToCommandBehavior EventName="TextChanged" 
                                                            Command="{Binding SearchPinCommand}"/>
-                    
+
                 </SearchBar.Behaviors>
             </SearchBar>
 
@@ -79,7 +79,7 @@
 
                         <Label Text="{Binding SelectedPinLatitude}"/>
 
-                        <Label Text="{Binding SelectedPinLongitude}"/>                        
+                        <Label Text="{Binding SelectedPinLongitude}"/>
 
                     </StackLayout>
 
@@ -96,10 +96,9 @@
                             BorderColor="#4ba3be"
                             Command="{Binding OpenAddNoteViewPageCommand}"/>
 
-                </Grid>       
+                </Grid>
             </Frame>
-            
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
-    

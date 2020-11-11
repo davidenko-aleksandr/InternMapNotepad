@@ -25,7 +25,7 @@ namespace MapNotepad.ViewModels
         private Pin _pin;
 
         public MapPageViewModel(
-                                IPinService pinService, 
+                                IPinService pinService,
                                 IMapPositionService mapPositionService,
                                 IPermissionService permissionService,
                                 INavigationService navigationService) : base(navigationService)
@@ -137,8 +137,8 @@ namespace MapNotepad.ViewModels
         }
 
         private void OnGetPositionCommand(CameraPosition position)
-        { 
-            _mapPositionService.ReadCameraPosition(position.Target.Latitude, position.Target.Longitude, position.Zoom);            
+        {
+            _mapPositionService.ReadCameraPosition(position.Target.Latitude, position.Target.Longitude, position.Zoom);
         }
 
         private void OnCloseFrameCommand()
@@ -159,7 +159,7 @@ namespace MapNotepad.ViewModels
 
         private async void OnSearchPinCommandAsync()
         {
-            await InitCollectionPinAsync();       
+            await InitCollectionPinAsync();
         }
 
         public async Task InitCollectionPinAsync()
@@ -173,9 +173,9 @@ namespace MapNotepad.ViewModels
             MyPins.Clear();
 
             foreach (var item in pinGoogleMapModels)
-            {                
+            {
                 MyPins.Add(PinGoogleMapModelExtension.ToPin(item));
-            }           
+            }
         }
 
         #region -- OnNavigationTO/From --
@@ -185,23 +185,23 @@ namespace MapNotepad.ViewModels
             IsMyLocationEnabled = await _permissionService.PermissionRequestAsync();
 
             if (parameters.TryGetValue(Constants.SELECTED_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
-            { 
+            {
                 Pin pin = new Pin
                 {
                     Position = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude),
                     Label = _pinGoogleMapModel.Label,
                     Address = _pinGoogleMapModel.Description
                 };
-                
+
                 await InitCollectionPinAsync();
 
                 MyPins.Add(pin);
 
                 CameraPosition = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
-                CameraUpdate = new CameraPosition(CameraPosition, 15.0);                               
+                CameraUpdate = new CameraPosition(CameraPosition, 15.0);
             }
             else
-            {   
+            {
                 await InitCollectionPinAsync();
 
                 Position lastPosition = new Position(_mapPositionService.Latitude, _mapPositionService.Longitude);
