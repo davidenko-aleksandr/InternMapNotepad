@@ -40,7 +40,20 @@
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageListNotesTitle}"
                    FontSize="30"
-                   TextColor="#63bcd7"/>                
+                   TextColor="#63bcd7"/>
+
+                <Button Text="{x:Static resources:AppResources.PageButtonAdd}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        BorderWidth="1"                    
+                        CornerRadius="10"
+                        HeightRequest="36"
+                        WidthRequest="65"
+                        BackgroundColor="#31FFFFFF"
+                        TextColor="#4ba3be"
+                        BorderColor="#4ba3be"
+                        Command="{Binding OpenAddNoteViewPageCommand}"
+                        Margin="5"/>
             </Grid>
 
             <StackLayout>

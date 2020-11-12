@@ -177,6 +177,9 @@
   <data name="PageBattonEdit" xml:space="preserve">
     <value>EDIT</value>
   </data>
+  <data name="PageButtonAdd" xml:space="preserve">
+    <value>ADD</value>
+  </data>
   <data name="PageButtonAddNote" xml:space="preserve">
     <value>ADD NOTE</value>
   </data>

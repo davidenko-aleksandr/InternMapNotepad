@@ -66,7 +66,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         private void OnAddPhotoCommand()
         {
-            UserDialogs.Instance.ActionSheet(
+             UserDialogs.Instance.ActionSheet(
                                  new ActionSheetConfig()
                                 .SetCancel(AppResources.AlertCancel)
                                 .SetTitle(AppResources.AlertAddingPhoto)
@@ -95,8 +95,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                 {
                     ImageSource = file.Path;
                 }
-
-                if (ImageSource == null)
+                else
                 {
                     ImageSource = "add_photo.png";
                 }
@@ -111,9 +110,12 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                 {
                     PhotoSize = PhotoSize.Small 
                 });
-               
-                ImageSource = photo.Path;
-                if (ImageSource == null)
+
+                if (photo != null)
+                {
+                    ImageSource = photo.Path;
+                }
+                else
                 {
                     ImageSource = "add_photo.png";
                 }

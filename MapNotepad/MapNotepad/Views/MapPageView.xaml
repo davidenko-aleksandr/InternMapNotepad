@@ -5,8 +5,8 @@
              xmlns:prismBehaviors="http://prismlibrary.com"
              xmlns:resources="clr-namespace:MapNotepad.Resources" 
              x:Class="MapNotepad.Views.MapPageView"
-             NavigationPage.HasNavigationBar="False">
-
+             NavigationPage.HasNavigationBar="False">    
+    
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="Android" Value="0, 0, 0, 0"/>
@@ -25,7 +25,6 @@
                                  VerticalOptions="FillAndExpand" 
                                  MyLocationEnabled="{Binding IsMyLocationEnabled}"
                                  PinList="{Binding MyPins}"
-                                 MapCameraPosition="{Binding CameraPosition}"
                                  OpenMapPosition="{Binding CameraUpdate}">
 
                 <controls:CustomMap.Behaviors>
@@ -70,35 +69,51 @@
                    BorderColor="Aqua"
                    VerticalOptions="End"
                    IsVisible="{Binding IsVisibleFrame}">
-                <Grid>
-                    <StackLayout>
 
-                        <Label Text="{Binding SelectedPinLabel}" FontSize="Large"/>
+                <StackLayout Spacing="15">
 
-                        <Label Text="{Binding SelectedPinDescription}"/>
+                    <Label Text="{Binding SelectedPinLabel}" FontSize="Large"/>
 
-                        <Label Text="{Binding SelectedPinLatitude}"/>
+                    <Label Text="{Binding SelectedPinDescription}"/>
 
-                        <Label Text="{Binding SelectedPinLongitude}"/>
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding SelectedPinLatitude}"
+                                   HorizontalOptions="Start"/>
 
+                        <Label Text="{Binding SelectedPinLongitude}"
+                                   HorizontalOptions="End"/>
+                    </Grid>
+
+                    <StackLayout Orientation="Horizontal"
+                                     Spacing="20">
+
+                        <Button Text="{x:Static resources:AppResources.PageButtonAddNote}"
+                                    VerticalOptions="Center"
+                                    BorderWidth="1"                    
+                                    CornerRadius="10"
+                                    HeightRequest="36"
+                                    WidthRequest="95"
+                                    BackgroundColor="#31FFFFFF"
+                                    TextColor="#4ba3be"
+                                    BorderColor="#4ba3be"
+                                    Command="{Binding OpenAddNoteViewPageCommand}"/>
+
+                        <Label Margin="0, 0, 0, 5"
+                                   VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding LableForCountOfNote}"
+                                      TextColor="#c0c8de">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OpenNotesCommand}"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     </StackLayout>
-
-                    <Button Text="{x:Static resources:AppResources.PageButtonAddNote}"
-                            HorizontalOptions="End"
-                            VerticalOptions="End"
-                            Margin="0, 0, 0, 5"
-                            BorderWidth="1"                    
-                            CornerRadius="10"
-                            HeightRequest="36"
-                            WidthRequest="95"
-                            BackgroundColor="#31FFFFFF"
-                            TextColor="#4ba3be"
-                            BorderColor="#4ba3be"
-                            Command="{Binding OpenAddNoteViewPageCommand}"/>
-
-                </Grid>
+                </StackLayout>
             </Frame>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

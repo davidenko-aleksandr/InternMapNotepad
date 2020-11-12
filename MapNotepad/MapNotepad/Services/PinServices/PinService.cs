@@ -86,12 +86,12 @@ namespace MapNotepad.Sevices.PinServices
 
             pinModel.LableForCountOfNote = countOfNote switch
             {
-                1 => "1 note",
-                2 => "2 note",
-                3 => "3 note",
-                4 => "4 note",
-                5 => "5 note",
-                _ => "5+ note",
+                1 => "1 NOTE",
+                2 => "2 NOTE",
+                3 => "3 NOTE",
+                4 => "4 NOTE",
+                5 => "5 NOTE",
+                _ => "5+ NOTE",
             };
             await AddOrUpdatePinInDBAsync(pinModel);
         }
@@ -106,12 +106,12 @@ namespace MapNotepad.Sevices.PinServices
             pinModel.LableForCountOfNote = countOfNote switch
             {
                 0 => "",
-                1 => "1 note",
-                2 => "2 note",
-                3 => "3 note",
-                4 => "4 note",
-                5 => "5 note",
-                _ => "5+ note",
+                1 => "1 NOTE",
+                2 => "2 NOTE",
+                3 => "3 NOTE",
+                4 => "4 NOTE",
+                5 => "5 NOTE",
+                _ => "5+ NOTE",
             };
             await AddOrUpdatePinInDBAsync(pinModel);
         }

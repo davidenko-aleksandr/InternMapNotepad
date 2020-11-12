@@ -44,9 +44,19 @@ namespace MapNotepad.ViewModels
         private ICommand _backCommand;
         public ICommand BackCommand => _backCommand ??= new Command(OnComeBackCommandAsync);
 
+        private ICommand _openAddNoteViewPageCommand;
+        public ICommand OpenAddNoteViewPageCommand => _openAddNoteViewPageCommand ??= new Command(OnOpenAddNoteViewPageCommandAsync);
         private async void OnComeBackCommandAsync()
         {
             await _navigationService.GoBackAsync();
+        }
+
+        private async void OnOpenAddNoteViewPageCommandAsync()
+        {
+
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, _pinId } };
+
+            await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}", parameters);
         }
 
         private async void OnEditPinSelectedCommandAsync(NoteForPinModel selectedNote)

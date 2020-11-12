@@ -241,6 +241,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADD.
+        /// </summary>
+        public static string PageButtonAdd {
+            get {
+                return ResourceManager.GetString("PageButtonAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD NOTE.
         /// </summary>
         public static string PageButtonAddNote {

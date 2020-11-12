@@ -13,8 +13,6 @@ namespace MapNotepad.Sevices.PermissionServices
 
 			if (status != PermissionStatus.Granted)
 			{
-				await UserDialogs.Instance.AlertAsync("Location Needed", "Location Required", "OK");				
-
 				status = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
 			}
 

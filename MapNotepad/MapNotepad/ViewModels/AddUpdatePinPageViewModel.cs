@@ -1,4 +1,5 @@
 ﻿using MapNotepad.Models;
+using MapNotepad.Sevices.MapPositionService;
 using MapNotepad.Sevices.PinServices;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
@@ -12,16 +13,19 @@ namespace MapNotepad.ViewModels
     public class AddUpdatePinPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
+        private readonly IMapPositionService _mapPositionService;
 
         private PinGoogleMapModel _pinGoogleMapModel;
         
         public AddUpdatePinPageViewModel(
                                          IPinService pinService,
-                                         INavigationService navigationService) : base(navigationService)
+                                         INavigationService navigationService,
+                                         IMapPositionService mapPositionService) : base(navigationService)
         {
             _pinService = pinService;
             _myPins = new ObservableCollection<Pin>();
             _pinGoogleMapModel = new PinGoogleMapModel();
+            _mapPositionService = mapPositionService;
         }
 
         #region -- Public properties --
@@ -53,12 +57,18 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _longitude, value); }
         }
 
-        private ObservableCollection<Pin> _myPins;
-
+        private ObservableCollection<Pin> _myPins;  
         public ObservableCollection<Pin> MyPins
         {
             get { return _myPins; }
             set { SetProperty(ref _myPins, value); }
+        }
+
+        private CameraPosition _cameraUpdate;
+        public CameraPosition CameraUpdate
+        {
+            get { return _cameraUpdate; }
+            set { SetProperty(ref _cameraUpdate, value); }
         }
 
         private ICommand _getPositionCommand;
@@ -133,6 +143,10 @@ namespace MapNotepad.ViewModels
                 Latitude = _pinGoogleMapModel.Latitude;
                 Longitude = _pinGoogleMapModel.Longitude;
             }
+
+            Position lastPosition = new Position(_mapPositionService.Latitude, _mapPositionService.Longitude);
+
+            CameraUpdate = new CameraPosition(lastPosition, _mapPositionService.Zoom);
         }
     }
 }

@@ -3,6 +3,7 @@ using MapNotepad.Models;
 using MapNotepad.Sevices.MapPositionService;
 using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Sevices.PinServices;
+using MapNotepad.Views;
 using MapNotepad.Views.PopupPageViews;
 using Prism.Navigation;
 using System;
@@ -45,13 +46,6 @@ namespace MapNotepad.ViewModels
         {
             get { return _myPins; }
             set { SetProperty(ref _myPins, value); }
-        }
-
-        private Position _cameraPosition;
-        public Position CameraPosition
-        {
-            get { return _cameraPosition; }
-            set { SetProperty(ref _cameraPosition, value); }
         }
 
         private CameraPosition _cameraUpdate;
@@ -110,8 +104,15 @@ namespace MapNotepad.ViewModels
             set { SetProperty(ref _isMyLocationEnabled, value); }
         }
 
+        private string _lableForCountOfNote = string.Empty;
+        public string LableForCountOfNote
+        {
+            get { return _lableForCountOfNote; }
+            set { SetProperty(ref _lableForCountOfNote, value); }
+        }
+
         private ICommand _selectedPinCommand;
-        public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command<Pin>(OnSelectedPinCommand);
+        public ICommand SelectedPinCommand => _selectedPinCommand ??= new Command<Pin>(OnSelectedPinCommandAsync);
 
         private ICommand _searchPinCommand;
         public ICommand SearchPinCommand => _searchPinCommand ??= new Command(OnSearchPinCommandAsync);
@@ -125,7 +126,17 @@ namespace MapNotepad.ViewModels
         private ICommand _openAddNoteViewPageCommand;
         public ICommand OpenAddNoteViewPageCommand => _openAddNoteViewPageCommand ??= new Command(OnOpenAddNoteViewPageCommandAsync);
 
+        private ICommand _openNotesCommand;
+        public ICommand OpenNotesCommand => _openNotesCommand ??= new Command(OnOpenNotesCommandAsync);
+
         #endregion
+
+        private async void OnOpenNotesCommandAsync()
+        {
+            NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, _pinGoogleMapModel.Id } };
+
+            await _navigationService.NavigateAsync($"{nameof(ListOfNotesPageView)}", parameters);
+        }
 
         private async void OnOpenAddNoteViewPageCommandAsync()
         {
@@ -146,15 +157,21 @@ namespace MapNotepad.ViewModels
             IsVisibleFrame = false;
         }
 
-        private void OnSelectedPinCommand(Pin selectedPin)
+        private async void OnSelectedPinCommandAsync(Pin selectedPin)
         {
             _pin = selectedPin;
-            SelectedPinLabel = _pin.Label;
-            SelectedPinDescription = _pin.Address;
-            SelectedPinLatitude = _pin.Position.Latitude.ToString();
-            SelectedPinLongitude = _pin.Position.Longitude.ToString();
+
+            int pinId = await _pinService.GetPinId(selectedPin.Position.Latitude, selectedPin.Position.Longitude);
+
+            _pinGoogleMapModel = await _pinService.GetPinByIdAsync(pinId);
+
+            SelectedPinLabel = _pinGoogleMapModel.Label;
+            SelectedPinDescription = _pinGoogleMapModel.Description;
+            SelectedPinLatitude = _pinGoogleMapModel.Latitude.ToString();
+            SelectedPinLongitude = _pinGoogleMapModel.Longitude.ToString();
 
             IsVisibleFrame = true;
+            LableForCountOfNote = _pinGoogleMapModel.LableForCountOfNote;
         }
 
         private async void OnSearchPinCommandAsync()
@@ -197,8 +214,8 @@ namespace MapNotepad.ViewModels
 
                 MyPins.Add(pin);
 
-                CameraPosition = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
-                CameraUpdate = new CameraPosition(CameraPosition, 15.0);
+                var position = new Position(_pinGoogleMapModel.Latitude, _pinGoogleMapModel.Longitude);
+                CameraUpdate = new CameraPosition(position, 15.0);
             }
             else
             {
