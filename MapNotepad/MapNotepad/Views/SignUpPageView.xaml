@@ -55,7 +55,7 @@
         </Grid>
         
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="5, 120, 5, 0">
-            <controls:StandardEntry x:Name="nameEntry"
+            <controls:CustomEntry  x:Name="nameEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderName}" 
                                     WidthRequest="380"
                                     Text="{Binding Name}"
@@ -65,8 +65,8 @@
                                     BorderThickness="2"
                                     CornerRadius="8"
                                     HeightRequest="50"/>
-            
-            <controls:StandardEntry x:Name="loginEntry"
+
+            <controls:CustomEntry  x:Name="loginEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}" 
                                     WidthRequest="380"
                                     Text="{Binding Email}"
@@ -77,8 +77,8 @@
                                     BorderThickness="2"
                                     CornerRadius="8"
                                     HeightRequest="50"/>
-            
-            <controls:StandardEntry x:Name="passwordEntry"
+
+            <controls:CustomEntry  x:Name="passwordEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}"  
                                     WidthRequest="380"
                                     IsPassword ="True" 
@@ -89,8 +89,8 @@
                                     BorderThickness="2"
                                     CornerRadius="8"
                                     HeightRequest="50"/>
-            
-            <controls:StandardEntry x:Name="conPasswEntry"
+
+            <controls:CustomEntry  x:Name="conPasswEntry"
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderPasswConfirm}"  
                                     WidthRequest="380"
                                     IsPassword ="True" 

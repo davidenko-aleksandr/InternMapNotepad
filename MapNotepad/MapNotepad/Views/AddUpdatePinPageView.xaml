@@ -5,33 +5,38 @@
              xmlns:prismBehaviors="http://prismlibrary.com"
              xmlns:resources="clr-namespace:MapNotepad.Resources"
              x:Class="MapNotepad.Views.AddUpdatePinPageView"
-             NavigationPage.HasNavigationBar="False">    
-
+             NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android" Value="0, 0, 0, 0"/>
+            <On Platform="iOS" Value="0, 34, 0, 0"/>
+        </OnPlatform>
+    </ContentPage.Padding>
+    
     <ContentPage.Content>
-        
-        <Grid Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="65" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="5*" />
-            </Grid.RowDefinitions>
+        <Grid>
+            
+            <Image Source="maps_planet.png"
+                   Aspect="AspectFill"
+                   Margin="0, 62, 0, 0"/>
+            
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
+                <Grid Grid.Row="0"
                   VerticalOptions="Start"
                   HorizontalOptions="FillAndExpand"
                   HeightRequest="65">
 
-                <Grid.Padding>
-                    <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="Android" Value="0, 0, 0, 0"/>
-                        <On Platform="iOS" Value="0, 34, 0, 0"/>
-                    </OnPlatform>
-                </Grid.Padding>
-
-                <Button Text="{x:Static resources:AppResources.PageButtonBack}"
+                    <Button Text="{x:Static resources:AppResources.PageButtonBack}"
                     VerticalOptions="Center"
                     HorizontalOptions="Start"
                     BorderWidth="1"                    
@@ -42,65 +47,67 @@
                     TextColor="#4ba3be"
                     BorderColor="#4ba3be"
                     Command="{Binding BackCommand}"/>
-                
-                <Label VerticalOptions="Center"
+
+                    <Label VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageAddUpdateTitle}"
                    FontSize="30"
                    TextColor="#63bcd7"/>
-                
-                <Button ImageSource="ic_save.png"
+
+                    <Button ImageSource="ic_save.png"
                         Command ="{Binding SavePinCommand}"
                         VerticalOptions="Center"
                         HorizontalOptions="End"
                         BackgroundColor="#63bcd7"/>
 
-            </Grid>
+                </Grid>
 
-            <controls:StandardEntry Grid.Row="1" 
-                                    HeightRequest="50"
-                                    Placeholder="{x:Static resources:AppResources.PagePinLable}" 
-                                    Text="{Binding Label}" 
-                                    BackgroundColor="#31FFFFFF"
-                                    BorderColor="#c0c8de"
-                                    BorderThickness="2"
-                                    CornerRadius="8"/>
-            
-            <controls:StandardEntry Grid.Row="2"
-                                    Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
-                                    Text="{Binding Latitude}"                                                       
-                                    Keyboard="Numeric"
-                                    BackgroundColor="#31FFFFFF"
-                                    BorderColor="#c0c8de"
-                                    BorderThickness="2"
-                                    CornerRadius="8"/>
-            
-            <controls:StandardEntry Grid.Row="3"
-                                    Placeholder="{x:Static resources:AppResources.PagePinLongitude}"
-                                    Text="{Binding Longitude, Mode=TwoWay}"                   
-                                    Keyboard="Numeric"
-                                    BackgroundColor="#31FFFFFF"
-                                    BorderColor="#c0c8de"
-                                    BorderThickness="2"
-                                    CornerRadius="8"/>
+                <controls:CustomEntry  Grid.Row="1" 
+                                   HeightRequest="50"
+                                   Placeholder="{x:Static resources:AppResources.PagePinLable}" 
+                                   Text="{Binding Label}" 
+                                   BackgroundColor="#80FFFFFF"
+                                   BorderColor="#c0c8de"
+                                   BorderThickness="2"
+                                   CornerRadius="8"/>
 
-            <Editor Grid.Row="4"
-                    Placeholder="Description" 
+                <controls:CustomEntry  Grid.Row="2"
+                                   Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
+                                   Text="{Binding Latitude}"                                                       
+                                   Keyboard="Numeric"
+                                   BackgroundColor="#80FFFFFF"
+                                   BorderColor="#c0c8de"
+                                   BorderThickness="2"
+                                   CornerRadius="8"/>
+
+                <controls:CustomEntry  Grid.Row="3"
+                                   Placeholder="{x:Static resources:AppResources.PagePinLongitude}"
+                                   Text="{Binding Longitude, Mode=TwoWay}"                   
+                                   Keyboard="Numeric"
+                                   BackgroundColor="#80FFFFFF"
+                                   BorderColor="#c0c8de"
+                                   BorderThickness="2"
+                                   CornerRadius="8"/>
+
+                <Editor Grid.Row="4"
+                    Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}" 
                     Text="{Binding Description}"
                     MaxLength="120"/>
-                        
-            <controls:CustomMap Grid.Row="5"  
+
+                <controls:CustomMap Grid.Row="5"  
                                 VerticalOptions="FillAndExpand" 
                                 MyLocationEnabled="True" 
                                 PinList="{Binding MyPins}"
                                 OpenMapPosition="{Binding CameraUpdate}">
- 
-                <controls:CustomMap.Behaviors>
-                    <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
+
+                    <controls:CustomMap.Behaviors>
+                        <prismBehaviors:EventToCommandBehavior EventName="MapClicked"
                                                            Command="{Binding GetPositionCommand}"
                                                            EventArgsParameterPath="Point"/>
-                </controls:CustomMap.Behaviors>
-            </controls:CustomMap>           
+                    </controls:CustomMap.Behaviors>
+                </controls:CustomMap>
+            </Grid>
         </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

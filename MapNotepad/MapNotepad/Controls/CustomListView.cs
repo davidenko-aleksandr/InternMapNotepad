@@ -3,12 +3,12 @@ using Xamarin.Forms;
 
 namespace MapNotepad.Controls
 {
-    public class BetterListView : ListView
+    public class CustomListView : ListView
     {
         public static BindableProperty ItemClickCommandProperty = BindableProperty.Create(
                                                                   nameof(ItemClickCommand),
                                                                   typeof(ICommand),
-                                                                  typeof(BetterListView), 
+                                                                  typeof(CustomListView), 
                                                                   null);
 
         public ICommand ItemClickCommand
@@ -23,7 +23,7 @@ namespace MapNotepad.Controls
             }
         }
 
-        public BetterListView()
+        public CustomListView()
         {
             this.ItemTapped += OnItemTapped;
         }

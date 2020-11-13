@@ -151,11 +151,40 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill in the &quot;Title&quot; field.
+        /// </summary>
+        public static string AlertIncorrectNote {
+            get {
+                return ResourceManager.GetString("AlertIncorrectNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect password.
         /// </summary>
         public static string AlertIncorrectPassword {
             get {
                 return ResourceManager.GetString("AlertIncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid latitude or longitude data.
+        ///-90.0 &lt;  latitude  &lt; 90.0
+        ///-180.0 &lt;  longitude  &lt; 180.0.
+        /// </summary>
+        public static string AlertIncorrectPinData {
+            get {
+                return ResourceManager.GetString("AlertIncorrectPinData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill in the &quot;Label&quot; field.
+        /// </summary>
+        public static string AlertIncorrectPinLabel {
+            get {
+                return ResourceManager.GetString("AlertIncorrectPinLabel", resourceCulture);
             }
         }
         
@@ -214,6 +243,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding a new note.
+        /// </summary>
+        public static string PageAddNoteTitle {
+            get {
+                return ResourceManager.GetString("PageAddNoteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New pin.
         /// </summary>
         public static string PageAddUpdateTitle {
@@ -268,11 +306,29 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string PageButtonCancel {
+            get {
+                return ResourceManager.GetString("PageButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SIGN_UP.
         /// </summary>
         public static string PageButtonHyperLink {
             get {
                 return ResourceManager.GetString("PageButtonHyperLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string PageButtonSave {
+            get {
+                return ResourceManager.GetString("PageButtonSave", resourceCulture);
             }
         }
         
@@ -367,6 +423,15 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string PagePlaceholderDescription {
+            get {
+                return ResourceManager.GetString("PagePlaceholderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string PagePlaceholderEmail {
@@ -381,6 +446,15 @@ namespace MapNotepad.Resources {
         public static string PagePlaceholderName {
             get {
                 return ResourceManager.GetString("PagePlaceholderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string PagePlaceholderNoteTitle {
+            get {
+                return ResourceManager.GetString("PagePlaceholderNoteTitle", resourceCulture);
             }
         }
         

@@ -2,30 +2,30 @@
 
 namespace MapNotepad.Controls
 {
-    public sealed class StandardEntry : Entry
+    public sealed class CustomEntry : Entry
     {
         public static BindableProperty CornerRadiusProperty = BindableProperty.Create(
                                                                                 nameof(CornerRadius), 
                                                                                 typeof(int), 
-                                                                                typeof(StandardEntry), 
+                                                                                typeof(CustomEntry), 
                                                                                 0);
 
         public static BindableProperty BorderThicknessProperty = BindableProperty.Create(
                                                                                    nameof(BorderThickness), 
                                                                                    typeof(int), 
-                                                                                   typeof(StandardEntry), 
+                                                                                   typeof(CustomEntry), 
                                                                                    0);
 
         public static BindableProperty PaddingProperty = BindableProperty.Create(
                                                                            nameof(Padding), 
                                                                            typeof(Thickness), 
-                                                                           typeof(StandardEntry), 
+                                                                           typeof(CustomEntry), 
                                                                            new Thickness(5));
 
         public static BindableProperty BorderColorProperty = BindableProperty.Create(
                                                                                nameof(BorderColor), 
                                                                                typeof(Color), 
-                                                                               typeof(StandardEntry), 
+                                                                               typeof(CustomEntry), 
                                                                                Color.Transparent);
 
         public int CornerRadius

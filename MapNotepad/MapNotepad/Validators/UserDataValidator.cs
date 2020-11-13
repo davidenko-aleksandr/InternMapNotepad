@@ -4,9 +4,9 @@ namespace MapNotepad.Validators
 {
     public class UserDataValidator
     {
-        public const string EMAIL_VALID = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-        public const string NAME_VALID = @"^\d\w*";
-        public const string PASSWORD_UP_VALID = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+        const string EMAIL_VALID = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+        const string NAME_VALID = @"^\d\w*";
+        const string PASSWORD_UP_VALID = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
 
         public static bool ValidateEmail(string email)
         {

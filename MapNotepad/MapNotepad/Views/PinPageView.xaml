@@ -16,33 +16,39 @@
     </ContentPage.Padding>
     
     <ContentPage.Content>
-        <Grid BackgroundColor="White" Margin="5">
+        <Grid>
             
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <Image Source="maps_planet.png"
+                   Aspect="AspectFill"
+                   Margin="0, 53, 0, 0"/>
+            
+            <Grid Margin="5">
 
-            <Grid VerticalOptions="Start"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>               
+
+                <Grid VerticalOptions="Start"
                   Grid.Row="0"
                   HorizontalOptions="FillAndExpand"
                   HeightRequest="45">
 
-                <Label VerticalOptions="Center"
+                    <Label VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PagePinListTitle}"
                    FontSize="30"
                    TextColor="#63bcd7"/>
-                
-                <ImageButton Source="ic_exit_to_app.png"
+
+                    <ImageButton Source="ic_exit_to_app.png"
                              Command="{Binding ExitCommand}"
                              VerticalOptions="Center"
                              HorizontalOptions="End"
                              BackgroundColor="#63bcd7"/>
-            </Grid>            
-            
-            <SearchBar Grid.Row="1" 
+                </Grid>
+
+                <SearchBar Grid.Row="1" 
                        Text="{Binding SearchFilter}"
                        BackgroundColor="White"
                        Placeholder="{x:Static resources:AppResources.PagePlaceholderSearchBar}"
@@ -50,111 +56,110 @@
                        VerticalOptions="Start"
                        HeightRequest="50"
                        PlaceholderColor="#63bcd7">
-                
-                
-                <SearchBar.Behaviors>
-                    <prism:EventToCommandBehavior EventName="TextChanged" 
+
+
+                    <SearchBar.Behaviors>
+                        <prism:EventToCommandBehavior EventName="TextChanged" 
                                                   Command="{Binding SearchPinCommand}"
                     />
-                </SearchBar.Behaviors>
-            </SearchBar>
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                
+                <local:CustomListView  Grid.Row="2"
+                                       ItemsSource="{Binding PinsGoogleMapCollection}"                          
+                                       ItemClickCommand ="{Binding PinSelectedCommand}"
+                                       x:Name="pinList"
+                                       HasUnevenRows="True"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       BackgroundColor="#80FFFFFF">
 
-            <local:BetterListView  Grid.Row="2"
-                                   ItemsSource="{Binding PinsGoogleMapCollection}"                          
-                                   ItemClickCommand ="{Binding PinSelectedCommand}"
-                                   x:Name="pinList"
-                                   HasUnevenRows="True"
-                                   VerticalOptions="FillAndExpand"
-                                   HorizontalOptions="FillAndExpand">
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Text="{x:Static resources:AppResources.PageBattonEdit}"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="{x:Static resources:AppResources.PageBattonEdit}"
                                       Command="{Binding BindingContext.EditPinCommand, 
                                       Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
-                                
-                                <MenuItem Text="{x:Static resources:AppResources.PageBattonDelete}" 
+
+                                    <MenuItem Text="{x:Static resources:AppResources.PageBattonDelete}" 
                                       Command="{Binding BindingContext.DeletePinCommand, 
                                       Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
-                                
-                            </ViewCell.ContextActions>
+                                </ViewCell.ContextActions>
 
-                            <ViewCell.View>
-                                <Grid  Margin="10" HeightRequest="55">
+                                <ViewCell.View>
+                                    <Grid  Margin="10" HeightRequest="55">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="0"
+                                        <Label Grid.Column="0"
                                            Text="{Binding Label}" 
                                            FontSize="Large"
                                            MaxLines="1"
                                            HorizontalOptions="Start"
                                            VerticalOptions="Start"/>
 
-                                    <Label Grid.Column="0"
+                                        <Label Grid.Column="0"
                                            Text="{Binding Description}"
                                            MaxLines="1"
                                            HorizontalOptions="Start"
                                            VerticalOptions="End"/>
 
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                                            VerticalOptions="Center"
-                                           HorizontalOptions="End"
-                                           TextColor="Blue">
-                                        
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding LableForCountOfNote}"
-                                                      TextColor="#c0c8de"
-                                                      TextDecorations="Underline">
-                                                    <Span.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding BindingContext.OpenNotesCommand, 
-                                                             Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
-                                                    </Span.GestureRecognizers>
-                                                </Span>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                           HorizontalOptions="End">
 
-                                    <Button Grid.Column="2"
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding LableForCountOfNote}"
+                                                      TextColor="#150682"
+                                                      TextDecorations="Underline">
+                                                        <Span.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding BindingContext.OpenNotesCommand, 
+                                                             Source={x:Reference pinList}}" CommandParameter="{Binding .}"/>
+                                                        </Span.GestureRecognizers>
+                                                    </Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Button Grid.Column="2"
                                             x:Name="myButton"
                                             Command="{Binding BindingContext.AddOrRemoveFavoritCommand, 
                                             Source={x:Reference pinList}}" CommandParameter="{Binding .}"
                                             VerticalOptions="Center"
                                             HorizontalOptions="End"
                                             ImageSource="no_favorite.png"
-                                            BackgroundColor="White">
-                                        
-                                        <Button.Triggers>
-                                            <DataTrigger TargetType="Button"
+                                            BackgroundColor="#10FFFFFF">
+
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button"
                                                          Binding="{Binding 
                                                          Path=IsFavorite}"
                                                          Value="true">
-                                                <Setter Property="ImageSource" Value="favorite.png"/>
-                                            </DataTrigger>
-                                        </Button.Triggers>
-                                    </Button>
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </local:BetterListView>
+                                                    <Setter Property="ImageSource" Value="favorite.png"/>
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </local:CustomListView>
 
-            <Label Grid.Row="2" 
+                <Label Grid.Row="2" 
                    Text="{Binding NoPins}"
                    TextColor="#63bcd7"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
 
 
-            <Button ImageSource="add_pin_button.png"                         
+                <Button ImageSource="add_pin_button.png"                         
                          Command="{Binding AddUpdatePinCommand}"
                          BackgroundColor="White"
                          Grid.Row="2"
@@ -165,6 +170,8 @@
                     HeightRequest="64"
                     WidthRequest="64"/>
 
+            </Grid>
         </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

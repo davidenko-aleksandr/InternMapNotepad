@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resources="clr-namespace:MapNotepad.Resources" 
+             xmlns:resources="clr-namespace:MapNotepad.Resources" xmlns:controls="http://xamarin.com/schemas/2014/forms/design" xmlns:prismBehaviors="http://prismlibrary.com"
              x:Class="MapNotepad.Views.ListOfNotesPageView">
     
     <ContentPage.Content>
@@ -65,12 +65,19 @@
                 </StackLayout.Margin>
                          
                 <ListView x:Name="listOfNotes"
-                      ItemsSource="{Binding CollectionNotes}"
-                      HasUnevenRows="True"
-                      VerticalOptions="FillAndExpand"
-                      HorizontalOptions="FillAndExpand"
-                      BackgroundColor="#50FFFFFF">
+                          ItemsSource="{Binding CollectionNotes}"
+                          HasUnevenRows="True"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          BackgroundColor="#80FFFFFF"
+                          SelectedItem="False">
                     
+                    <controls:ListView.Behaviors>
+                        <prismBehaviors:EventToCommandBehavior EventName="ItemTapped"
+                                                               Command="{Binding SelectedNoteCommand}"
+                                                               EventArgsParameterPath="Item"/>
+                    </controls:ListView.Behaviors>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

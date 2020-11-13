@@ -6,6 +6,7 @@ using MapNotepad.Sevices.PinServices;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
     {
         private readonly IPinService _pinService;
         private readonly INoteForPinService _noteService;
+        private readonly IPageDialogService _dialogService;
 
         private int _pinId;
         private NoteForPinModel _noteForPinModel;
@@ -24,10 +26,12 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         public AddNotePageViewModel(
                                     IPinService pinService,
                                     INoteForPinService noteService,
+                                    IPageDialogService dialogService,
                                     INavigationService navigationService) : base(navigationService)
         {
             _pinService = pinService;
             _noteService = noteService;
+            _dialogService = dialogService;
             _noteForPinModel = new NoteForPinModel();
         }
 
@@ -122,8 +126,10 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
             }
         }
 
-        private async Task SaveNoteForPinAsync()
+        private async Task<bool> SaveNoteForPinAsync()
         {
+            bool IsCorrectData;
+
             if (_noteForPinModel.Id == 0)
             {
                 NoteForPinModel note = new NoteForPinModel
@@ -133,26 +139,46 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                     Image = ImageSource,
                     PinId = _pinId
                 };
-                await _noteService.AddOrUpdateNoteInDBAsync(note);
+                IsCorrectData = await SaveOrShowAlert(note);
             }
             else
             {
                 _noteForPinModel.NoteTitle = NoteLable;
                 _noteForPinModel.NoteDescription = NoteDescription;
                 _noteForPinModel.Image = ImageSource;
-                await _noteService.AddOrUpdateNoteInDBAsync(_noteForPinModel);
+                IsCorrectData = await SaveOrShowAlert(_noteForPinModel);
             }
+
+            return IsCorrectData;
         }
+
+        private async Task<bool> SaveOrShowAlert(NoteForPinModel note)
+        {
+            bool IsCorrectData = false;
+
+            if (!string.IsNullOrWhiteSpace(NoteLable))
+            {
+                await _noteService.AddOrUpdateNoteInDBAsync(note);
+                IsCorrectData = true;
+            }
+            else
+            {
+                await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertIncorrectNote, AppResources.AlertOk);
+            }
+
+            return IsCorrectData;
+        }
+
         private async void OnSaveCommandAsync()
         {
-            await SaveNoteForPinAsync();
+            bool IsCorrectData = await SaveNoteForPinAsync();
 
-            if (_pinId != 0)
-            {
+            if (IsCorrectData && _pinId != 0)
+            {     
                 await _pinService.UpdatePinForAddNoteAsync(_pinId);
-            }
 
-            await _navigationService.GoBackAsync();
+                await _navigationService.GoBackAsync();
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

@@ -1,6 +1,5 @@
 ﻿using Android.Content;
 using Android.Graphics.Drawables;
-using Android.Views;
 using Android.Widget;
 using MapNotepad.Droid.Renderers;
 using Xamarin.Forms;
@@ -47,16 +46,7 @@ namespace MapNotepad.Droid.Renderers
 
             control.SetBackground(gd);
 
-            //var shadow = control.GenerateBackgroundWithShadow(
-            //    Color.White,
-            //    60f,
-            //    Color.LightGray,
-            //    10,
-            //    GravityFlags.Center);
-
             control.SetClipToPadding(false);
-
-           // control.SetBackground(shadow);
         }
     }
 }

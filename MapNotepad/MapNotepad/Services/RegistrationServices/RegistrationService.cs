@@ -3,8 +3,10 @@ using MapNotepad.Services.AuthenticationServices;
 using MapNotepad.Sevices.RegistrationServices;
 using MapNotepad.Sevices.RepositoryService;
 using MapNotepad.Sevices.Settings;
+using MapNotepad.Views;
 using Plugin.GoogleClient;
 using Plugin.GoogleClient.Shared;
+using Prism.Navigation;
 using System.Threading.Tasks;
 
 namespace MapNotepad.Services
@@ -15,6 +17,7 @@ namespace MapNotepad.Services
         private readonly IGoogleClientManager _googleService;
         private readonly ISettingsService _settingsService;
         private readonly IUserAuthorization _userAuthorization;
+        public readonly INavigationService _navigationService;
 
         public string GoogleName { get; set; }
         public string GoogleEmail { get; set; }
@@ -23,12 +26,14 @@ namespace MapNotepad.Services
         public RegistrationService(
                                    IRepositoryService repositoryService,
                                    ISettingsService settingsService,
-                                   IUserAuthorization userAuthorization)
+                                   IUserAuthorization userAuthorization,
+                                   INavigationService navigationService)
         {
             _repositoryService = repositoryService;
             _googleService = CrossGoogleClient.Current;
             _settingsService = settingsService;
             _userAuthorization = userAuthorization;
+            _navigationService = navigationService;
         }
 
         public async Task<bool> ValidateEmailInDBAsync(string email)
@@ -55,13 +60,17 @@ namespace MapNotepad.Services
 
         public void OnLoginCompleted(object s, GoogleClientResultEventArgs<GoogleUser> loginEventArgs)
         {
-            if (loginEventArgs.Data != null)
+            if (loginEventArgs != null)
             {
                 GoogleUser googleUser = loginEventArgs.Data;
 
                 _settingsService.CurrentUserEmail = googleUser.Email;
 
                 _userAuthorization.IsAuthorized = true;
+            }
+            else
+            {
+                _navigationService.NavigateAsync($"{nameof(SignInPageView)}");
             }
             _googleService.OnLogin -= OnLoginCompleted;
 

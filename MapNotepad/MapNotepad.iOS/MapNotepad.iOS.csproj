@@ -67,7 +67,7 @@
     <Compile Include="IOSInitializer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\iOSStandardEntryRenderer.cs" />
+    <Compile Include="Renderers\iOSCustomEntryRenderer.cs" />
     <Compile Include="Renderers\iOSStandardSearchBarRenderer.cs" />
     <Compile Include="Renderers\UITextFieldPadding.cs" />
     <None Include="Entitlements.plist" />
@@ -231,5 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\background_note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\maps_planet.png" />
   </ItemGroup>
 </Project>

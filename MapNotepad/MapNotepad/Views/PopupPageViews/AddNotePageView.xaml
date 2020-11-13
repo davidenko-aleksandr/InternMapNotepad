@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <popup:PopupPage  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
                   xmlns="http://xamarin.com/schemas/2014/forms"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:MapNotepad.Controls"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                  xmlns:controls="clr-namespace:MapNotepad.Controls"
+                  xmlns:resources="clr-namespace:MapNotepad.Resources"
                   x:Class="MapNotepad.Views.PopupPageViews.AddNotePageView"
                   CloseWhenBackgroundIsClicked="True">
     
@@ -15,24 +17,24 @@
                    BackgroundColor="#d7d8fa"
                    Aspect="AspectFill"
                    HorizontalOptions="FillAndExpand"/>
-            <Label Text="Adding a new note"
+            <Label Text="{x:Static resources:AppResources.PageAddNoteTitle}"
                    VerticalOptions="Start"
                    HorizontalOptions="Center"
                    TextColor="#010210"
                    FontSize="30"
                    Margin="0, 12, 0, 0"/>
-            
-            <controls:StandardEntry Text ="{Binding NoteLable}"
-                                    BorderColor="White"
-                                    PlaceholderColor="#6b6a69"
-                                    Placeholder="Title"
-                                    BorderThickness="2"
-                                    CornerRadius="8"
-                                    HeightRequest="50"
-                                    HorizontalOptions="FillAndExpand"
-                                    BackgroundColor="#90FFFFFF"
-                                    VerticalOptions="Start"
-                                    Margin="10, 70, 10, 0"/>
+
+            <controls:CustomEntry  Text ="{Binding NoteLable}"
+                                   BorderColor="White"
+                                   PlaceholderColor="#6b6a69"
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderNoteTitle}"
+                                   BorderThickness="2"
+                                   CornerRadius="8"
+                                   HeightRequest="50"
+                                   HorizontalOptions="FillAndExpand"
+                                   BackgroundColor="#90FFFFFF"
+                                   VerticalOptions="Start"
+                                   Margin="10, 70, 10, 0"/>
             
             <ImageButton Source="{Binding ImageSource}"
                          HeightRequest="100"
@@ -45,7 +47,7 @@
 
             <Editor Text ="{Binding NoteDescription}"
                     PlaceholderColor="#6b6a69"
-                    Placeholder="Discription"
+                    Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}"
                     HeightRequest="240"
                     MaxLength="120"
                     HorizontalOptions="FillAndExpand"
@@ -53,7 +55,7 @@
                     VerticalOptions="Start"
                     Margin="10, 250, 10, 0"/>
 
-            <Button Text="Cancel"
+            <Button Text="{x:Static resources:AppResources.PageButtonCancel}"
                     VerticalOptions="End"
                     HorizontalOptions="Start"
                     BorderWidth="1"                    
@@ -66,7 +68,7 @@
                     BorderColor="#010210"
                     Command="{Binding CancelCommand}"/>
 
-            <Button Text="Save"
+            <Button Text="{x:Static resources:AppResources.PageButtonSave}"
                     VerticalOptions="End"
                     HorizontalOptions="End"
                     BorderWidth="1"                    

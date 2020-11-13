@@ -6,12 +6,12 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(StandardEntry), typeof(iOSStandardEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomEntry), typeof(iOSCustomEntryRenderer))]
 namespace MapNotepad.iOS.Renderers
 {
-    public class iOSStandardEntryRenderer : EntryRenderer
+    public class iOSCustomEntryRenderer : EntryRenderer
     {
-        public StandardEntry ElementV2 => Element as StandardEntry;
+        public CustomEntry ElementV2 => Element as CustomEntry;
         public UITextFieldPadding ControlV2 => Control as UITextFieldPadding;
 
         protected override UITextField CreateNativeControl()
@@ -40,7 +40,7 @@ namespace MapNotepad.iOS.Renderers
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == StandardEntry.PaddingProperty.PropertyName)
+            if (e.PropertyName == CustomEntry.PaddingProperty.PropertyName)
             {
                 UpdatePadding();
             }

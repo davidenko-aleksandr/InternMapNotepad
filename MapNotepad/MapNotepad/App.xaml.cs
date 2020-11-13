@@ -36,7 +36,8 @@ namespace MapNotepad
             containerRegistry.RegisterForNavigation<MapPageView, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<PinPageView, PinPageViewModel>();
             containerRegistry.RegisterForNavigation<AddNotePageView, AddNotePageViewModel>();
-            containerRegistry.RegisterForNavigation<ListOfNotesPageView, ListOfNotesPageViewModel>();            
+            containerRegistry.RegisterForNavigation<ListOfNotesPageView, ListOfNotesPageViewModel>();
+            containerRegistry.RegisterForNavigation<NotePageView, NotePageViewModel>();            
 
             //registration of services with interfaces
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());

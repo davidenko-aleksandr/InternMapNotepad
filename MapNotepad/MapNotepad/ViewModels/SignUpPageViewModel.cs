@@ -58,6 +58,7 @@ namespace MapNotepad.ViewModels
             get { return _confirmPassword; }
             set { SetProperty(ref _confirmPassword, value); }
         }
+
         private ICommand _signUpCommand;
         public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await OnSignUpCommandAsync(), () => false);
 

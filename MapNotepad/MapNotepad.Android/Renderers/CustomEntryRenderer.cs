@@ -6,16 +6,16 @@ using MapNotepad.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(StandardEntry), typeof(StandardEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
 namespace MapNotepad.Droid.Renderers
 {
-    public class StandardEntryRenderer : EntryRenderer
+    public class CustomEntryRenderer : EntryRenderer
     {
-        public StandardEntryRenderer(Context context) : base(context)
+        public CustomEntryRenderer(Context context) : base(context)
         {
         }
 
-        public StandardEntry ElementV2 => Element as StandardEntry;
+        public CustomEntry ElementV2 => Element as CustomEntry;
         protected override FormsEditText CreateNativeControl()
         {
             var control = base.CreateNativeControl();
@@ -25,15 +25,15 @@ namespace MapNotepad.Droid.Renderers
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == StandardEntry.CornerRadiusProperty.PropertyName)
+            if (e.PropertyName == CustomEntry.CornerRadiusProperty.PropertyName)
             {
                 UpdateBackground();
             }
-            else if (e.PropertyName == StandardEntry.BorderThicknessProperty.PropertyName)
+            else if (e.PropertyName == CustomEntry.BorderThicknessProperty.PropertyName)
             {
                 UpdateBackground();
             }
-            else if (e.PropertyName == StandardEntry.BorderColorProperty.PropertyName)
+            else if (e.PropertyName == CustomEntry.BorderColorProperty.PropertyName)
             {
                 UpdateBackground();
             }

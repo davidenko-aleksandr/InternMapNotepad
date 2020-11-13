@@ -18,11 +18,13 @@ namespace MapNotepad.Sevices.Settings
             get => UserSettings.GetValueOrDefault(nameof(MapLatitude), 48.4536560005801);
             set => UserSettings.AddOrUpdateValue(nameof(MapLatitude), value);
         }
+
         public double MapLongitude
         {
             get => UserSettings.GetValueOrDefault(nameof(MapLongitude), 35.0374626740813);
             set => UserSettings.AddOrUpdateValue(nameof(MapLongitude), value);
         }
+
         public double MapZoom
         {
             get => UserSettings.GetValueOrDefault(nameof(MapZoom), 15.0);

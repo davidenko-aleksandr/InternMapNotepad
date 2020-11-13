@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="MapNotepad.Views.PopupPageViews.NotePageView"
+                  CloseWhenBackgroundIsClicked="True">
+    
+    <popup:PopupPage.Content>
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Spacing="15"
+                     BackgroundColor="#dee5ee"
+                     Margin="30">
+            
+            <Label Text="{Binding NoteLable}"
+                   HorizontalOptions="Center"
+                   FontSize="25"/>
+
+            <ImageButton Source="{Binding ImageSource}"
+                         HeightRequest="250"
+                         WidthRequest="250"
+                         HorizontalOptions="Center"
+                         BackgroundColor="#10FFFFFF"
+                         Margin="20"/>
+
+            <Label Text="{Binding NoteDescription}"
+                   WidthRequest="280"
+                   HorizontalOptions="Center"
+                   MaxLines="8"
+                   Margin="20"/>
+            
+        </StackLayout>
+    </popup:PopupPage.Content>
+</popup:PopupPage>

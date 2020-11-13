@@ -147,8 +147,19 @@
   <data name="AlertIncorrectName" xml:space="preserve">
     <value>Incorrect name</value>
   </data>
+  <data name="AlertIncorrectNote" xml:space="preserve">
+    <value>Fill in the "Title" field</value>
+  </data>
   <data name="AlertIncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
+  </data>
+  <data name="AlertIncorrectPinData" xml:space="preserve">
+    <value>Invalid latitude or longitude data.
+-90.0 &lt;  latitude  &lt; 90.0
+-180.0 &lt;  longitude  &lt; 180.0</value>
+  </data>
+  <data name="AlertIncorrectPinLabel" xml:space="preserve">
+    <value>Fill in the "Label" field</value>
   </data>
   <data name="AlertInvalidLoginOrPassword" xml:space="preserve">
     <value>Invalid login or password</value>
@@ -168,6 +179,9 @@
   <data name="AlertUseCamera" xml:space="preserve">
     <value>Use camera</value>
   </data>
+  <data name="PageAddNoteTitle" xml:space="preserve">
+    <value>Adding a new note</value>
+  </data>
   <data name="PageAddUpdateTitle" xml:space="preserve">
     <value>New pin</value>
   </data>
@@ -186,8 +200,14 @@
   <data name="PageButtonBack" xml:space="preserve">
     <value> BACK</value>
   </data>
+  <data name="PageButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="PageButtonHyperLink" xml:space="preserve">
     <value>SIGN_UP</value>
+  </data>
+  <data name="PageButtonSave" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="PageButtonSignIn" xml:space="preserve">
     <value>SIGN  IN</value>
@@ -219,11 +239,17 @@
   <data name="PagePinTitle" xml:space="preserve">
     <value>PIN LIST</value>
   </data>
+  <data name="PagePlaceholderDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="PagePlaceholderEmail" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="PagePlaceholderName" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="PagePlaceholderNoteTitle" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="PagePlaceholderPasswConfirm" xml:space="preserve">
     <value>Confirm password</value>

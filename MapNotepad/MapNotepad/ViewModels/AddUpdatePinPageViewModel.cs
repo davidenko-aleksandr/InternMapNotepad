@@ -1,7 +1,10 @@
 ﻿using MapNotepad.Models;
+using MapNotepad.Resources;
 using MapNotepad.Sevices.MapPositionService;
 using MapNotepad.Sevices.PinServices;
+using MapNotepad.Validators;
 using Prism.Navigation;
+using Prism.Services;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,14 +17,17 @@ namespace MapNotepad.ViewModels
     {
         private readonly IPinService _pinService;
         private readonly IMapPositionService _mapPositionService;
+        private readonly IPageDialogService _dialogService;
 
         private PinGoogleMapModel _pinGoogleMapModel;
         
         public AddUpdatePinPageViewModel(
                                          IPinService pinService,
+                                         IPageDialogService dialogService,
                                          INavigationService navigationService,
                                          IMapPositionService mapPositionService) : base(navigationService)
         {
+            _dialogService = dialogService;
             _pinService = pinService;
             _myPins = new ObservableCollection<Pin>();
             _pinGoogleMapModel = new PinGoogleMapModel();
@@ -84,8 +90,12 @@ namespace MapNotepad.ViewModels
 
         private async void OnSavePinCommandAsync()
         {
-            await SavePinToDBAsync();
-            await _navigationService.GoBackAsync();
+            bool isDataCorrect = await SavePinToDBAsync();
+
+            if (isDataCorrect)
+            {
+                await _navigationService.GoBackAsync();
+            }
         }
 
         private async void OnComeBackCommandAsync()
@@ -109,8 +119,10 @@ namespace MapNotepad.ViewModels
             MyPins.Add(p);
         }
 
-        private async Task SavePinToDBAsync()
+        private async Task<bool> SavePinToDBAsync()
         {
+            bool isDataCorrect;
+
             if (_pinGoogleMapModel != null)
             {
                 _pinGoogleMapModel.Label = Label;
@@ -118,7 +130,7 @@ namespace MapNotepad.ViewModels
                 _pinGoogleMapModel.Latitude = Latitude;
                 _pinGoogleMapModel.Longitude = Longitude;
 
-                await _pinService.AddOrUpdatePinInDBAsync(_pinGoogleMapModel);
+                isDataCorrect = await SaveOrShowAlert(_pinGoogleMapModel);
             }
             else
             {
@@ -130,8 +142,39 @@ namespace MapNotepad.ViewModels
                     Longitude = Longitude
                 };
 
-                await _pinService.AddOrUpdatePinInDBAsync(pin);
-            }            
+                isDataCorrect = await SaveOrShowAlert(pin);              
+            }
+
+            return isDataCorrect;
+        }
+
+        private async Task<bool> SaveOrShowAlert(PinGoogleMapModel pin)
+        {
+            bool isDataCorrect;
+
+            if (PinDataValidator.ValidateLatitude(Latitude) && PinDataValidator.ValidateLongitude(Longitude))
+            {
+                isDataCorrect = true;
+            }
+            else
+            {
+                await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertIncorrectPinData, AppResources.AlertOk);
+                isDataCorrect = false;
+            }
+            if (isDataCorrect)
+            {
+                if (!string.IsNullOrEmpty(Label))
+                {
+                    await _pinService.AddOrUpdatePinInDBAsync(pin);
+                }
+                else
+                {
+                    await _dialogService.DisplayAlertAsync(AppResources.AlertError, AppResources.AlertIncorrectPinLabel, AppResources.AlertOk);
+                    isDataCorrect = false;
+                }
+            }
+
+            return isDataCorrect;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

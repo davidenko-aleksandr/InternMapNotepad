@@ -46,6 +46,25 @@ namespace MapNotepad.ViewModels
 
         private ICommand _openAddNoteViewPageCommand;
         public ICommand OpenAddNoteViewPageCommand => _openAddNoteViewPageCommand ??= new Command(OnOpenAddNoteViewPageCommandAsync);
+
+        private ICommand _selectedNoteCommand;
+        public ICommand SelectedNoteCommand => _selectedNoteCommand ??= new Command<object>(OnNoteSelectedCommandAsync); 
+
+        private async void OnNoteSelectedCommandAsync(object obj)
+        {
+            NoteForPinModel note = new NoteForPinModel();
+            if (obj is NoteForPinModel selectedNote)
+            {
+                note = selectedNote;
+                NavigationParameters parameters = new NavigationParameters { { "note", note } };
+                await _navigationService.NavigateAsync($"{nameof(NotePageView)}", parameters);
+            }
+            else
+            {
+
+            }            
+        }
+
         private async void OnComeBackCommandAsync()
         {
             await _navigationService.GoBackAsync();
@@ -81,6 +100,10 @@ namespace MapNotepad.ViewModels
                 await InitCollectionNotesAsync();
                 await _pinService.UpdatePinForRemoveNoteAsync(_pinId);
             }
+            else
+            {
+
+            }
         }
 
         public async Task InitCollectionNotesAsync()
@@ -96,6 +119,7 @@ namespace MapNotepad.ViewModels
             {
                 _pinId = pin;
             }
+
             await InitCollectionNotesAsync();
         }
     }

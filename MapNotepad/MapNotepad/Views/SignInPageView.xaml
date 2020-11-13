@@ -44,27 +44,27 @@
                       VerticalOptions="Start"
                       Margin="5, 200, 5, 0">
 
-            <controls:StandardEntry  x:Name="loginEntry"
-                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}" 
-                                     HeightRequest="50"
-                                     WidthRequest="380"
-                                     Text="{Binding Email}"
-                                     Keyboard="Email"
-                                     BackgroundColor="#6676a1"
-                                     BorderColor="#c0c8de"
-                                     BorderThickness="2"
-                                     CornerRadius="8"/>
-            
-            <controls:StandardEntry x:Name="passwordEntry"
-                                    Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}" 
-                                    HeightRequest="50"
-                                    WidthRequest="380"
-                                    IsPassword ="True" 
-                                    Text="{Binding Password}"
-                                    BackgroundColor="#6676a1"
-                                    BorderColor="#c0c8de"
-                                    BorderThickness="2"
-                                    CornerRadius="8"/>
+            <controls:CustomEntry  x:Name="loginEntry"
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}" 
+                                   HeightRequest="50"
+                                   WidthRequest="380"
+                                   Text="{Binding Email}"
+                                   Keyboard="Email"
+                                   BackgroundColor="#6676a1"
+                                   BorderColor="#c0c8de"
+                                   BorderThickness="2"
+                                   CornerRadius="8"/>
+
+            <controls:CustomEntry  x:Name="passwordEntry"
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}" 
+                                   HeightRequest="50"
+                                   WidthRequest="380"
+                                   IsPassword ="True" 
+                                   Text="{Binding Password}"
+                                   BackgroundColor="#6676a1"
+                                   BorderColor="#c0c8de"
+                                   BorderThickness="2"
+                                   CornerRadius="8"/>
             
         </StackLayout>
 
