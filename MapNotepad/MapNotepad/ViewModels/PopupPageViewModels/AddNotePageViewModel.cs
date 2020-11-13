@@ -33,9 +33,12 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
             _noteService = noteService;
             _dialogService = dialogService;
             _noteForPinModel = new NoteForPinModel();
-        }
+        }               
+
+
 
         #region -- Public properties --
+
         private string _noteLable;
         public string NoteLable
         {
@@ -68,14 +71,27 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         #endregion
 
+        #region -- Private helpers --
+        private async void OnSaveCommandAsync()
+        {
+            bool IsCorrectData = await SaveNoteForPinAsync();
+
+            if (IsCorrectData && _pinId != 0)
+            {
+                await _pinService.UpdatePinForAddNoteAsync(_pinId);
+
+                await _navigationService.GoBackAsync();
+            }
+        }
+
         private void OnAddPhotoCommand()
         {
-             UserDialogs.Instance.ActionSheet(
-                                 new ActionSheetConfig()
-                                .SetCancel(AppResources.AlertCancel)
-                                .SetTitle(AppResources.AlertAddingPhoto)
-                                .Add(AppResources.AlertUseCamera, TakeNewPhotoAsync, "camera.png")
-                                .Add(AppResources.AlertDownlFromGallery, GetPhotoFromGalleryAsync, "gallery.png"));
+            UserDialogs.Instance.ActionSheet(
+                                new ActionSheetConfig()
+                               .SetCancel(AppResources.AlertCancel)
+                               .SetTitle(AppResources.AlertAddingPhoto)
+                               .Add(AppResources.AlertUseCamera, TakeNewPhotoAsync, "camera.png")
+                               .Add(AppResources.AlertDownlFromGallery, GetPhotoFromGalleryAsync, "gallery.png"));
         }
 
         private async void OnCancelCommandAsync()
@@ -168,19 +184,9 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
             return IsCorrectData;
         }
+        #endregion
 
-        private async void OnSaveCommandAsync()
-        {
-            bool IsCorrectData = await SaveNoteForPinAsync();
-
-            if (IsCorrectData && _pinId != 0)
-            {     
-                await _pinService.UpdatePinForAddNoteAsync(_pinId);
-
-                await _navigationService.GoBackAsync();
-            }
-        }
-
+        #region -- Overrides --
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue(Constants.SELECTED_PIN, out int pin) && pin != 0)
@@ -197,5 +203,6 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                 ImageSource = _noteForPinModel.Image;
             }
         }
+        #endregion
     }
 }

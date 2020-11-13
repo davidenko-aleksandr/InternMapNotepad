@@ -87,6 +87,8 @@ namespace MapNotepad.ViewModels
 
         #endregion
 
+        #region -- Private helpers --
+
         private async void OnDeletePinSelectedCommandAsync(PinGoogleMapModel selectedPin)
         {
             var result = await UserDialogs.Instance.ConfirmAsync(new ConfirmConfig
@@ -155,9 +157,15 @@ namespace MapNotepad.ViewModels
             NoPins = PinsGoogleMapCollection.Count == 0 ? "No pins added" : string.Empty;
         }
 
+        #endregion
+
+        #region -- Overrides --
+
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {            
             await InitTableAsync();            
         }
+
+        #endregion
     }
 }

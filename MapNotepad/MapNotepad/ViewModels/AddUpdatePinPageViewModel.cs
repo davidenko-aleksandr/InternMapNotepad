@@ -35,6 +35,7 @@ namespace MapNotepad.ViewModels
         }
 
         #region -- Public properties --
+
         private string _label = string.Empty;
         public string Label
         {
@@ -87,6 +88,8 @@ namespace MapNotepad.ViewModels
         public ICommand BackCommand => _backCommand ??= new Command(OnComeBackCommandAsync);
 
         #endregion
+
+        #region -- Private helpers --
 
         private async void OnSavePinCommandAsync()
         {
@@ -177,6 +180,10 @@ namespace MapNotepad.ViewModels
             return isDataCorrect;
         }
 
+        #endregion
+
+        #region -- Overrides --
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue(Constants.SELECTED_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
@@ -191,5 +198,7 @@ namespace MapNotepad.ViewModels
 
             CameraUpdate = new CameraPosition(lastPosition, _mapPositionService.Zoom);
         }
+
+        #endregion
     }
 }

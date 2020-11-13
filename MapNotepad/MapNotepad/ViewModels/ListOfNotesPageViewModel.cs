@@ -28,6 +28,8 @@ namespace MapNotepad.ViewModels
             _noteService = noteService;
         }
 
+        #region -- Public properties --
+
         private ObservableCollection<NoteForPinModel> _collectionNotes;
         public ObservableCollection<NoteForPinModel> CollectionNotes
         {
@@ -48,8 +50,11 @@ namespace MapNotepad.ViewModels
         public ICommand OpenAddNoteViewPageCommand => _openAddNoteViewPageCommand ??= new Command(OnOpenAddNoteViewPageCommandAsync);
 
         private ICommand _selectedNoteCommand;
-        public ICommand SelectedNoteCommand => _selectedNoteCommand ??= new Command<object>(OnNoteSelectedCommandAsync); 
+        public ICommand SelectedNoteCommand => _selectedNoteCommand ??= new Command<object>(OnNoteSelectedCommandAsync);
 
+        #endregion
+
+        #region -- Private helpers --
         private async void OnNoteSelectedCommandAsync(object obj)
         {
             NoteForPinModel note = new NoteForPinModel();
@@ -58,11 +63,7 @@ namespace MapNotepad.ViewModels
                 note = selectedNote;
                 NavigationParameters parameters = new NavigationParameters { { "note", note } };
                 await _navigationService.NavigateAsync($"{nameof(NotePageView)}", parameters);
-            }
-            else
-            {
-
-            }            
+            }         
         }
 
         private async void OnComeBackCommandAsync()
@@ -72,7 +73,6 @@ namespace MapNotepad.ViewModels
 
         private async void OnOpenAddNoteViewPageCommandAsync()
         {
-
             NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, _pinId } };
 
             await _navigationService.NavigateAsync($"{nameof(AddNotePageView)}", parameters);
@@ -100,19 +100,18 @@ namespace MapNotepad.ViewModels
                 await InitCollectionNotesAsync();
                 await _pinService.UpdatePinForRemoveNoteAsync(_pinId);
             }
-            else
-            {
-
-            }
         }
 
-        public async Task InitCollectionNotesAsync()
+        private async Task InitCollectionNotesAsync()
         {
             var collection = await _noteService.GetNotesFromDBAsync(_pinId);
 
             CollectionNotes = new ObservableCollection<NoteForPinModel>(collection);
         }
 
+        #endregion
+
+        #region -- Overrides --
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue(Constants.SELECTED_PIN, out int pin) && pin != 0)
@@ -122,5 +121,6 @@ namespace MapNotepad.ViewModels
 
             await InitCollectionNotesAsync();
         }
+        #endregion
     }
 }

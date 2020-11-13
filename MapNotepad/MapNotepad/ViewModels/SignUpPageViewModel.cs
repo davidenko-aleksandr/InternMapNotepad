@@ -146,7 +146,6 @@ namespace MapNotepad.ViewModels
 
             return isErrorExist;
         }
-        #endregion
 
         private async Task SaveUserToDBAsync()
         {
@@ -156,8 +155,10 @@ namespace MapNotepad.ViewModels
                 Email = _email.ToUpper(),
                 Password = _password
             };
-            
+
             await _repositoryService.SaveOrUpdateItemAsync<UserModel>(user);
         }
+
+        #endregion       
     }
 }

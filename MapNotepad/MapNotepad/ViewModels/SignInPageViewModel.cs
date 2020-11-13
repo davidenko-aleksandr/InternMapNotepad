@@ -68,6 +68,8 @@ namespace MapNotepad.ViewModels
 
         #endregion
 
+        #region -- Private helpers --
+
         private async void OnToSignUpPageCommandAsync()
         {
             await _navigationService.NavigateAsync($"{nameof(SignUpPageView)}");
@@ -91,10 +93,16 @@ namespace MapNotepad.ViewModels
             }
         }
 
+        #endregion
+
+        #region -- Overrides --
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             Email = (string)parameters["email"];
             Password = (string)parameters["pas"];
         }
+
+        #endregion
     }
 }

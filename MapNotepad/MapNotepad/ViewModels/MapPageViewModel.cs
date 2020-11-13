@@ -131,6 +131,8 @@ namespace MapNotepad.ViewModels
 
         #endregion
 
+        #region -- Private helpers --
+
         private async void OnOpenNotesCommandAsync()
         {
             NavigationParameters parameters = new NavigationParameters { { Constants.SELECTED_PIN, _pinGoogleMapModel.Id } };
@@ -179,7 +181,7 @@ namespace MapNotepad.ViewModels
             await InitCollectionPinAsync();
         }
 
-        public async Task InitCollectionPinAsync()
+        private async Task InitCollectionPinAsync()
         {
             IEnumerable<PinGoogleMapModel> collection = String.IsNullOrEmpty(SearchFilter)
                 ? await _pinService.GetPinsFromDBAsync()
@@ -195,7 +197,9 @@ namespace MapNotepad.ViewModels
             }
         }
 
-        #region -- OnNavigationTO/From --
+        #endregion
+
+        #region -- Overrides --
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -231,6 +235,7 @@ namespace MapNotepad.ViewModels
         {
             IsVisibleFrame = false;
         }
+
         #endregion
     }
 }

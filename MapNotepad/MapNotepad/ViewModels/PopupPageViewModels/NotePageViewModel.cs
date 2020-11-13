@@ -6,10 +6,13 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
     public class NotePageViewModel : BaseViewModel
     {
         private NoteForPinModel _noteForPinModel;
+
         public NotePageViewModel(INavigationService navigationService) : base(navigationService)
         {
 
         }
+
+        #region -- Public properties --
 
         private string _noteLable;
         public string NoteLable
@@ -31,6 +34,11 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
             get { return _imageSource; }
             set { SetProperty(ref _imageSource, value); }
         }
+
+        #endregion
+
+        #region -- Overrides --
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue("note", out _noteForPinModel) && _noteForPinModel != null)
@@ -46,5 +54,6 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
                 ImageSource = "add_photo.png";
             }
         }
+        #endregion
     }
 }

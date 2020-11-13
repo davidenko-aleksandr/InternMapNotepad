@@ -27,6 +27,7 @@ namespace MapNotepad.Controls
                                                                                             declaringType: typeof(CustomMap),
                                                                                             defaultBindingMode: BindingMode.TwoWay,
                                                                                             propertyChanged: OpenMapCameraPosition);
+        #region -- Public properties --
         public CameraPosition OpenMapPosition
         {
             get => (CameraPosition)GetValue(OpenMapPositionProperty);
@@ -43,13 +44,10 @@ namespace MapNotepad.Controls
         {
             get { return (ObservableCollection<Pin>)GetValue(PinListProperty); }
             set { SetValue(PinListProperty, value); }
-        }        
+        }
+        #endregion
 
-        public CustomMap()
-        {
-            UiSettings.MyLocationButtonEnabled = true;            
-        }        
-
+        #region -- Private helpers --
         private static void OnPinListPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is CustomMap castedMap)
@@ -115,6 +113,13 @@ namespace MapNotepad.Controls
         private static void UpdateCameraPosition(CustomMap map, Position cameraPosition)
         {            
             map.MoveToRegion(MapSpan.FromCenterAndRadius(cameraPosition, Distance.FromMiles(5)));
+        }
+
+        #endregion
+
+        public CustomMap()
+        {
+            UiSettings.MyLocationButtonEnabled = true;
         }
     }
 }

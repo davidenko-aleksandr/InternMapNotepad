@@ -27,7 +27,7 @@ namespace MapNotepad.Controls
                                                                                typeof(Color), 
                                                                                typeof(CustomEntry), 
                                                                                Color.Transparent);
-
+        #region -- Public properties --
         public int CornerRadius
         {
             get => (int)GetValue(CornerRadiusProperty);
@@ -45,13 +45,12 @@ namespace MapNotepad.Controls
             get => (Color)GetValue(BorderColorProperty);
             set => SetValue(BorderColorProperty, value);
         }
-        /// <summary>
-        /// This property cannot be changed at runtime in iOS.
-        /// </summary>
+
         public Thickness Padding
         {
             get => (Thickness)GetValue(PaddingProperty);
             set => SetValue(PaddingProperty, value);
         }
+        #endregion
     }
 }
