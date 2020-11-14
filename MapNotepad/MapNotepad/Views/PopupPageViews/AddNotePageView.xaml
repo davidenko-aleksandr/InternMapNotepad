@@ -16,73 +16,77 @@
 
             <Image Source="background_note.png"
                    BackgroundColor="#d7d8fa"
-                   Aspect="AspectFill"
-                   HorizontalOptions="FillAndExpand"/>
-            
-            <Label Text="{x:Static resources:AppResources.PageAddNoteTitle}"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Center"
-                   TextColor="#010210"
-                   FontSize="30"
-                   Margin="0, 12, 0, 0"/>
+                   Aspect="AspectFill"/>
 
-            <controls:CustomEntry  Text ="{Binding NoteLable}"
-                                   BorderColor="White"
-                                   PlaceholderColor="#6b6a69"
-                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderNoteTitle}"
-                                   BorderThickness="2"
-                                   CornerRadius="8"
-                                   HeightRequest="50"
-                                   HorizontalOptions="FillAndExpand"
-                                   BackgroundColor="#90FFFFFF"
-                                   VerticalOptions="Start"
-                                   Margin="10, 70, 10, 0"/>
-            
-            <ImageButton Source="{Binding ImageSource}"
-                         HeightRequest="100"
-                         WidthRequest="100"
-                         Margin="10, 130, 10, 0"
-                         VerticalOptions="Start"
-                         HorizontalOptions="Center"
-                         BackgroundColor="#10FFFFFF"
-                         Command="{Binding AddPhotoCommand}"/>
+            <StackLayout>
+                
+                <Label Text="{x:Static resources:AppResources.PageAddNoteTitle}"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Center"
+                       TextColor="#010210"
+                       FontSize="30"
+                       Margin="0, 8, 0, 0"/>
 
-            <Editor Text ="{Binding NoteDescription}"
-                    PlaceholderColor="#6b6a69"
-                    Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}"
-                    HeightRequest="240"
-                    MaxLength="120"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#90FFFFFF"
-                    VerticalOptions="Start"
-                    Margin="10, 250, 10, 0"/>
+                <controls:CustomEntry  Text ="{Binding NoteLable}"
+                                       BorderColor="White"
+                                       PlaceholderColor="#6b6a69"
+                                       Placeholder="{x:Static resources:AppResources.PagePlaceholderNoteTitle}"
+                                       BorderThickness="2"
+                                       CornerRadius="8"
+                                       HeightRequest="50"
+                                       HorizontalOptions="FillAndExpand"
+                                       BackgroundColor="#90FFFFFF"
+                                       VerticalOptions="Start"
+                                       Margin="10, 12, 10, 0"/>
 
-            <Button Text="{x:Static resources:AppResources.PageButtonCancel}"
-                    VerticalOptions="End"
-                    HorizontalOptions="Start"
-                    BorderWidth="1"                    
-                    CornerRadius="15"
-                    HeightRequest="36"
-                    WidthRequest="85"
-                    Margin="10, 0, 0, 10"
-                    BackgroundColor="White"
-                    TextColor="#010210"
-                    BorderColor="#010210"
-                    Command="{Binding CancelCommand}"/>
+                <Editor Text ="{Binding NoteDescription}"
+                        PlaceholderColor="#6b6a69"
+                        Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}"
+                        HeightRequest="240"
+                        MaxLength="120"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="#90FFFFFF"
+                        VerticalOptions="Start"
+                        Margin="10, 8, 10, 0"/>
 
-            <Button Text="{x:Static resources:AppResources.PageButtonSave}"
-                    VerticalOptions="End"
-                    HorizontalOptions="End"
-                    BorderWidth="1"                    
-                    CornerRadius="15"
-                    HeightRequest="36"
-                    WidthRequest="85"
-                    Margin="0, 0, 10, 10"
-                    BackgroundColor="White"
-                    TextColor="#010210"
-                    BorderColor="#010210"
-                    Command="{Binding SaveCommand}"/>
+                <ImageButton Source="{Binding ImageSource}"
+                             HeightRequest="100"
+                             WidthRequest="100"
+                             Margin="0, 0, 0, 12"
+                             VerticalOptions="End"
+                             HorizontalOptions="Center"                             
+                             BackgroundColor="#99FFFFFF"
+                             Command="{Binding AddPhotoCommand}"/>
 
+                <Grid>
+                    
+                    <Button Text="{x:Static resources:AppResources.PageButtonCancel}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"
+                            BorderWidth="1"                    
+                            CornerRadius="15"
+                            HeightRequest="36"
+                            WidthRequest="85"
+                            BackgroundColor="White"
+                            TextColor="#010210"
+                            BorderColor="#010210"
+                            Command="{Binding CancelCommand}"/>
+
+
+                    <Button Text="{x:Static resources:AppResources.PageButtonSave}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            BorderWidth="1"                    
+                            CornerRadius="15"
+                            HeightRequest="36"
+                            WidthRequest="85"
+                            BackgroundColor="White"
+                            TextColor="#010210"
+                            BorderColor="#010210"
+                            Command="{Binding SaveCommand}"/>
+                    
+                </Grid>
+            </StackLayout>            
         </Grid>
     </popup:PopupPage.Content>
 </popup:PopupPage>

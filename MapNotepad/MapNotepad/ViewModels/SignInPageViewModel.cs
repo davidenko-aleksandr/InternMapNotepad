@@ -33,6 +33,7 @@ namespace MapNotepad.ViewModels
             _registrationService = registrationService;
             _locationPermission = new LocationPermission();
         }
+
         #region -- Public properties --
         public UserModel User { get; set; }
 

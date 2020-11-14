@@ -29,6 +29,7 @@
     </ContentPage.Padding>
 
     <ContentPage.Content>
+        
         <Grid>
             
             <Image Source="maps_planet.png"

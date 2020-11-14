@@ -101,7 +101,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         }
 
         private async void TakeNewPhotoAsync()
-        {
+        {                       
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
                 MediaFile file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions

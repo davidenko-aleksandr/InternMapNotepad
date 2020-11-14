@@ -51,22 +51,7 @@ namespace MapNotepad.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        protected override void OnStart()
-        {
-            base.OnStart();
 
-            if ((int)Build.VERSION.SdkInt >= 23)
-            {
-                if (CheckSelfPermission(Manifest.Permission.AccessFineLocation) != Permission.Granted)
-                {
-                    RequestPermissions(LocationPermissions, RequestLocationId);
-                }
-                else
-                {
-                    // Permissions already granted - display a message.
-                }
-            }
-        }
         public async override void OnBackPressed()
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
