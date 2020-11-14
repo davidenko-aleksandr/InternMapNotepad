@@ -40,7 +40,6 @@ namespace MapNotepad.Services.AuthenticationServices
                 IsAuthorized = true;
                 _settingsService.CurrentUserEmail = GetEmailCurrentUser();
             }
-
             return isSuccess;
         }
 

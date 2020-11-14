@@ -76,20 +76,23 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
             if (IsCorrectData && _pinId != 0)
             {
-                await _pinService.UpdatePinForAddNoteAsync(_pinId);
-
-                await _navigationService.GoBackAsync();
+                await _pinService.UpdatePinForAddNoteAsync(_pinId);                
             }
+
+            if (IsCorrectData)
+            {
+                await _navigationService.GoBackAsync();
+            }            
         }
 
         private void OnAddPhotoCommand()
         {
             UserDialogs.Instance.ActionSheet(
-                                new ActionSheetConfig()
-                               .SetCancel(AppResources.AlertCancel)
-                               .SetTitle(AppResources.AlertAddingPhoto)
-                               .Add(AppResources.AlertUseCamera, TakeNewPhotoAsync, "camera.png")
-                               .Add(AppResources.AlertDownlFromGallery, GetPhotoFromGalleryAsync, "gallery.png"));
+                                             new ActionSheetConfig()
+                                            .SetCancel(AppResources.AlertCancel)
+                                            .SetTitle(AppResources.AlertAddingPhoto)
+                                            .Add(AppResources.AlertUseCamera, TakeNewPhotoAsync, "camera.png")
+                                            .Add(AppResources.AlertDownlFromGallery, GetPhotoFromGalleryAsync, "gallery.png"));
         }
 
         private async void OnCancelCommandAsync()

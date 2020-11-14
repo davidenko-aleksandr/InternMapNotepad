@@ -9,24 +9,25 @@ namespace MapNotepad.Controls
     public class CustomMap : ClusteredMap
     {
         public static readonly BindableProperty MapCameraPositionProperty = BindableProperty.Create(
-                                                                                              propertyName: nameof(MapCameraPosition),
-                                                                                              returnType: typeof(Position),
-                                                                                              declaringType: typeof(CustomMap),
-                                                                                              defaultBindingMode: BindingMode.TwoWay,
-                                                                                              propertyChanged: CameraPositionPropertyChanged);
-
-        public static readonly BindableProperty PinListProperty = BindableProperty.Create(
-                                                                                    nameof(PinList),
-                                                                                    typeof(ObservableCollection<Pin>),
-                                                                                    typeof(CustomMap),
-                                                                                    propertyChanged: OnPinListPropertyChanged);
+                                                                                                    propertyName: nameof(MapCameraPosition),
+                                                                                                    returnType: typeof(Position),
+                                                                                                    declaringType: typeof(CustomMap),
+                                                                                                    defaultBindingMode: BindingMode.TwoWay,
+                                                                                                    propertyChanged: CameraPositionPropertyChanged);
 
         public static readonly BindableProperty OpenMapPositionProperty = BindableProperty.Create(
-                                                                                            propertyName: nameof(OpenMapPosition),
-                                                                                            returnType: typeof(CameraPosition),
-                                                                                            declaringType: typeof(CustomMap),
-                                                                                            defaultBindingMode: BindingMode.TwoWay,
-                                                                                            propertyChanged: OpenMapCameraPosition);
+                                                                                                  propertyName: nameof(OpenMapPosition),
+                                                                                                  returnType: typeof(CameraPosition),
+                                                                                                  declaringType: typeof(CustomMap),
+                                                                                                  defaultBindingMode: BindingMode.TwoWay,
+                                                                                                  propertyChanged: OpenMapCameraPosition);
+
+        public static readonly BindableProperty PinListProperty = BindableProperty.Create(
+                                                                                          nameof(PinList),
+                                                                                          typeof(ObservableCollection<Pin>),
+                                                                                          typeof(CustomMap),
+                                                                                          propertyChanged: OnPinListPropertyChanged);
+
         #region -- Public properties --
         public CameraPosition OpenMapPosition
         {

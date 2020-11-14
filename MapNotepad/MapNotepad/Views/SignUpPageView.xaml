@@ -6,21 +6,31 @@
              xmlns:resources="clr-namespace:MapNotepad.Resources"
              mc:Ignorable="d"
              x:Class="MapNotepad.Views.SignUpPageView"
-             xmlns:local="clr-namespace:MapNotepad.Converters" xmlns:controls="clr-namespace:MapNotepad.Controls"
-             
+             xmlns:local="clr-namespace:MapNotepad.Converters" xmlns:controls="clr-namespace:MapNotepad.Controls"             
              NavigationPage.HasNavigationBar="False"
              Title="{x:Static resources:AppResources.PageSignUpTitle}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            
             <local:MultiTriggerButtonConverter x:Key="isButtonEnabled"/>
+
+            <Style x:Key="CustomEntryStyle" TargetType="controls:CustomEntry">
+                <Setter Property="BorderColor" Value="#ffffff"/>
+                <Setter Property="BackgroundColor" Value="#80ffffff"/>
+                <Setter Property="PlaceholderColor" Value="#4ba3be"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="WidthRequest" Value="380"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid>
 
         <Image Aspect="AspectFill"
-               HorizontalOptions="FillAndExpand"
                Source="background_registration.png"/>
 
         <Grid VerticalOptions="Start"
@@ -54,57 +64,37 @@
             
         </Grid>
         
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="5, 120, 5, 0">
+        <StackLayout HorizontalOptions="CenterAndExpand" 
+                     VerticalOptions="Start" 
+                     Margin="5, 120, 5, 0">
+            
             <controls:CustomEntry  x:Name="nameEntry"
-                                    Placeholder="{x:Static resources:AppResources.PagePlaceholderName}" 
-                                    WidthRequest="380"
-                                    Text="{Binding Name}"
-                                    BackgroundColor="#80FFFFFF"
-                                    BorderColor="White"
-                                    PlaceholderColor="#4ba3be"
-                                    BorderThickness="2"
-                                    CornerRadius="8"
-                                    HeightRequest="50"/>
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderName}" 
+                                   Text="{Binding Name}"
+                                   Style="{StaticResource CustomEntryStyle}"/>
 
             <controls:CustomEntry  x:Name="loginEntry"
-                                    Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}" 
-                                    WidthRequest="380"
-                                    Text="{Binding Email}"
-                                    Keyboard="Email"
-                                    BackgroundColor="#80FFFFFF"
-                                    BorderColor="White"
-                                    PlaceholderColor="#4ba3be"
-                                    BorderThickness="2"
-                                    CornerRadius="8"
-                                    HeightRequest="50"/>
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderEmail}"
+                                   Text="{Binding Email}"
+                                   Keyboard="Email"
+                                   Style="{StaticResource CustomEntryStyle}"/>
 
             <controls:CustomEntry  x:Name="passwordEntry"
-                                    Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}"  
-                                    WidthRequest="380"
-                                    IsPassword ="True" 
-                                    Text="{Binding Password}"
-                                    BackgroundColor="#80FFFFFF"
-                                    BorderColor="White"
-                                    PlaceholderColor="#4ba3be"
-                                    BorderThickness="2"
-                                    CornerRadius="8"
-                                    HeightRequest="50"/>
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderPassword}"
+                                   IsPassword ="True" 
+                                   Text="{Binding Password}"
+                                   Style="{StaticResource CustomEntryStyle}"/>
 
             <controls:CustomEntry  x:Name="conPasswEntry"
-                                    Placeholder="{x:Static resources:AppResources.PagePlaceholderPasswConfirm}"  
-                                    WidthRequest="380"
-                                    IsPassword ="True" 
-                                    Text="{Binding ConfirmPassword}"
-                                    BackgroundColor="#80FFFFFF"
-                                    BorderColor="White"
-                                    PlaceholderColor="#4ba3be"
-                                    BorderThickness="2"
-                                    CornerRadius="8"
-                                    HeightRequest="50"/>
-            
+                                   Placeholder="{x:Static resources:AppResources.PagePlaceholderPasswConfirm}"  
+                                   IsPassword ="True" 
+                                   Text="{Binding ConfirmPassword}"
+                                   Style="{StaticResource CustomEntryStyle}"/>            
         </StackLayout>
 
-        <StackLayout Margin="0, 0, 0, 120" VerticalOptions="End">
+        <StackLayout Margin="0, 0, 0, 120" 
+                     VerticalOptions="End">
+            
             <Button VerticalOptions="End" 
                     HorizontalOptions="CenterAndExpand"
                     Text="{x:Static resources:AppResources.PageButtonSignUp}"
@@ -124,20 +114,20 @@
                         <MultiTrigger.Conditions>
                             
                             <BindingCondition Binding="{Binding Source={x:Reference nameEntry},
-                                Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true"/>
+                                              Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
+                                              Value="true"/>
                             
                             <BindingCondition Binding="{Binding Source={x:Reference loginEntry},
-                                Path=Text.Length,  Converter={StaticResource isButtonEnabled}}"
-                                Value="true"/>
+                                              Path=Text.Length,  Converter={StaticResource isButtonEnabled}}"
+                                              Value="true"/>
                             
                             <BindingCondition Binding="{Binding Source={x:Reference passwordEntry},
-                                Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true"/>
+                                              Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
+                                              Value="true"/>
                             
                             <BindingCondition Binding="{Binding Source={x:Reference conPasswEntry},
-                                Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
-                                Value="true"/>
+                                              Path=Text.Length, Converter={StaticResource isButtonEnabled}}"
+                                              Value="true"/>
                             
                         </MultiTrigger.Conditions>
 

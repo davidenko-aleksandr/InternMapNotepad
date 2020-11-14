@@ -14,9 +14,10 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <ContentPage.Content>
+    <ContentPage.Content>        
 
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -38,7 +39,6 @@
                     <prismBehaviors:EventToCommandBehavior EventName="CameraChanged" 
                                                            Command="{Binding GetPositionComaand}"
                                                            EventArgsParameterPath="Position"/>
-
                 </controls:CustomMap.Behaviors>
 
                 <controls:CustomMap.Padding>
@@ -77,33 +77,33 @@
                     <Label Text="{Binding SelectedPinDescription}"/>
 
                     <Grid HorizontalOptions="FillAndExpand">
+                        
                         <Label Text="{Binding SelectedPinLatitude}"
-                                   HorizontalOptions="Start"/>
+                               HorizontalOptions="Start"/>
 
                         <Label Text="{Binding SelectedPinLongitude}"
-                                   HorizontalOptions="End"/>
+                               HorizontalOptions="End"/>
                     </Grid>
 
                     <StackLayout Orientation="Horizontal"
-                                     Spacing="20">
+                                 Spacing="20">
 
                         <Button Text="{x:Static resources:AppResources.PageButtonAddNote}"
-                                    VerticalOptions="Center"
-                                    BorderWidth="1"                    
-                                    CornerRadius="10"
-                                    HeightRequest="36"
-                                    WidthRequest="95"
-                                    BackgroundColor="#31FFFFFF"
-                                    TextColor="#4ba3be"
-                                    BorderColor="#4ba3be"
-                                    Command="{Binding OpenAddNoteViewPageCommand}"/>
+                                VerticalOptions="Center"
+                                BorderWidth="1"                    
+                                CornerRadius="10"
+                                HeightRequest="36"
+                                WidthRequest="95"
+                                BackgroundColor="#31FFFFFF"
+                                TextColor="#4ba3be"
+                                BorderColor="#4ba3be"
+                                Command="{Binding OpenAddNoteViewPageCommand}"/>
 
-                        <Label Margin="0, 0, 0, 5"
-                                   VerticalOptions="Center">
+                        <Label VerticalOptions="Center">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding LableForCountOfNote}"
-                                      TextColor="#c0c8de">
+                                          TextColor="#150682">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OpenNotesCommand}"/>
                                         </Span.GestureRecognizers>

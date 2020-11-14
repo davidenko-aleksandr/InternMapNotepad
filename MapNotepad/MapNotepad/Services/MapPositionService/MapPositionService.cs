@@ -1,5 +1,4 @@
-﻿using Android.Print;
-using MapNotepad.Sevices.Settings;
+﻿using MapNotepad.Sevices.Settings;
 
 namespace MapNotepad.Sevices.MapPositionService
 {
@@ -33,7 +32,6 @@ namespace MapNotepad.Sevices.MapPositionService
             _settingsService.MapLatitude = latitude;
             _settingsService.MapLongitude = longitude;
             _settingsService.MapZoom = zoom;
-
         }
     }
 }

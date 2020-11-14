@@ -8,6 +8,7 @@
                   CloseWhenBackgroundIsClicked="True">
     
     <popup:PopupPage.Content>
+        
         <Grid VerticalOptions="Center"
               HorizontalOptions="Center"
               HeightRequest="550"
@@ -17,6 +18,7 @@
                    BackgroundColor="#d7d8fa"
                    Aspect="AspectFill"
                    HorizontalOptions="FillAndExpand"/>
+            
             <Label Text="{x:Static resources:AppResources.PageAddNoteTitle}"
                    VerticalOptions="Start"
                    HorizontalOptions="Center"

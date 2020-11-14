@@ -20,8 +20,7 @@ namespace MapNotepad.Services
         public readonly INavigationService _navigationService;
 
         public string GoogleName { get; set; }
-        public string GoogleEmail { get; set; }
-        
+        public string GoogleEmail { get; set; }        
 
         public RegistrationService(
                                    IRepositoryService repositoryService,

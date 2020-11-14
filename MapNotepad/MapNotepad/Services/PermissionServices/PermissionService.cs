@@ -1,6 +1,5 @@
 ﻿using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace MapNotepad.Sevices.PermissionServices
@@ -15,10 +14,6 @@ namespace MapNotepad.Sevices.PermissionServices
 			{
 				status = await CrossPermissions.Current.RequestPermissionAsync<T>();
 			}
-            else
-            {
-                Debug.WriteLine("Permission status is Unknown");
-            }
 
 			return status == PermissionStatus.Granted;
 		}

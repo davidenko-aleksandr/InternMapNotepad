@@ -6,6 +6,7 @@
                   CloseWhenBackgroundIsClicked="True">
     
     <popup:PopupPage.Content>
+        
         <StackLayout VerticalOptions="Center"
                      HorizontalOptions="Center"
                      Spacing="15"
