@@ -90,9 +90,10 @@
                                    CornerRadius="8"/>
 
                 <Editor Grid.Row="4"
-                    Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}" 
-                    Text="{Binding Description}"
-                    MaxLength="120"/>
+                        Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}" 
+                        Text="{Binding Description}"
+                        MaxLength="120"
+                        BackgroundColor="#80FFFFFF"/>
 
                 <controls:CustomMap Grid.Row="5"  
                                 VerticalOptions="FillAndExpand" 

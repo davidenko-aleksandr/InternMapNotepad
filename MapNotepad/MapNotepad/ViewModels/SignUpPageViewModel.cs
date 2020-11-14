@@ -60,19 +60,20 @@ namespace MapNotepad.ViewModels
         }
 
         private ICommand _signUpCommand;
-        public ICommand SignUpCommand => _signUpCommand ??= new Command( async () => await OnSignUpCommandAsync(), () => false);
+        public ICommand SignUpCommand => _signUpCommand ??= new Command(OnSignUpCommandAsync, () => false);
 
         private ICommand _backCommand;
         public ICommand BackCommand => _backCommand ??= new Command(OnBackCommandAsync);
 
         #endregion
 
+        #region -- Private helpers --
         private async void OnBackCommandAsync()
         {
             await _navigationService.GoBackAsync();
         }
 
-        private async Task OnSignUpCommandAsync()
+        private async void OnSignUpCommandAsync()
         {
             bool chekRegistrData = await ChekNameEmailPasswodAsync();
 
@@ -88,9 +89,7 @@ namespace MapNotepad.ViewModels
 
                 await _navigationService.NavigateAsync($"{nameof(SignInPageView)}", parameters);
             }
-        }
-
-        #region -- Checking fields for validity --
+        }        
 
         private async Task<bool> ChekNameEmailPasswodAsync()
         {

@@ -8,7 +8,5 @@ namespace MapNotepad.Sevices.RegistrationServices
         Task<bool> ValidateEmailInDBAsync(string email);
 
         Task OnGoogleLogin();
-
-
     }
 }

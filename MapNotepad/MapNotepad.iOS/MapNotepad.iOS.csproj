@@ -194,9 +194,6 @@
     <BundleResource Include="Resources\favorite.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\signinBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\background_registration.png" />
   </ItemGroup>
   <ItemGroup>
@@ -234,5 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\maps_planet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\signinBackground.png" />
   </ItemGroup>
 </Project>

@@ -36,7 +36,7 @@
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageSignInTitle}"
                    FontSize="45"
-                   TextColor="#0e0b7b"/>
+                   TextColor="#90FFFFFF"/>
             
         </Grid>
 
@@ -50,7 +50,7 @@
                                    WidthRequest="380"
                                    Text="{Binding Email}"
                                    Keyboard="Email"
-                                   BackgroundColor="#6676a1"
+                                   BackgroundColor="#80FFFFFF"
                                    BorderColor="#c0c8de"
                                    BorderThickness="2"
                                    CornerRadius="8"/>
@@ -61,7 +61,7 @@
                                    WidthRequest="380"
                                    IsPassword ="True" 
                                    Text="{Binding Password}"
-                                   BackgroundColor="#6676a1"
+                                   BackgroundColor="#80FFFFFF"
                                    BorderColor="#c0c8de"
                                    BorderThickness="2"
                                    CornerRadius="8"/>
@@ -76,7 +76,7 @@
                     HeightRequest="50"
                     Command="{Binding EnterCommand}"
                     IsEnabled="False"                    
-                    BackgroundColor="#0f2664"
+                    BackgroundColor="#6676a1"
                     TextColor="#c0c8de"
                     BorderColor="#c0c8de"
                     BorderWidth="2"
@@ -111,8 +111,8 @@
                 
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resources:AppResources.PageButtonHyperLink}"
-                            TextColor="#c0c8de"
+                        <Span Text="{x:Static resources:AppResources.PageLableHyperLinkSignIn}"
+                            TextColor="#725ee6"
                             TextDecorations="Underline">
                             <Span.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToSignUpPageCommand}"/>
@@ -121,11 +121,22 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            
-            <Button Text="Google" 
-                    TextColor="#c0c8de"
-                    BackgroundColor="#01FFFFFF"
-                    Command="{Binding LoginGoogleCommand}"/>
+
+            <Label HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resources:AppResources.PageLableHyperLinkGoogle}"
+                            TextColor="#725ee6"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginGoogleCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             
         </StackLayout>
     </Grid>

@@ -33,9 +33,7 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
             _noteService = noteService;
             _dialogService = dialogService;
             _noteForPinModel = new NoteForPinModel();
-        }               
-
-
+        }
 
         #region -- Public properties --
 

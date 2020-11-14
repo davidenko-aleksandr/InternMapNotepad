@@ -48,7 +48,6 @@ namespace MapNotepad.Sevices.RepositoryService
             return collection;
         }
 
-
         public async Task<T> GetItemAsync<T>(Expression<Func<T, bool>> predicate = null) where T : IBaseModel, new()
         {
             await _database.CreateTableAsync<T>();

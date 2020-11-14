@@ -315,15 +315,6 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SIGN_UP.
-        /// </summary>
-        public static string PageButtonHyperLink {
-            get {
-                return ResourceManager.GetString("PageButtonHyperLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string PageButtonSave {
@@ -356,6 +347,24 @@ namespace MapNotepad.Resources {
         public static string PageLableForRadiobatton {
             get {
                 return ResourceManager.GetString("PageLableForRadiobatton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GOOGLE.
+        /// </summary>
+        public static string PageLableHyperLinkGoogle {
+            get {
+                return ResourceManager.GetString("PageLableHyperLinkGoogle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIGN  UP.
+        /// </summary>
+        public static string PageLableHyperLinkSignIn {
+            get {
+                return ResourceManager.GetString("PageLableHyperLinkSignIn", resourceCulture);
             }
         }
         
@@ -486,7 +495,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In.
+        ///   Looks up a localized string similar to SIGN IN.
         /// </summary>
         public static string PageSignInTitle {
             get {
@@ -495,7 +504,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign Up.
+        ///   Looks up a localized string similar to SIGN UP.
         /// </summary>
         public static string PageSignUpTitle {
             get {

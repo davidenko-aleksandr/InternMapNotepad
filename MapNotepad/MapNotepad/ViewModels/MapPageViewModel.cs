@@ -5,6 +5,7 @@ using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Sevices.PinServices;
 using MapNotepad.Views;
 using MapNotepad.Views.PopupPageViews;
+using Plugin.Permissions;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace MapNotepad.ViewModels
         private readonly IPinService _pinService;
         private readonly IMapPositionService _mapPositionService;
         private readonly IPermissionService _permissionService;
+        private readonly LocationPermission _locationPermission;
 
         private PinGoogleMapModel _pinGoogleMapModel;
         private Pin _pin;
@@ -37,6 +39,7 @@ namespace MapNotepad.ViewModels
             _mapPositionService = mapPositionService;
             _permissionService = permissionService;
             _pin = new Pin();
+            _locationPermission = new LocationPermission();
         }
 
         #region -- Public properties --
@@ -203,7 +206,7 @@ namespace MapNotepad.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            IsMyLocationEnabled = await _permissionService.PermissionRequestAsync();
+            IsMyLocationEnabled = await _permissionService.PermissionRequestAsync(_locationPermission);
 
             if (parameters.TryGetValue(Constants.SELECTED_PIN, out _pinGoogleMapModel) && _pinGoogleMapModel != null)
             {

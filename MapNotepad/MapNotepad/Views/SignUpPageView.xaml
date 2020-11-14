@@ -50,7 +50,7 @@
                    HorizontalOptions="Center"
                    Text="{x:Static resources:AppResources.PageSignUpTitle}"
                    FontSize="45"
-                   TextColor="#63bcd7"/>
+                   TextColor="#90FFFFFF"/>
             
         </Grid>
         
@@ -59,7 +59,7 @@
                                     Placeholder="{x:Static resources:AppResources.PagePlaceholderName}" 
                                     WidthRequest="380"
                                     Text="{Binding Name}"
-                                    BackgroundColor="#31FFFFFF"
+                                    BackgroundColor="#80FFFFFF"
                                     BorderColor="White"
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
@@ -71,7 +71,7 @@
                                     WidthRequest="380"
                                     Text="{Binding Email}"
                                     Keyboard="Email"
-                                    BackgroundColor="#31FFFFFF"
+                                    BackgroundColor="#80FFFFFF"
                                     BorderColor="White"
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
@@ -83,7 +83,7 @@
                                     WidthRequest="380"
                                     IsPassword ="True" 
                                     Text="{Binding Password}"
-                                    BackgroundColor="#31FFFFFF"
+                                    BackgroundColor="#80FFFFFF"
                                     BorderColor="White"
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"
@@ -95,7 +95,7 @@
                                     WidthRequest="380"
                                     IsPassword ="True" 
                                     Text="{Binding ConfirmPassword}"
-                                    BackgroundColor="#31FFFFFF"
+                                    BackgroundColor="#80FFFFFF"
                                     BorderColor="White"
                                     PlaceholderColor="#4ba3be"
                                     BorderThickness="2"

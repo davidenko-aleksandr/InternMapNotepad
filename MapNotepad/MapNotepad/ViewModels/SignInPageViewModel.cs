@@ -8,6 +8,7 @@ using MapNotepad.Sevices.PermissionServices;
 using MapNotepad.Views;
 using MapNotepad.Resources;
 using MapNotepad.Sevices.RegistrationServices;
+using Plugin.Permissions;
 
 namespace MapNotepad.ViewModels
 {
@@ -17,6 +18,7 @@ namespace MapNotepad.ViewModels
         private readonly IPageDialogService _dialogService;
         private readonly IPermissionService _permissionService;
         private readonly IRegistrationService _registrationService;
+        private readonly LocationPermission _locationPermission;
 
         public SignInPageViewModel(
                                    INavigationService navigationService,
@@ -29,6 +31,7 @@ namespace MapNotepad.ViewModels
             _dialogService = dialogService;
             _permissionService = permissionService;
             _registrationService = registrationService;
+            _locationPermission = new LocationPermission();
         }
         #region -- Public properties --
         public UserModel User { get; set; }
@@ -81,7 +84,7 @@ namespace MapNotepad.ViewModels
 
             if (isUserValid)
             {
-                await _permissionService.PermissionRequestAsync();
+                await _permissionService.PermissionRequestAsync(_locationPermission);
 
                 await _navigationService.NavigateAsync($"{nameof(MainTabbedPageView)}?selectedTab={nameof(MapPageView)}");
             }
