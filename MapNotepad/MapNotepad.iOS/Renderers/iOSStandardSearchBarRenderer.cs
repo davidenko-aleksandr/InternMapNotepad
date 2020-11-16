@@ -24,7 +24,6 @@ namespace MapNotepad.iOS.Renderers
             {
                 textField.BackgroundColor = color.ToUIColor();
                 textField.Layer.BorderWidth = 1.0f;
-               // textField.Layer.BorderColor = UIColor.LightGray.CGColor;
                 textField.Layer.CornerRadius = 8.0f;
             }
 

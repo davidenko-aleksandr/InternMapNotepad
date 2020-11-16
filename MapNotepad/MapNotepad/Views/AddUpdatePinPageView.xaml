@@ -82,10 +82,12 @@
                                        Style="{StaticResource CustomEntryStyle}"/>
 
                 <Grid Grid.Row="2">
+                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    
                     <controls:CustomEntry Grid.Column="0"
                                        Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
                                        Text="{Binding Latitude}"                                                       
@@ -102,7 +104,6 @@
                                        WidthRequest="170"
                                        HorizontalOptions="FillAndExpand"/>
                 </Grid>
-
 
                 <Editor Grid.Row="3"
                         Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}" 
