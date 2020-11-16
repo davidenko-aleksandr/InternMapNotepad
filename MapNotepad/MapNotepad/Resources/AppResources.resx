@@ -228,7 +228,7 @@
     <value>MAP</value>
   </data>
   <data name="PagePinLable" xml:space="preserve">
-    <value>Lable</value>
+    <value>Label</value>
   </data>
   <data name="PagePinLatitude" xml:space="preserve">
     <value>Latitude</value>

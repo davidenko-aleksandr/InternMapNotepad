@@ -387,7 +387,7 @@ namespace MapNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lable.
+        ///   Looks up a localized string similar to Label.
         /// </summary>
         public static string PagePinLable {
             get {
