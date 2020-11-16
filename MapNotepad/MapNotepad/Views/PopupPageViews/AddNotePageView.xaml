@@ -23,7 +23,7 @@
                 <Label Text="{x:Static resources:AppResources.PageAddNoteTitle}"
                        VerticalOptions="Start"
                        HorizontalOptions="Center"
-                       TextColor="#010210"
+                       TextColor="#99FFFFFF"
                        FontSize="30"
                        Margin="0, 8, 0, 0"/>
 

@@ -5,11 +5,16 @@ namespace MapNotepad.Controls
 {
     public class CustomListView : ListView
     {
+        public CustomListView()
+        {
+            this.ItemTapped += OnItemTapped;
+        }
+
         public static BindableProperty ItemClickCommandProperty = BindableProperty.Create(
-                                                                  nameof(ItemClickCommand),
-                                                                  typeof(ICommand),
-                                                                  typeof(CustomListView), 
-                                                                  null);
+                                                                                          nameof(ItemClickCommand),
+                                                                                          typeof(ICommand),
+                                                                                          typeof(CustomListView), 
+                                                                                          null);
 
         public ICommand ItemClickCommand
         {
@@ -21,11 +26,6 @@ namespace MapNotepad.Controls
             {
                 this.SetValue(ItemClickCommandProperty, value);
             }
-        }
-
-        public CustomListView()
-        {
-            this.ItemTapped += OnItemTapped;
         }
 
         private void OnItemTapped(object sender, ItemTappedEventArgs e)

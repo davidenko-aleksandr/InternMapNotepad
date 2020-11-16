@@ -6,7 +6,6 @@ namespace MapNotepad.Sevices.MapPositionService
     {
         private readonly ISettingsService _settingsService;
 
-
         public MapPositionService(ISettingsService settingsService)
         {
             _settingsService = settingsService;

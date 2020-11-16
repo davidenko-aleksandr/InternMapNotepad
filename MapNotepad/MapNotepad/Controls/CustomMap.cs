@@ -8,6 +8,7 @@ namespace MapNotepad.Controls
 {
     public class CustomMap : ClusteredMap
     {
+
         public static readonly BindableProperty MapCameraPositionProperty = BindableProperty.Create(
                                                                                                     propertyName: nameof(MapCameraPosition),
                                                                                                     returnType: typeof(Position),
@@ -27,6 +28,10 @@ namespace MapNotepad.Controls
                                                                                           typeof(ObservableCollection<Pin>),
                                                                                           typeof(CustomMap),
                                                                                           propertyChanged: OnPinListPropertyChanged);
+        public CustomMap()
+        {
+            UiSettings.MyLocationButtonEnabled = true;
+        }
 
         #region -- Public properties --
         public CameraPosition OpenMapPosition
@@ -117,11 +122,6 @@ namespace MapNotepad.Controls
         }
 
         #endregion
-
-        public CustomMap()
-        {
-            UiSettings.MyLocationButtonEnabled = true;
-        }
     }
 }
 

@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
-using Android;
 using Plugin.Permissions;
 using Acr.UserDialogs;
 using Rg.Plugins.Popup.Services;
@@ -10,17 +9,9 @@ using Plugin.GoogleClient;
 
 namespace MapNotepad.Droid
 {
-    [Activity(Label = "MapNotepad", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "MapNotepad", Icon = "@mipmap/app_icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        const int RequestLocationId = 0;
-
-        readonly string[] LocationPermissions =
-        {
-        Manifest.Permission.AccessCoarseLocation,
-        Manifest.Permission.AccessFineLocation
-        };
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);

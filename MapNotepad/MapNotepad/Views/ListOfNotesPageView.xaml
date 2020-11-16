@@ -67,8 +67,6 @@
                 <ListView x:Name="listOfNotes"
                           ItemsSource="{Binding CollectionNotes}"
                           HasUnevenRows="True"
-                          VerticalOptions="FillAndExpand"
-                          HorizontalOptions="FillAndExpand"
                           BackgroundColor="#80FFFFFF"
                           SelectedItem="False">
                     
@@ -91,18 +89,15 @@
                                                HorizontalOptions="Start"
                                                Margin="5"/>
 
-                                        <StackLayout HorizontalOptions="FillAndExpand"
-                                                     VerticalOptions="FillAndExpand">
+                                        <StackLayout Margin="0, 0, 10, 0">
 
                                             <Label Text="{Binding NoteTitle}" 
-                                                   FontSize="Body"
-                                                   HorizontalOptions="Center"
-                                                   Margin="0, 5, 0, 0"/>
+                                                   FontSize="Large"
+                                                   HorizontalOptions="Center"/>
 
                                             <Label Text="{Binding NoteDescription}"
                                                    HorizontalOptions="FillAndExpand"
-                                                   VerticalOptions="FillAndExpand"
-                                                   MaxLines="8"/>
+                                                   MaxLines="4"/>
 
                                         </StackLayout>
                                     </StackLayout>

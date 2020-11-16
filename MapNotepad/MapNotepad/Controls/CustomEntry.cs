@@ -1,9 +1,11 @@
 ﻿using Xamarin.Forms;
 
 namespace MapNotepad.Controls
-{
-    public sealed class CustomEntry : Entry
+{    
+    public class CustomEntry : Entry
     {
+        #region -- Bindable properties --
+
         public static BindableProperty CornerRadiusProperty = BindableProperty.Create(
                                                                                 nameof(CornerRadius), 
                                                                                 typeof(int), 
@@ -27,7 +29,10 @@ namespace MapNotepad.Controls
                                                                                typeof(Color), 
                                                                                typeof(CustomEntry), 
                                                                                Color.Transparent);
+        #endregion
+
         #region -- Public properties --
+
         public int CornerRadius
         {
             get => (int)GetValue(CornerRadiusProperty);

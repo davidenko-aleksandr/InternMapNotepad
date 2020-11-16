@@ -101,22 +101,29 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
         }
 
         private async void TakeNewPhotoAsync()
-        {                       
+        {
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
             {
-                MediaFile file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                try
                 {
-                    PhotoSize = PhotoSize.Small,
-                    SaveToAlbum = true,
-                    Directory = "drawable",
-                    Name = $"{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg"
-                });
+                    MediaFile file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Small,
+                        SaveToAlbum = true,
+                        Directory = "drawable",
+                        Name = $"{DateTime.Now:dd.MM.yyyy_hh.mm.ss}.jpg"
+                    });
 
-                if (file != null)
-                {
-                    ImageSource = file.Path;
+                    if (file != null)
+                    {
+                        ImageSource = file.Path;
+                    }
+                    else
+                    {
+                        ImageSource = "add_photo.png";
+                    }
                 }
-                else
+                catch (MediaPermissionException)
                 {
                     ImageSource = "add_photo.png";
                 }
@@ -125,21 +132,28 @@ namespace MapNotepad.ViewModels.PopupPageViewModels
 
         private async void GetPhotoFromGalleryAsync()
         {
-            if (CrossMedia.Current.IsPickPhotoSupported)
+            try
             {
-                MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                if (CrossMedia.Current.IsPickPhotoSupported)
                 {
-                    PhotoSize = PhotoSize.Small 
-                });
+                    MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Small
+                    });
 
-                if (photo != null)
-                {
-                    ImageSource = photo.Path;
+                    if (photo != null)
+                    {
+                        ImageSource = photo.Path;
+                    }
+                    else
+                    {
+                        ImageSource = "add_photo.png";
+                    }
                 }
-                else
-                {
-                    ImageSource = "add_photo.png";
-                }
+            }
+            catch (MediaPermissionException)
+            {
+                ImageSource = "add_photo.png";
             }
         }
 
