@@ -192,6 +192,16 @@ namespace MapNotepad.ViewModels
                 Description = _pinGoogleMapModel.Description;
                 Latitude = _pinGoogleMapModel.Latitude;
                 Longitude = _pinGoogleMapModel.Longitude;
+
+                Pin p = new Pin
+                {
+                    Position = new Position(Latitude, Longitude),
+                    Label = Label,
+                    Address = Description
+                };
+
+                MyPins.Clear();
+                MyPins.Add(p);
             }
 
             Position lastPosition = new Position(_mapPositionService.Latitude, _mapPositionService.Longitude);

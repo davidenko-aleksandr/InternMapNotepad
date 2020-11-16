@@ -41,9 +41,8 @@
                     <RowDefinition Height="65" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="5.5*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="6*" />
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0"
@@ -82,26 +81,37 @@
                                        Text="{Binding Label}"
                                        Style="{StaticResource CustomEntryStyle}"/>
 
-                <controls:CustomEntry  Grid.Row="2"
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:CustomEntry Grid.Column="0"
                                        Placeholder="{x:Static resources:AppResources.PagePinLatitude}"
                                        Text="{Binding Latitude}"                                                       
                                        Keyboard="Numeric"
-                                       Style="{StaticResource CustomEntryStyle}"/>
+                                       Style="{StaticResource CustomEntryStyle}"
+                                       WidthRequest="170"
+                                       HorizontalOptions="FillAndExpand"/>
 
-                <controls:CustomEntry  Grid.Row="3"
+                    <controls:CustomEntry Grid.Column="1"
                                        Placeholder="{x:Static resources:AppResources.PagePinLongitude}"
                                        Text="{Binding Longitude, Mode=TwoWay}"                   
                                        Keyboard="Numeric"
-                                       Style="{StaticResource CustomEntryStyle}"/>
+                                       Style="{StaticResource CustomEntryStyle}"
+                                       WidthRequest="170"
+                                       HorizontalOptions="FillAndExpand"/>
+                </Grid>
 
-                <Editor Grid.Row="4"
+
+                <Editor Grid.Row="3"
                         Placeholder="{x:Static resources:AppResources.PagePlaceholderDescription}" 
                         Text="{Binding Description}"
                         MaxLength="180"
                         BackgroundColor="#80FFFFFF"
                         PlaceholderColor="#4ba3be"/>
 
-                <controls:CustomMap Grid.Row="5"  
+                <controls:CustomMap Grid.Row="4"  
                                     VerticalOptions="FillAndExpand" 
                                     MyLocationEnabled="True" 
                                     PinList="{Binding MyPins}"
